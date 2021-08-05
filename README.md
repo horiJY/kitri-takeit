@@ -1,1 +1,1 @@
-# kitri64-takeit
+# kitri-takeit
