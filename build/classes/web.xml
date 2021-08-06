@@ -11,7 +11,7 @@
 	</welcome-file-list>
 	<filter>
 		<filter-name>encoding</filter-name>
-		<filter-class>kr.re.kitri.takeit.filter.EncodingFilter</filter-class>
+		<filter-class>filter.EncodingFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
