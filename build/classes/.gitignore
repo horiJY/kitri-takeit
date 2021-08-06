@@ -1,11 +1,3 @@
-/controller/
-/css/
-/dao/
-/db/
-/filter/
-/img/
-/js/
-/lib/
-/vo/
-/web.xml
-/webfont/
+/open_class/
+/mypage/
+/open-class.jsp
