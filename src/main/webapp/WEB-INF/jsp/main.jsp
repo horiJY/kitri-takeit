@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인페이지</title>
 </head>
 <body>
 <h1>메인페이지</h1>
+<div>id</div>
+<div>profile</div>
+<div></div>
+
+
 </body>
 </html>
