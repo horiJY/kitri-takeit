@@ -33,25 +33,21 @@
 						<a class="MyPage-aside-MyPoint" href="#" id="mypoint"><!-- 내 포인트 -->
 							<div class="MyPoint-text">내 포인트</div> 
 							<div class="MyPoint-num">P</div> 
-							<svg class="MyPoint-next" xmlns="https://www.w3.org/2000/svg"></svg>
 						</a>
 					</li>
 					<li>
-						<a class="MyPage-aside-Favorite" href="#" id="favorite"><!-- 내 응원 -->
-							<div class="MyPoint-text">내 응원</div> 
-							<svg class="MyPoint-next" xmlns="https://www.w3.org/2000/svg"></svg>
+						<a class="MyPage-aside-Favorite" href="#" id="myfavorite"><!-- 내 응원 -->
+							<div class="Favorite-text">내 응원</div> 
 						</a>
 					</li>
 					<li>
-						<a class="MyPage-aside-Assignment" href="#" id="assignment"><!-- 주문내역 -->
+						<a class="MyPage-aside-Assignment" href="#" id="myassignment"><!-- 주문내역 -->
 							<div class="MyPoint-text">주문내역</div> 
-							<svg class="MyPoint-next" xmlns="https://www.w3.org/2000/svg"></svg>
 						</a>
 					</li>
 					<li>
-						<a class="MyPage-aside-Review" href="#" id="review"><!-- 내 후기 -->
+						<a class="MyPage-aside-Review" href="#" id="myreview"><!-- 내 후기 -->
 							<div class="MyPoint-text">내 후기</div> 
-							<svg class="MyPoint-next" xmlns="https://www.w3.org/2000/svg"></svg>
 						</a>
 					</li>
 				</ul>
