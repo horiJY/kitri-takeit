@@ -4,7 +4,10 @@ a {
 	text-decoration: none;
 }
 
-.MyPoint-next{
-	width:10px;
-	height: 10px;
+ul {
+	list-style-type: none;
+	
+}
+#Content {
+	display: none;
 }

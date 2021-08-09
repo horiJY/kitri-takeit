@@ -65,51 +65,6 @@ public class UserDAO {
 		
 	}
 	
-	//select user point
-	public int selectUserPoint(String id) {
-		Connection conn = DBConnect.getInstance();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int result = 0;
-		
-		String sql = "SELECT USERPOINT FROM WEBUSER WHERE ID = ?";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				result = rs.getInt("USERPOINT");
-			}
-			
-//			rs = pstmt.executeQuery(sql);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll(conn, pstmt, null, rs);
-		}
-		
-		return result;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
