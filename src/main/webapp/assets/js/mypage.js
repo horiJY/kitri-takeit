@@ -31,7 +31,7 @@ window.onload = function(){
 		}
 	}
 	myPointNav.onclick = function() {
-		if (myInfoEdit.style.display == "none") {
+		if (myPoint.style.display == "none") {
 			console.log(myInfoEdit);
 			myInfoEdit.style.display = "none";
 			myPoint.style.display = "block";
@@ -41,7 +41,7 @@ window.onload = function(){
 		}
 	}
 	myFavoriteNav.onclick = function() {
-		if (myInfoEdit.style.display == "none") {
+		if (myFavorite.style.display == "none") {
 			console.log(myInfoEdit);
 			myInfoEdit.style.display = "none";
 			myPoint.style.display = "none";
@@ -51,7 +51,7 @@ window.onload = function(){
 		}
 	}
 	myAssignmentNav.onclick = function() {
-		if (myInfoEdit.style.display == "none") {
+		if (myAssignment.style.display == "none") {
 			console.log(myInfoEdit);
 			myInfoEdit.style.display = "none";
 			myPoint.style.display = "none";
@@ -61,7 +61,7 @@ window.onload = function(){
 		}
 	}
 	myReviewNav.onclick = function() {
-		if (myInfoEdit.style.display == "none") {
+		if (myReview.style.display == "none") {
 			console.log(myInfoEdit);
 			myInfoEdit.style.display = "none";
 			myPoint.style.display = "none";

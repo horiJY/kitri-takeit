@@ -55,7 +55,6 @@ public class MyPageController extends HttpServlet {
 			uj.setPhone(uvo.getPhone());
 			uj.setPoint(uvo.getPoint());
 			
-			
 			request.setAttribute("uvo", uj);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/mypage.jsp");
