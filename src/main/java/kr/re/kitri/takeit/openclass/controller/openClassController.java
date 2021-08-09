@@ -1,4 +1,4 @@
-package mypage.controller;
+package openclass.controller;
 
 import java.io.IOException;
 
@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/openclass")
+@WebServlet("/mypage/openclass")
 public class openClassController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/mypage/open-class.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/open-class/open-class.jsp");
 		rd.forward(request, response);
 	}
 
