@@ -6,7 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
+	//페이지 로드 시 초기값
 	document.addEventListener('DOMContentLoaded', function() {
+		
+		
 		document.querySelectorAll("[name=classType]").forEach(function(elem) {
 			elem.addEventListener("click", function() {
 				// console.log(this.value);
@@ -17,6 +20,8 @@
  			}
 		});
 	});
+	
+	//대면/비대면 수업 유형 변경에 따라 기간 설정 폼 변경 함수
 	var toggleType=function(type){
 		if(type=="on"){
 			document.getElementById("classScheduleOn").style.display="block";
@@ -26,6 +31,10 @@
 			document.getElementById("classScheduleOn").style.display="none";
 		}
 	}
+	
+	//저장 버튼을 누르면 폼 전송 후 마이페이지로 이동
+	
+	//취소 버튼을 누르면 마이페이지로 이동
 	
 </script>
 </head>
@@ -57,7 +66,7 @@
 			강의 기간
 			<div id="classScheduleOn">
 				<!-- 비대면 -->
-				<input type="number" name="period" id="period" value="30">일
+				<input type="number" name="period" id="period" value="30">주
 			</div>
 			<div id="classScheduleOff" style="display:none">
 				<!-- 대면: -->
@@ -92,8 +101,8 @@
 			</div>
 		</div>
 		<div>
-			<button>개설</button>
-			<button>취소</button>
+			<button id="create">개설</button>
+			<button id="cancel">취소</button>
 		</div>
 	</div>
 </body>
