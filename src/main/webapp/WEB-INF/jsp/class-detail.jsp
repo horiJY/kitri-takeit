@@ -47,13 +47,13 @@
 			</div>
 			<div>
 				<div>
-					<span>크리에이터</span>
-					<h2>class name</h2>
-					<span>대면 비대면</span>
-					<span>위치</span>
-					<span>가격</span>
+					<span>크리에이터(creater)</span>
+					<h2>class name(className)</h2>
+					<span>대면 비대면(classType)</span>
+					<span>위치(Address)</span>
+					<span>가격(price)</span>
 					<div>
-						<button>★</button>
+						<button>★(recommend)</button>
 						<button>공유하기</button>
 					</div>
 					<button>클래스 신청하기</button>

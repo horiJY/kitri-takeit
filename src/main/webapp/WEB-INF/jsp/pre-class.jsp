@@ -11,7 +11,6 @@
 	2. class 값 가져와서 보여주기
 	3. 아이디 받아서 마이페이지 클릭 시 보내주기
 	4. 응원하기
-	5. 응원 갯수 보여주기(v)
 -->
 <%
 	String category = null;
@@ -94,6 +93,9 @@
 									<div> ${cvo.favorite }</div>
 								</div>
 								<div>
+								
+								<!-- 응원하기 클릭 시 해당 클래스의 classId 전달 -->
+								
 									<button>응원하기</button>
 								</div>
 							</c:forEach>
