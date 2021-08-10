@@ -1,7 +1,4 @@
-/controller/
+/js/
 /dao/
-/vo/
-/pagination/
 /jsp/
-/img/
-/db/
+/controller/

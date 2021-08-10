@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
 <%@page import="vo.ClassVO"%>
 <%@page import="java.util.List"%>
 <%@page import="pagination.Pagination"%>
@@ -34,6 +37,20 @@
 	//한 페이지 내에 보여줘야 하는 게시물의 마지막 rownum
 	int end = curPageInt*pagination.getContentCnt();
 	List<ClassVO> clist = cdao.selectClassPage(category, range, start, end);
+	
+	Calendar getToday = Calendar.getInstance();
+	getToday.setTime(new Date()); //금일 날짜
+	
+	String s_date = "2021-08-17";
+	Date date = new SimpleDateFormat("yyyy-MM-dd").parse(s_date);
+	Calendar cmpDate = Calendar.getInstance();
+	cmpDate.setTime(date); //특정 일자
+	
+	long diffSec = (cmpDate.getTimeInMillis()-getToday.getTimeInMillis()) / 1000;
+	long diffDays = diffSec / (24*60*60); //일자수 차이
+	
+	System.out.println(diffSec + "초 차이");
+	System.out.println(diffDays + "일 차이");
 	
 %>
 <!DOCTYPE html>

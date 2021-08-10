@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -110,6 +111,7 @@ public class ClassDAO {
 				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
 				+ "      FROM (SELECT * "
 				+ "            FROM CLASS "
+				+ "			   WHERE TYPE = ?"
 				+ "            ORDER BY ? DESC) A "
 				+ "      ) "
 				+ "WHERE RNUM BETWEEN ? AND ?";
@@ -120,6 +122,7 @@ public class ClassDAO {
 				+ "      FROM (SELECT * "
 				+ "            FROM CLASS "
 				+ "			   WHERE CATEGORY = ?"
+				+ "			   AND TYPE = ?"
 				+ "            ORDER BY ? DESC) A "
 				+ "      ) "
 				+ "WHERE RNUM BETWEEN ? AND ?";
@@ -133,14 +136,16 @@ public class ClassDAO {
 		try {
 			if(category == null) {
 				pstmt = conn.prepareStatement(sql1);
-				pstmt.setString(1, range);
-				pstmt.setInt(2, start);
-				pstmt.setInt(3, end);
-			}else {
-				pstmt = conn.prepareStatement(sql1);
-				pstmt.setString(1, category);
+				pstmt.setString(1, "O");
 				pstmt.setString(2, range);
 				pstmt.setInt(3, start);
+				pstmt.setInt(4, end);
+			}else {
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setString(1, "O");
+				pstmt.setString(2, category);
+				pstmt.setString(3, range);
+				pstmt.setInt(4, start);
 				pstmt.setInt(4, end);
 			}
 			//resultset
@@ -162,6 +167,7 @@ public class ClassDAO {
 				cvo.setType(rs.getString("TYPE"));
 				cvo.setFavorite(rs.getInt("FAVORITE"));
 				cvo.setCategory(rs.getString("CATEGORY"));
+				cvo.setOpenDate(rs.getDate("OPENDATE"));
 				
 				//result
 				clist.add(cvo);
@@ -284,6 +290,25 @@ public class ClassDAO {
 		}
 		return result;
 	}
-
-
+	
+	public Date selectDate() {
+		
+		Connection conn = DBConnect.getInstance();
+		
+		String sql = "SELECT OPENDATE FROM CLASS";
+		
+		Statement stmt = null;
+		ResultSet rs = null;
+		Date openDate = null;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return openDate;
+	}
 }

@@ -43,77 +43,7 @@
 <meta charset="UTF-8">
 <title>main</title>
 <script>
-	window.onload = function() {
-		var categoryBtn = document.getElementById("category-btn");
-		var category = document.getElementById("category");
-		var categoryDrop = document.getElementById("category-drop");
-		
-		var art = document.getElementById("art");
-		var cooking = document.getElementById("cooking");
-		var language = document.getElementById("language");
-		var programming = document.getElementById("programming");
-		var sport = document.getElementById("sport");
-		
-		categoryBtn.onclick = function() {
-			if(categoryDrop.style.display == "block"){
-				categoryDrop.style.display = "none";
-			}else{
-				categoryDrop.style.display = "block";
-				
-				art.onclick = function() {
-					category.innerText = "Art";
-					categoryDrop.style.display = "none";
-					<%category = "ART";%>
-				}
-				cooking.onclick = function() {
-					category.innerText = "Cooking";
-					categoryDrop.style.display = "none";
-					<%category = "COOKING";%>
-				}
-				language.onclick = function() {
-					category.innerText = "Language";
-					categoryDrop.style.display = "none";
-					<%category = "LANGUAGE";%>
-				}
-				programming.onclick = function() {
-					category.innerText = "Programming";
-					categoryDrop.style.display = "none";
-					<%category = "PROGRAMMING";%>
-				}
-				sport.onclick = function() {
-					category.innerText = "Sport";
-					categoryDrop.style.display = "none";
-					<%category = "SPORT";%>
-				}
-			}
-		}
-		
-		var rangeBtn = document.getElementById("range-btn");
-		var range = document.getElementById("range");
-		var rangeDrop = document.getElementById("range-drop");
-		
-		var recommend = document.getElementById("recommend");
-		var newest = document.getElementById("newest");
-		
-		rangeBtn.onclick = function() {
-			if(rangeDrop.style.display == "block"){
-				rangeDrop.style.display = "none";
-			}else{
-				rangeDrop.style.display = "block";
-				
-				recommend.onclick = function() {
-					range.innerText = "추천순";
-					rangeDrop.style.display = "none";
-					<%range = "recommend";%>
-				}
-				newest.onclick = function() {
-					range.innerText = "최신순";
-					rangeDrop.style.display = "none";
-					<%range = "newest";%>
-				}
-			}
-		}
-	}
+	
 </script>
 </head>
 
@@ -153,7 +83,7 @@
 		<div>
 			<section>
 				<div>
-					<button id="category-btn"><div id="category">카테고리</div></button>
+					<button id="category-btn"><div id="category-name">카테고리</div></button>
 					<div id="category-drop" style="display:none;">
 						<button id="art">Art</button>
 						<button id="cooking">Cooking</button>
@@ -161,7 +91,7 @@
 						<button id="programming">Programming</button>
 						<button id="sport">Sport</button>
 					</div>
-					<button id="range-btn"><div id="range">추천순</div></button>
+					<button id="range-btn"><div id="range-name">추천순</div></button>
 					<div id="range-drop" style="display:none;">
 						<button id="recommend">추천순</button>
 						<button id="newest">최신순</button>
@@ -233,5 +163,6 @@
 	<footer>
 	
 	</footer>
+	<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </body>
 </html>
