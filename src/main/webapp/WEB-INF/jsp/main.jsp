@@ -8,9 +8,9 @@
 </head>
 <body>
 <h1>메인페이지</h1>
-<div>id</div>
-<div>profile</div>
-<div></div>
+<div>
+accessToken정보 : ${accessToken}
+</div>
 
 
 </body>

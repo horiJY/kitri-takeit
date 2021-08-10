@@ -38,7 +38,7 @@ window.onload = function(){
 	</div>
 	<h1>로그인 페이지</h1>
 	<div>
-	<button type="submit"class="login-btn" id="kakao-login-btn"type="button" alt="카카오 로그인">
+	<button type="button"class="login-btn" id="kakao-login-btn" alt="카카오 로그인">
 		<span ><img	src="assets/img/kakao_login_btn.png" ></span>
 	</button>
 	</div>
@@ -48,7 +48,7 @@ window.onload = function(){
 	</button>
 	</div>
 	<div>
-	<button class="login-btn" id="google-login"type="button" alt="네이버 로그인">
+	<button class="login-btn" id="google-login"type="button" alt="구글 로그인">
 		<span ><img	src="assets/img/google_login_btn.png" style="height:48px"></span>
 	</button>
 	</div>
