@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 
+	var minday = new Date();
+	minday.setDate(minday.getDate()+7);
+
 	// 페이지 로드 시 실행
 	document.addEventListener('DOMContentLoaded', function() {
 		
@@ -23,9 +26,23 @@
 		var className = document.getElementById("class-name");
 		var category = document.getElementById("category");
 		var classType = "on"; 
-		
 		var classPeriod = document.getElementById("class-period");
-// 		var classSchedule = new date[];//함수를 통해 배열 반환
+
+		var classSchedule = [];
+		var schedulAddBtn = document.getElementById("schedule-add-btn");
+		
+		var startDate = document.getElementById("startDate");
+		var endDate = document.getElementById("endDate");
+		startDate.min = minday.toISOString().slice(0,10);
+		startDate.onchange = function(){
+			if(startDate.value==null){
+				endDate.disabled = true;
+				return;
+			} 
+			endDate.disabled = false;
+			endDate.min = startDate.value; 
+		}
+		
 		var classCapacity = document.getElementById("class-capacity");
 		var classFee = document.getElementById("class-fee");
 		var classDetail = document.getElementById("class-detail");
@@ -39,10 +56,65 @@
 			});
 		});
 		
+		//달력 표시
+		/* var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+        	initialView: 'dayGridMonth'
+        });
+        calendar.render(); */
 		
 		// 저장 버튼을 누르면 개설 정보 확인 창 출력
 		openBtn.onclick = function(){
-			
+        	//강의 이름 미작성
+        	if(className.value==""){
+        		alert("강좌 이름을 입력하세요.");
+        		className.focus();
+        		return;
+        	}
+        	//카테고리 미선택
+        	if(category.value==""){
+        		alert("카테고리를 선택하세요.");
+        		category.focus();
+        		return;
+        	}
+        	//비대면 강의 선택 시 강의 기간 음수
+        	if(classType=="on"&&classPeriod<=0){
+        		alert("강의 기간을 다시 입력하세요.");
+        		classPeriod.focus();
+        		return;
+        	}
+        	
+        	//대면 강의 선택 시 강의 스케쥴 변환
+        	if(classType=="off"){
+        		
+        		
+	        	// 강의 스케쥴이 없음
+	        	if(classSchedule.length==0){
+	        		alert("강의 일정을 입력하세요.");
+	        		startDate.focus();
+	        		return;
+	        	}
+        	}
+        	
+        	//강의료 음수
+        	if(classFee.value<0){
+        		alert("강의료를 다시 입력하세요.");
+        		classFee.focus();
+        		return;
+        	}
+        	//강의료 음수
+        	if(classFee.value<0){
+        		alert("강의료를 다시 입력하세요.");
+        		classFee.focus();
+        		return;
+        	}
+        	//강의 소개 미작성
+        	if(classDetail.value==""){
+        		alert("강의 소개를 입력하세요.");
+        		classDetail.focus();
+        		return;
+        	}
+        	
 			editBox.style.display = "none";
 			confirmBox.style.display = "block";
 			
@@ -55,17 +127,24 @@
 			confirmContent.innerHTML += "class type: ";
 			confirmContent.innerHTML += classType;
 			confirmContent.innerHTML += "<br>";
+			
 			if(classType=="on"){
 				confirmContent.innerHTML += "class period: ";
 				confirmContent.innerHTML += classPeriod.value*7;
 			}else{
 				confirmContent.innerHTML += "class schedule: ";
-				confirmContent.innerHTML += classSchedule.value;
+				for(var schedule in classSchedule){
+					confirmContent.innerHTML += schedule;
+					confirmContent.innerHTML += "<br>";
+				}
+				
+ 				//confirmContent.innerHTML += "<div id='calendar'></div>";
 				confirmContent.innerHTML += "<br>";
 				confirmContent.innerHTML += "class capacity: ";
 				confirmContent.innerHTML += classCapacity.value;
 				confirmContent.innerHTML += "<br>";
 			}
+			
 			confirmContent.innerHTML += "<br>";
 			confirmContent.innerHTML += "class fee: ";
 			confirmContent.innerHTML += classFee.value;
@@ -77,6 +156,7 @@
 			document.getElementById("confirm-open-btn").onclick = function(){
 				console.log(confirmContent.innerHTML);
 			}
+			
 			// 취소 버튼 클릭 시 편집 페이지로 되돌아감
 			document.getElementById("confirm-cancel-btn").onclick = function(){
 				editBox.style.display = "block";
@@ -84,7 +164,8 @@
 				
 				confirmContent.innerHTML = "";
 			}
-		}
+		};
+		
 		
 		
 		// 취소 버튼을 누르면 마이페이지로 이동
@@ -92,12 +173,15 @@
 	
 	// 기간 설정 형식 변경 함수
 	var toggleType = function(type){
+		var classOn = document.getElementById("class-schedule-on"); 
+		var classOff = document.getElementById("class-schedule-off"); 
+		
 		if(type=="on"){
-			document.getElementById("class-schedule-on").style.display="block";
-			document.getElementById("class-schedule-off").style.display="none";
+			classOn.style.display="block";
+			classOff.style.display="none";
 		}else if(type=="off"){
-			document.getElementById("class-schedule-off").style.display="block";
-			document.getElementById("class-schedule-on").style.display="none";
+			classOff.style.display="block";
+			classOn.style.display="none";
 		}
 	}
 	
@@ -111,7 +195,7 @@
 		<h1>강의 개설 폼</h1>
 		<div>
 			강의 이름
-			<input type="text" id="class-name" required>
+			<input type="text" id="class-name">
 		</div>
 		<div>
 			카테고리
@@ -133,36 +217,43 @@
 		</div>
 		<div>
 			강의 기간
+			<!-- 비대면 -->
 			<div id="class-schedule-on">
-				<!-- 비대면 -->
 				<input type="number" id="class-period" value="4">주
 			</div>
+			<!-- 대면: -->
 			<div id="class-schedule-off" style="display:none">
-				<!-- 대면: -->
-				<div>
-					시작일 
-					<!-- 오늘 이전만 선택 가능하도록 제한 -->
-					<input type="date" id="startDate" >
-				</div>
-				<div>
-					종료일 
-					<!-- 시작일 이후만 선택 가능하도록 제한 -->
-					<input type="date" id="endDate" >
-				</div>
-				<div>
-					수업 요일:
-					<input type="checkbox" value="monday" name="class-day">월
-					<input type="checkbox" value="tuesday" name="class-day">화
-					<input type="checkbox" value="wendsday" name="class-day">수
-					<input type="checkbox" value="thursday" name="class-day">목
-					<input type="checkbox" value="friday" name="class-day">금
-					<input type="checkbox" value="saturday" name="class-day">토
-					<input type="checkbox" value="sunday" name="class-day">일
+				<div id="schedule-edit">
+					<div>
+						시작일 
+						<!-- 오늘 이전만 선택 가능하도록 제한 -->
+						<input type="date" id="startDate">
+					</div>
+					<div>
+						종료일 
+						<!-- 시작일 이후만 선택 가능하도록 제한 -->
+						<input type="date" id="endDate" disabled>
+					</div>
+					<div>
+						수업 요일:
+						<input type="checkbox" value="monday" name="class-day">월
+						<input type="checkbox" value="tuesday" name="class-day">화
+						<input type="checkbox" value="wendsday" name="class-day">수
+						<input type="checkbox" value="thursday" name="class-day">목
+						<input type="checkbox" value="friday" name="class-day">금
+						<input type="checkbox" value="saturday" name="class-day">토
+						<input type="checkbox" value="sunday" name="class-day">일
+					</div>
+					<div>
+						<button id="schedule-add-btn">추가</button>
+						<button id="schedule-reset">리셋</button>
+					</div>
 				</div>
 				<div>
 					세부조정
 					<div>
 						<!--  달력 -->
+						<!-- <div id="calendar"></div> -->
 					</div>
 				</div>
 				<div>
