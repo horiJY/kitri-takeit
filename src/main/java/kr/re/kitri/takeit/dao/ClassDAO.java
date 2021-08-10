@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import db.DBConnect;
 import vo.ClassVO;
@@ -34,7 +35,7 @@ public class ClassDAO {
 	}
 
 	// class-detail page -> SelectAll
-	public List<ClassVO> detailSelect(int classId) {
+	public List<ClassVO> selectDetail(int classId) {
 		Connection conn = DBConnect.getInstance();
 
 		String sql = "SELECT * FROM CLASS WHERE CLASSID = '" + classId + "'";
@@ -68,7 +69,7 @@ public class ClassDAO {
 	}
 
 	// pre-class page -> Select(className, create, classType, favorite)
-	public List<ClassVO> preSelect() {
+	public List<ClassVO> selectPreClass() {
 		Connection conn = DBConnect.getInstance();
 
 		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, FAVORITE FROM CLASS WHERE TYPE = 'P'";
@@ -234,4 +235,55 @@ public class ClassDAO {
 		}
 		return result;
 	}
+	
+	// insert
+	public int registClass(ClassVO cvo, String classType) {
+		Connection conn = DBConnect.getInstance();
+
+		//대면
+		String sql1 = "INSERT INTO CLASS(CLASSID, CLASSNAME, CREATER, CLASSTYPE, DETAIL, PRICE, CAPACITY, ADDRESS, TYPE, CATEGORY, OPENDATE)"
+				+ "	   VALUES((SELECT COUNT(*)FROM CLASS)+1, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE+7)";
+		
+		//비대면
+		String sql2 = "INSERT INTO CLASS(CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, DETAIL, PRICE, TYPE, CATEGORY, OPENDATE)"
+				+ "	   VALUES((SELECT COUNT(*)FROM CLASS)+1, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE+7)";
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			if(classType.equals("ON")) {
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setString(1, cvo.getClassName());
+				pstmt.setString(2, cvo.getCreater());
+				pstmt.setString(3, cvo.getClassType());
+				pstmt.setString(4, cvo.getDetail());
+				pstmt.setInt(5, cvo.getPrice());
+				pstmt.setInt(6, cvo.getCapacity());
+				pstmt.setString(7, cvo.getAddress());
+				pstmt.setString(8, "P");
+				pstmt.setString(9, cvo.getCategory());
+			}else if(classType.equals("OFF")) {
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setString(1, cvo.getClassName());
+				pstmt.setString(2, cvo.getCreater());
+				pstmt.setString(3, cvo.getClassType());
+				pstmt.setInt(4, cvo.getPeriod());
+				pstmt.setString(5, cvo.getDetail());
+				pstmt.setInt(6, cvo.getPrice());
+				pstmt.setString(7, "P");
+				pstmt.setString(8, cvo.getCategory());
+			}
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeAll(conn, pstmt, null, null);
+		}
+		return result;
+	}
+
+
 }

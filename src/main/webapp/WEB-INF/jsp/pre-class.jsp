@@ -7,10 +7,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 
-	1. 페이징
-	2. class 값 가져와서 보여주기
+	1. 페이징(v)-test 필요
+	2. class 값 가져와서 보여주기(v)-test 필요
 	3. 아이디 받아서 마이페이지 클릭 시 보내주기
-	4. 응원하기
+	4. 응원하기(ajax)
+	5. 응원 마감 날짜
 -->
 <%
 	String category = null;
@@ -42,6 +43,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	
+</script>
 </head>
 <body>
 <header>
@@ -93,8 +97,11 @@
 									<div> ${cvo.favorite }</div>
 								</div>
 								<div>
+									<div> ${cvo.openDate}</div>
+								</div>
+								<div>
 								
-								<!-- 응원하기 클릭 시 해당 클래스의 classId 전달 -->
+								<!-- 응원하기 클릭 시 해당 클래스의 classId, userId 전달 -->
 								
 									<button>응원하기</button>
 								</div>

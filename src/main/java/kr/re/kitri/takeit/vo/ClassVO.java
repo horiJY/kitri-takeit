@@ -1,5 +1,7 @@
 package vo;
 
+import java.sql.Date;
+
 public class ClassVO {
 	private int classId;
 	private String className;
@@ -11,10 +13,11 @@ public class ClassVO {
 	private int price;
 	private int sale;
 	private int capacity;
+	private String address;
 	private String type;
 	private int favorite;
 	private String category;
-	
+	private Date openDate;
 	
 	public int getClassId() {
 		return classId;
@@ -76,6 +79,12 @@ public class ClassVO {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public String getType() {
 		return type;
 	}
@@ -93,6 +102,12 @@ public class ClassVO {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public Date getOpenDate() {
+		return openDate;
+	}
+	public void setOpenDate(Date openDate) {
+		this.openDate = openDate;
 	}
 	
 }
