@@ -10,7 +10,15 @@
 </head>
 <body>
 	<header>
+		<div>
+			<img alt="tatkit-logo" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg" height="50px">
+			<input type="text" id="search" name="search">
+			<a href="#"><img alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png" height="20px"></a>
+			<input type="button" value="LOGOUT" id="logoutBtn">
+		</div>
 	</header>
+	
+	<hr>
 	
 	<main>
 		<header>
@@ -18,25 +26,19 @@
 				<h2 class="MyProfile-UserName">${uvo.userId }</h2>
 				<c:choose>
 						<c:when test="${uvo.userType=='C'}">
-							<img alt="크리에이터 이미지" src="${pageContext.request.contextPath}/assets/img/Ctype-icon.png" width="50px">
+							<img alt="크리에이터 이미지" src="${pageContext.request.contextPath}/assets/img/Ctype-icon.png" height="30px">
 						</c:when>
 						<c:when test="${uvo.userType=='U'}">
-							<img alt="유저 이미지" src="${pageContext.request.contextPath}/assets/img/Utype-icon.png" width="50px">
+							<img alt="유저 이미지" src="${pageContext.request.contextPath}/assets/img/Utype-icon.png" height="30px">
 						</c:when>
 				</c:choose>
+				<span>내 포인트 : ${uvo.point}P</span>
 			</a><br>
-			<button type="button" value="LOGOUT" id="logoutBtn"></button>
 		</header>
 		<div class="MyPage">
 			<aside class="MyPage-aside">
 				<h4 class="MyPage-aside-title">내 정보</h4>
 				<ul>
-					<li>
-						<a class="MyPage-aside-MyPoint" href="#mypoint" id="myPointNav"><!-- 내 포인트 -->
-							<div class="aside-text">내 포인트</div> 
-							<div>${uvo.point}P</div>
-						</a>
-					</li>
 					<li>
 						<a class="MyPage-aside-Favorite" href="#myfavorite" id="myFavoriteNav"><!-- 내 응원 -->
 							<div class="aside-text">내 응원</div> 
@@ -70,49 +72,62 @@
 			</aside>
 			
 			<!-- My Info -->
-			<div id="myInfoEdit" class="Container">
-				<h3>내 정보 수정</h3>
-				<div class="MyInfoContent">
-					<label>ID<input type="text" value="${uvo.userId }" id="userId" name="userId" readonly></label><br>
-					<label>PW<input type="password" value="" id="userPw" name="userPw" required></label><br>
-					<label>이름<input type="text" value="${uvo.userName }" id="userName" name="userName" required></label><br>
-					<label>전화번호<input type="text" value="${uvo.phone }" id="userPhone"name="userPhone" required></label><br>
-					<button type="button" value="SAVE" id="myInfoUpdateBtn"></button>
+			<form action="formI">
+				<div id="myInfoEdit" class="Container">
+					<h3>내 정보</h3>
+					<div class="MyInfoContent">
+						<label>ID<input type="text" value="${uvo.userId }" id="userId" name="userId" readonly></label><br>
+						<label>PW<input type="password" value="" id="userPw" name="userPw" required></label><br>
+						<label>이름<input type="text" value="${uvo.userName }" id="userName" name="userName" required></label><br>
+						<label>전화번호<input type="text" value="${uvo.phone }" id="userPhone"name="userPhone" required></label><br>
+						<input type="button" value="정보 수정하기" id="myInfoUpdateBtn"><br>
+						<input type="button" value="회원탈퇴" id="userDeleteBtn">
+					</div>
 				</div>
-			</div>
-			
-			<!-- My point -->
-			<article id="myPoint" class="Container">
-				<h3>내 포인트</h3>
-				<div class="MyPointContent"></div>
-			</article>
+			</form>
 			
 			<!-- My Favorite -->
-			<article id="myFavorite" class="Container">
-				<h3>내 응원 내역</h3>
-				<div class="MyFavoriteContent"></div>
-			</article>
+			<form action="formF">
+				<article id="myFavorite" class="Container">
+					<h3>내 응원 내역</h3>
+					<div class="MyFavoriteContent">
+						
+					</div>
+				</article>
+			</form>
 			
 			<!-- My Assignment -->
-			<article id="myAssignment" class="Container">
-				<h3>주문 내역</h3>
-				<div class="MyAssignmentContent"></div>
-			</article>
+			<form action="formA">
+				<article id="myAssignment" class="Container">
+					<h3>주문 내역</h3>
+					<div class="MyAssignmentContent">
+						
+					</div>
+				</article>
+			</form>
 			
 			<!-- My Review -->
-			<article id="myReview" class="Container">
-				<h3>내 리뷰</h3>
-				<div class="MyReviewContent"></div>
-			</article>
+			<form action="formR">
+				<article id="myReview" class="Container">
+					<h3>내 리뷰</h3>
+					<div class="MyReviewContent">
+						
+					</div>
+				</article>
+			</form>
 			
 			<!-- My QnA -->
-			<article id="myQnA" class="Container">
-				<h3>내 질문</h3>
-				<div class="MyQnAContent"></div>
-				<button type="button" value="문의하기" id="qnaBtn"></button>
-			</article>
+			<form action="formQ">
+				<article id="myQnA" class="Container">
+					<h3>내 질문</h3>
+					<div class="MyQnAContent"></div>
+					<button type="button" value="문의하기" id="qnaBtn"></button>
+				</article>
+			</form>
 		</div>
 	</main>
+	
+	<hr>
 	
 	<footer>
 	</footer>
