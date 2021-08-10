@@ -1,6 +1,5 @@
 /*
 * 
-*
 */
 
 var minday = new Date();
@@ -18,6 +17,19 @@ var minday = new Date();
 		var confirmContent = document.getElementById("confirm-content");
 		var confirmOpenBtn = document.getElementById("confirm-open-btn");
 		var confirmCancelBtn = document.getElementById("confirm-cancel-btn");
+		
+		// 확인 버튼 클릭 시 폼 전송 후 마이페이지로 이동
+		confirmOpenBtn.onclick = function(){
+			console.log(confirmContent.innerHTML);
+		}
+		
+		// 취소 버튼 클릭 시 편집 페이지로 되돌아감
+		confirmCancelBtn.onclick = function(){
+			editBox.style.display = "block";
+			confirmBox.style.display = "none";
+			
+			confirmContent.innerHTML = "";
+		}
 
 		var className = document.getElementById("class-name");
 		var category = document.getElementById("category");
@@ -26,6 +38,9 @@ var minday = new Date();
 
 		var classSchedule = [];
 		var schedulAddBtn = document.getElementById("schedule-add-btn");
+		//스케쥴 추가: 시작일~종료일까지 해당 요일 추가
+		var schedulResetBtn = document.getElementById("schedule-reset-btn");
+		//스케쥴 리셋: 스케쥴 배열 비우기
 		
 		var startDate = document.getElementById("startDate");
 		var endDate = document.getElementById("endDate");
@@ -110,9 +125,6 @@ var minday = new Date();
         		classDetail.focus();
         		return;
         	}
-        	
-			editBox.style.display = "none";
-			confirmBox.style.display = "block";
 			
 			confirmContent.innerHTML += "class name: ";
 			confirmContent.innerHTML += className.value;
@@ -139,6 +151,9 @@ var minday = new Date();
 				confirmContent.innerHTML += "class capacity: ";
 				confirmContent.innerHTML += classCapacity.value;
 				confirmContent.innerHTML += "<br>";
+				
+				editBox.style.display = "none";
+				confirmBox.style.display = "block";
 			}
 			
 			confirmContent.innerHTML += "<br>";
@@ -148,18 +163,7 @@ var minday = new Date();
 			confirmContent.innerHTML += "class detail: ";
 			confirmContent.innerHTML += classDetail.value;
 			
-			// 확인 버튼 클릭 시 폼 전송 후 마이페이지로 이동
-			document.getElementById("confirm-open-btn").onclick = function(){
-				console.log(confirmContent.innerHTML);
-			}
 			
-			// 취소 버튼 클릭 시 편집 페이지로 되돌아감
-			document.getElementById("confirm-cancel-btn").onclick = function(){
-				editBox.style.display = "block";
-				confirmBox.style.display = "none";
-				
-				confirmContent.innerHTML = "";
-			}
 		};
 		
 		

@@ -4,11 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript">
-
-	
-</script>
+<title>강의 개설 페이지</title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/open-class.js"></script>
 </head>
 <body>
 	<div id="edit-box">
@@ -43,6 +40,7 @@
 			</div>
 			<!-- 대면: -->
 			<div id="class-schedule-off" style="display:none">
+				<!-- 일정 추가 ui -->
 				<div id="schedule-edit">
 					<div>
 						시작일 
@@ -65,15 +63,21 @@
 						<input type="checkbox" value="sunday" name="class-day">일
 					</div>
 					<div>
+						수업 시간
+						<input type="time" id="startTime">
+						~
+						<input type="time" id="endTime" disabled>
+					</div>
+					<div>
 						<button id="schedule-add-btn">추가</button>
 						<button id="schedule-reset">리셋</button>
 					</div>
 				</div>
 				<div>
-					세부조정
+					일정
 					<div>
-						<!--  달력 -->
-						<!-- <div id="calendar"></div> -->
+						<!-- 추가된 일정 표시 달력 (세부조정) -->
+						<div id="calendar"></div>
 					</div>
 				</div>
 				<div>
