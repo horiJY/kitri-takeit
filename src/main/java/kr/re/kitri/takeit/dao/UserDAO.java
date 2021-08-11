@@ -88,7 +88,27 @@ public class UserDAO {
 		return result;
 		
 	}
-	
+	//deleteUser
+	public int deleteUser(String id) {
+		Connection conn = DBConnect.getInstance();
+		PreparedStatement pstmt = null;
+		int result =0;
+		
+		String sql = "DELETE FROM WEBUSER"
+				+ " WHERE USERID =?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, pstmt, null, null);
+		}
+		
+		return result;
+	}
 	
 	
 	

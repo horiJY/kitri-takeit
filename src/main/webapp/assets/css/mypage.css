@@ -8,7 +8,8 @@ ul {
 	list-style-type: none;
 	
 }
-#Content {
+.Container {
 	display: none;
+/* 	display: block; */
 }
 

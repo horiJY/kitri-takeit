@@ -5,6 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import db.DBConnect;
+import vo.ClassVO;
 
 public class ClassDAO {
 	//closeAll
@@ -34,5 +39,47 @@ public class ClassDAO {
 	//class-detail page -> SelectAll
 	
 	//pre-class page -> Select(className, create, classType, favorite)
+	
+	//mypage -> select
+	
+	public List<ClassVO> selectFavoriteClass(String userid){
+		Connection conn = DBConnect.getInstance();
+		String sql = "SELECT CLASSNAME, CREATER, FAVORITE, OPENDATE FROM CLASS "
+				+ "WHERE CLASSID = (SELECT CLASSID FROM FAVORITE WHERE USERID = '" + userid + "')";
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<ClassVO> clist = new ArrayList<ClassVO>();
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				ClassVO cvo = new ClassVO();
+				cvo.setClassName(rs.getString(1));
+				cvo.setCreater(rs.getNString(2));
+				cvo.setFavorite(rs.getInt(3));
+				cvo.setOpenDate(rs.getDate(4));
+				
+				clist.add(cvo);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, rs);
+		}
+		return clist;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

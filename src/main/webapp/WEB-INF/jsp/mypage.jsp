@@ -13,7 +13,7 @@
 		<div>
 			<img alt="tatkit-logo" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg" height="50px">
 			<input type="text" id="search" name="search">
-			<a href="#"><img alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png" height="20px"></a>
+			<a href="#"><img alt="search-icon" src="" height="20px"></a>
 			<input type="button" value="LOGOUT" id="logoutBtn">
 		</div>
 	</header>
@@ -40,29 +40,35 @@
 				<h4 class="MyPage-aside-title">내 정보</h4>
 				<ul>
 					<li>
-						<a class="MyPage-aside-Favorite" href="#myfavorite" id="myFavoriteNav"><!-- 내 응원 -->
+						<a class="MyPage-aside-Favorite" id="myFavoriteNav"><!-- 내 응원 -->
 							<div class="aside-text">내 응원</div> 
 						</a>
 					</li>
 					<li>
-						<a class="MyPage-aside-Assignment" href="#myassignment" id="myAssignmentNav"><!-- 주문내역 -->
+						<a class="MyPage-aside-Assignment" id="myAssignmentNav"><!-- 주문내역 -->
 							<div class="aside-text">주문내역</div> 
 						</a>
 					</li>
 					<li>
-						<a class="MyPage-aside-Review" href="#myreview" id="myReviewNav"><!-- 내 후기 -->
+						<a class="MyPage-aside-Review" id="myReviewNav"><!-- 내 후기 -->
 							<div class="aside-text">내 후기</div> 
 						</a>
 					</li>
 					<li>
-						<a class="MyPage-aside-QnA" href="#myqna" id="myQnANav"><!-- 내 후기 -->
+						<a class="MyPage-aside-QnA" id="myQnANav"><!-- 내 후기 -->
 							<div class="aside-text">내 질문</div> 
 						</a>
 					</li>
 					<c:choose>
 						<c:when test="${uvo.userType=='C' }">
+							<hr>
 							<li>
-								<a class="Create-class" href="#" id="createClass"><!-- 내 강의 등록 -->
+								<a class="MyClass" id="myClassNav"><!-- 내 강의 등록 -->
+									<div class="myClass-text">내 클래스</div> 
+								</a>
+							</li>
+							<li>
+								<a class="Create-class" id="createClass"><!-- 내 강의 등록 -->
 									<div class="createClass-text">강의 등록</div> 
 								</a>
 							</li>
@@ -74,12 +80,11 @@
 			<!-- My Info -->
 			<form action="formI">
 				<div id="myInfoEdit" class="Container">
-					<h3>내 정보</h3>
-					<div class="MyInfoContent">
+					<h3>내 정보 조회 / 수정</h3>
+					<div id="MyInfoContent">
 						<label>ID<input type="text" value="${uvo.userId }" id="userId" name="userId" readonly></label><br>
-						<label>PW<input type="password" value="" id="userPw" name="userPw" required></label><br>
 						<label>이름<input type="text" value="${uvo.userName }" id="userName" name="userName" required></label><br>
-						<label>전화번호<input type="text" value="${uvo.phone }" id="userPhone"name="userPhone" required></label><br>
+						<label>전화번호<input type="text" value="${uvo.phone }" id="userPhone"name="userPhone" readonly></label><br>
 						<input type="button" value="정보 수정하기" id="myInfoUpdateBtn"><br>
 						<input type="button" value="회원탈퇴" id="userDeleteBtn">
 					</div>
@@ -90,9 +95,7 @@
 			<form action="formF">
 				<article id="myFavorite" class="Container">
 					<h3>내 응원 내역</h3>
-					<div class="MyFavoriteContent">
-						
-					</div>
+					<div id="MyFavoriteContent"></div>
 				</article>
 			</form>
 			
@@ -100,9 +103,7 @@
 			<form action="formA">
 				<article id="myAssignment" class="Container">
 					<h3>주문 내역</h3>
-					<div class="MyAssignmentContent">
-						
-					</div>
+					<div id="MyAssignmentContent"></div>
 				</article>
 			</form>
 			
@@ -110,9 +111,7 @@
 			<form action="formR">
 				<article id="myReview" class="Container">
 					<h3>내 리뷰</h3>
-					<div class="MyReviewContent">
-						
-					</div>
+					<div id="MyReviewContent"></div>
 				</article>
 			</form>
 			
@@ -120,8 +119,15 @@
 			<form action="formQ">
 				<article id="myQnA" class="Container">
 					<h3>내 질문</h3>
-					<div class="MyQnAContent"></div>
-					<button type="button" value="문의하기" id="qnaBtn"></button>
+					<div id="MyQnAContent"></div>
+					<input type="button" value="문의하기" id="qnaBtn">
+				</article>
+			</form>
+			<!-- My Class -->
+			<form action="formC">
+				<article id="myClass" class="Container">
+					<h3>내 클래스</h3>
+					<div id="MyClassContent"></div>
 				</article>
 			</form>
 		</div>
