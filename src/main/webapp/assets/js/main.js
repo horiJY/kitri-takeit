@@ -1,92 +1,65 @@
 window.onload = function() {
-		var xhr = new XMLHttpRequest();
+
+	const hostIndex = location.href.indexOf(location.host) + location.host.length;
+
+	const xhr = new XMLHttpRequest();
 	
-		var categoryBtn = document.getElementById("category-btn");
-		var category = '<%=category%>';
-		var categoryName = document.getElementById("category-name");
-		var categoryDrop = document.getElementById("category-drop");
+	const art = document.getElementById("art");
+	const cooking = document.getElementById("cooking");
+	const language = document.getElementById("language");
+	const programming = document.getElementById("programming");
+	const sport = document.getElementById("sport");
+
+
+	const recommend = document.getElementById("recommend");
+	const newest = document.getElementById("newest");
+
+	if ($('input[id="category"]').is(':checked')) {
+		console.log($('input[id="category"]').val());
+}
+//
+//
+//		art.onclick = function() {
+//			xhr.open("POST", location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1)) + "/main", true);
+//			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//			xhr.send("category=ART" + "&recommend=RECOMMEND");
+//		}
+//
+//		cooking.onclick = function() {
+//			xhr.open("POST", location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1)) + "/main", true);
+//			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//			xhr.send("category=COOKING" + "&recommend=RECOMMEND");
+//		}
+//		language.onclick = function() {
+//			xhr.open("POST", location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1)) + "/main", true);
+//			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//			xhr.send("category=LANGUAGE" + "&recommend=RECOMMEND");
+//		}
+//		programming.onclick = function() {
+//			xhr.open("POST", location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1)) + "/main", true);
+//			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//			xhr.send("category=PROGRAMMING" + "&recommend=RECOMMEND");
+//		}
+//		sport.onclick = function() {
+//			xhr.open("POST", location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1)) + "/main", true);
+//			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//			xhr.send("category=SPORT");
+//		}
+//
+//
+//
+//
+//
+//		recommend.onclick = function() {
+//			xhr.open("POST", location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1)) + "/main", true);
+//			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//			xhr.send("range=RECOMMEND");
+//		}
+//		newest.onclick = function() {
+//			xhr.open("POST", location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1)) + "/main", true);
+//			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//			xhr.send("category=" + sessionStorage.getItem("category") + "&range=OPENDATE");
+//
+//		}
+}
 		
-		var art = document.getElementById("art");
-		var cooking = document.getElementById("cooking");
-		var language = document.getElementById("language");
-		var programming = document.getElementById("programming");
-		var sport = document.getElementById("sport");
-		
-		categoryBtn.onclick = function() {
-			if(categoryDrop.style.display == "block"){
-				categoryDrop.style.display = "none";
-			}else{
-				categoryDrop.style.display = "block";
-				
-				art.onclick = function() {
-					categoryName.innerText = "Art";
-					categoryDrop.style.display = "none";
-					category = "ART";
-					console.log(category);
-					xhr.open("GET","/takeit_prj/main", true);
-					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-					xhr.send("category="+category.value);
-					
-					console.log(xhr);
-					
-					xhr.onreadystatechange = function(){
-						if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
-							var data = xhr.responseText;
-							console.log(data);
-						}
-					}
-				}
-				cooking.onclick = function() {
-					categoryName.innerText = "Cooking";
-					categoryDrop.style.display = "none";
-					category = "COOKING";
-					json.category = category;
-					json.range = range;
-					console.log(json);
-				}
-				language.onclick = function() {
-					categoryName.innerText = "Language";
-					categoryDrop.style.display = "none";
-					category = "LANGUAGE";
-				}
-				programming.onclick = function() {
-					categoryName.innerText = "Programming";
-					categoryDrop.style.display = "none";
-					category = "PROGRAMMING";
-				}
-				sport.onclick = function() {
-					categoryName.innerText = "Sport";
-					categoryDrop.style.display = "none";
-					category = "SPORT";
-				}
-			}
-		}
-		
-		var rangeBtn = document.getElementById("range-btn");
-		var range = '<%=range %>';
-		var rangeName = document.getElementById("range-name");
-		var rangeDrop = document.getElementById("range-drop");
-		
-		var recommend = document.getElementById("recommend");
-		var newest = document.getElementById("newest");
-		
-		rangeBtn.onclick = function() {
-			if(rangeDrop.style.display == "block"){
-				rangeDrop.style.display = "none";
-			}else{
-				rangeDrop.style.display = "block";
-				
-				recommend.onclick = function() {
-					rangeName.innerText = "추천순";
-					rangeDrop.style.display = "none";
-					range = "RECOMMEND";
-				}
-				newest.onclick = function() {
-					rangeName.innerText = "최신순";
-					rangeDrop.style.display = "none";
-					range = "OPENDATE";
-				}
-			}
-		}
-		
-	}

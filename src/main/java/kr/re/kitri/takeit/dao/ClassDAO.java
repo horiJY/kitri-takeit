@@ -141,12 +141,12 @@ public class ClassDAO {
 				pstmt.setInt(3, start);
 				pstmt.setInt(4, end);
 			}else {
-				pstmt = conn.prepareStatement(sql1);
-				pstmt.setString(1, "O");
-				pstmt.setString(2, category);
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setString(1, category);
+				pstmt.setString(2, "O");
 				pstmt.setString(3, range);
 				pstmt.setInt(4, start);
-				pstmt.setInt(4, end);
+				pstmt.setInt(5, end);
 			}
 			//resultset
 			rs = pstmt.executeQuery();
@@ -181,6 +181,7 @@ public class ClassDAO {
 		}
 		return clist;
 	}
+	
 
 	//count
 	public int selectClassCnt(String type) {

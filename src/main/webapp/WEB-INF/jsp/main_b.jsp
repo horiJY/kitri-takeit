@@ -1,4 +1,3 @@
-<%@page import="vo.ClassJson"%>
 <%@page import="vo.ClassVO"%>
 <%@page import="java.util.List"%>
 <%@page import="pagination.Pagination"%>
@@ -14,7 +13,34 @@
 	4. 아이디 받아서 마이페이지 클릭 시 보내주기
 	5. 별점 갯수 보여주기(ajax)
  -->
+<%
+	String category = request.getParameter("category");
+	String range = request.getParameter("range");
+	if(range == null){
+		range = "RECOMMEND";
+	}
+	
+	ClassDAO cdao = new ClassDAO();
+
+	String curPage = request.getParameter("curpage");
+	if(curPage == null){
+		curPage = "1";
+	}
+	int curPageInt = Integer.parseInt(curPage);
+	int totalContent = cdao.selectClassCnt("O");
+	
+	Pagination pagination = new Pagination(curPageInt, totalContent, 5);
+	
+	//한 페이지 내에 보여줘야 하는 게시물의 첫 번째 rownum
+	int start = (curPageInt*pagination.getContentCnt()) - (pagination.getContentCnt() - 1);
+	
+	//한 페이지 내에 보여줘야 하는 게시물의 마지막 rownum
+	int end = curPageInt*pagination.getContentCnt();
+	List<ClassVO> clist = cdao.selectClassPage(category, range, start, end);
+%>
 <!DOCTYPE html>
+<c:set var="paging" value="<%=pagination %>"/>
+<c:set var="clist" value="<%=clist %>"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -60,17 +86,18 @@
 		<div>
 			<section>
 				<div>
-					<div id="category-drop" >
-						<input type="radio" name="category" id="category" value="" checked="checked">카테고리
-						<input type="radio" name="category" id="art" value="ART">Art
-						<input type="radio" name="category" id="cooking" value="COOKING">Cooking
-						<input type="radio" name="category" id="language" value="LANGUAGE">Language
-						<input type="radio" name="category" id="programming" value="PROGRAMMING">Programming
-						<input type="radio" name="category" id="sport" value="SPORT">Sport
+					<input type="button" id="category" value="카테고리">
+					<div id="category-drop" style="display:none;">
+						<input type="button" id="art" value="Art">
+						<input type="button" id="cooking" value="Cooking">
+						<input type="button" id="language" value="Language">
+						<input type="button" id="programming" value="Programming">
+						<input type="button" id="sport" value="Sport">
 					</div>			
-					<div id="range-drop" >
-						<input type="radio" name="range" id="recommend" value="RECOMMEND" checked="checked">추천순
-						<input type="radio" name="range" id="newest" value="OPENDATE">최신순
+					<input type="button" id="range" value="추천순">
+					<div id="range-drop" style="display:none;">
+						<input type="button" id="recommend" value="추천순">
+						<input type="button" id="newest" value="최신순">
 					</div>
 				</div>
 			</section>
@@ -94,8 +121,7 @@
 								<div>
 									<div id="class-type"> ${cvo.classType }</div>
 								</div>
-							</c:forEach> 
-							
+							</c:forEach>
 						</a>
 					</li>
 				</ul>
@@ -140,7 +166,6 @@
 	<footer>
 	
 	</footer>
-	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </body>
 </html>
