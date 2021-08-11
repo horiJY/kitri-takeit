@@ -27,9 +27,9 @@
 		<div>
 			강의 형태
 			<input type="radio" name="class-type" value="on" checked>
-			<label for="class-type-on">비대면</label>
+			비대면
 			<input type="radio" name="class-type" value="off" >
-			<label for="class-type-off">대면</label>
+			대면
 		</div>
 		<div>
 			강의 기간
@@ -48,9 +48,21 @@
 						<input type="date" id="start-date">
 					</div>
 					<div>
-						종료일 
-						<!-- 시작일 이후만 선택 가능하도록 제한 -->
-						<input type="date" id="end-date">
+						방식 선택: 
+						<input type="radio" name="repeat-method" value="repeat" checked>
+						반복
+						<input type="radio" name="repeat-method" value="enddate" >
+						종료
+						<div id = "schedule-repeat">
+							<!-- 시작일 이후만 선택 가능하도록 제한 -->
+							<input type="number" id="repeat">
+							회 반복
+						</div>
+						<div id = "schedule-enddate" style="display:none">
+							종료일 
+							<!-- 시작일 이후만 선택 가능하도록 제한 -->
+							<input type="date" id="end-date">
+						</div>
 					</div>
 <!-- 					<div> -->
 <!-- 						수업 요일: -->

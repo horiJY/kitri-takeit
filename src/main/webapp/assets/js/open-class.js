@@ -13,6 +13,8 @@ var classType = "on";
 var classPeriod = document.getElementById("class-period");
 
 var classSchedule = [];
+var scheduleRepeat = document.getElementById("schedule-repeat"); 
+var scheduleEnddate = document.getElementById("schedule-enddate");
 var calendar = document.getElementById("calendar");
 var scheduleAddBtn = document.getElementById("schedule-add-btn");
 var scheduleResetBtn = document.getElementById("schedule-reset-btn");
@@ -63,21 +65,36 @@ startDate.onchange = function(){
 
 //일정 종료 시간을 시작시간 이후로 제한
 startTime.onchange = function(){
-	if(endTime.value!=""&&endTime.value<=startTime.value){
+	if((endTime.value!="")&&(endTime.value<=startTime.value)){
 		alert("시작 시간은 종료 시간 이전이어야 합니다.");
 		startTime.value="";
 		return;
 	}
 }
 endTime.onchange = function(){
-	if(startTime.value!=""&&endTime.value<=startTime.value){
+	if((startTime.value!="")&&(endTime.value<=startTime.value)){
 		alert("종료 시간은 시작시간 이후이어야 합니다.");
 		endTime.value="";
 		return;
 	}
 };
 
-//스케쥴 추가: 시작일~종료일까지 해당 요일 추가
+//스케쥴 반복 방법 선택에 따른 입력폼 전환
+document.querySelectorAll("[name='repeat-method']").forEach(function(element) {
+	element.addEventListener("click", function() {
+		// console.log(this.value); 
+	
+		if(this.value=="repeat"){
+			scheduleRepeat.style.display="block";
+			scheduleEnddate.style.display="none";
+		}else if(this.value=="enddate"){
+			scheduleEnddate.style.display="block";
+			scheduleRepeat.style.display="none";
+		}
+	});
+});
+
+//스케쥴 추가
 scheduleAddBtn.onclick = function(){
 	if(startDate.value==""){
 		alert("일정 시작일을 선택하세요.");
@@ -103,33 +120,33 @@ scheduleAddBtn.onclick = function(){
 	var edate = endDate.value;
 	var stime = startTime.value;
 	var etime = endTime.value;
-	classSchedule.push(new schedule(sdate,stime,etime));
-	classSchedule.push(new schedule(edate,stime,etime));
-//	var weekday = [];
-//	document.querySelectorAll("[name='class-day']").forEach(function(element){
-//		if(element.checked){
-//			weekday.push(this.value);
-//		}
-//	});
 	
-	
-	for(var schd in classSchedule){
-		calendar.innerHTML += schd.date;
-		calendar.innerHTML += schd.stime;
-		calendar.innerHTML += schd.etime;
-		calendar.innerHTML += "<br>";
+	//스케쥴 반복 입력
+	for(var schd = new Date(sdate);schd<=new Date(edate);schd.setDate(schd.getDate()+7)){
+		console.log(schd);
+		var schdStr = schd.toISOString().slice(0,10);
+		classSchedule.push([schdStr,stime,etime]);
 	}
+	console.log(classSchedule);
+	classSchedule.forEach(function(schd){
+		calendar.innerHTML += schd[0];
+		calendar.innerHTML += " ";
+		calendar.innerHTML += schd[1];
+		calendar.innerHTML += " ";
+		calendar.innerHTML += schd[2];
+		calendar.innerHTML += "<br>";
+	});
 };
 //스케쥴 리셋: 스케쥴 배열 비우기
 
 //스케쥴 날짜와 시간 클래스
-class schedule {
+var schedule =class{
 	constructor(date, stime, etime){
 		this.date = date;
 		this.stime = stime;
 		this.etime = etime;
 	}
-}
+};
 
 //달력 표시
 /* var calendarEl = document.getElementById('calendar');
@@ -163,12 +180,10 @@ openBtn.onclick = function(){
 	
 	//대면 강의 선택 시 강의 스케쥴 변환
 	if(classType=="off"){
-		
-		
     	// 강의 스케쥴이 없음
     	if(classSchedule.length==0){
     		alert("강의 일정을 입력하세요.");
-    		startDate.focus();
+//    		startDate.focus();
     		return;
     	}
 	}
@@ -192,6 +207,9 @@ openBtn.onclick = function(){
 		return;
 	}
 	
+	confirmBox.style.display = "block";
+	editBox.style.display = "none";
+	
 	confirmContent.innerHTML += "class name: ";
 	confirmContent.innerHTML += className.value;
 	confirmContent.innerHTML += "<br>";
@@ -207,14 +225,8 @@ openBtn.onclick = function(){
 		confirmContent.innerHTML += classPeriod.value*7;
 	}else{
 		confirmContent.innerHTML += "class schedule: ";
-		for(var schd in classSchedule){
-			confirmContent.innerHTML += schd.date;
-			confirmContent.innerHTML += schd.stime;
-			confirmContent.innerHTML += schd.etime;
-			confirmContent.innerHTML += "<br>";
-		}
-		
-		//confirmContent.innerHTML += "<div id='calendar'></div>";
+		confirmContent.innerHTML += "<br>";
+		confirmContent.innerHTML += calendar.innerHTML;
 		confirmContent.innerHTML += "<br>";
 		confirmContent.innerHTML += "class capacity: ";
 		confirmContent.innerHTML += classCapacity.value;
@@ -235,12 +247,12 @@ openBtn.onclick = function(){
 	
 // 취소 버튼을 누르면 마이페이지로 이동
 
-// 확인 버튼 클릭 시 폼 전송 후 마이페이지로 이동
+// 확인창 확인 버튼 클릭 시 폼 전송 후 마이페이지로 이동
 confirmOpenBtn.onclick = function(){
 	console.log(confirmContent.innerHTML);
 }
 
-// 취소 버튼 클릭 시 편집 페이지로 되돌아감
+// 확인창 취소 버튼 클릭 시 편집 페이지로 되돌아감
 confirmCancelBtn.onclick = function(){
 	editBox.style.display = "block";
 	confirmBox.style.display = "none";
