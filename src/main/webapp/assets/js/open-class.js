@@ -37,14 +37,15 @@ var confirmCancelBtn = document.getElementById("confirm-cancel-btn");
 // 대면/비대면 수업 유형 변경 시 기간 설정 형식 변경 eventlistener
 document.querySelectorAll("[name='class-type']").forEach(function(element) {
 	element.addEventListener("click", function() {
-		// console.log(this.value);
 		var classOn = document.getElementById("class-schedule-on"); 
 		var classOff = document.getElementById("class-schedule-off"); 
-	
-		if(this.value=="on"){
+		
+		classType = this.value;
+			
+		if(classType=="on"){
 			classOn.style.display="block";
 			classOff.style.display="none";
-		}else if(this.value=="off"){
+		}else if(classType=="off"){
 			classOff.style.display="block";
 			classOn.style.display="none";
 		}
@@ -172,20 +173,17 @@ openBtn.onclick = function(){
 		return;
 	}
 	//비대면 강의 선택 시 강의 기간 음수
-	if(classType=="on"&&classPeriod<=0){
+	if((classType=="on")&&(classPeriod<=0)){
 		alert("강의 기간을 다시 입력하세요.");
 		classPeriod.focus();
 		return;
 	}
 	
-	//대면 강의 선택 시 강의 스케쥴 변환
-	if(classType=="off"){
-    	// 강의 스케쥴이 없음
-    	if(classSchedule.length==0){
-    		alert("강의 일정을 입력하세요.");
-//    		startDate.focus();
-    		return;
-    	}
+	//대면 강의 선택 시 강의 스케쥴 없음
+	if((classType=="off")&&(classSchedule.length==0)){
+		alert("강의 일정을 입력하세요.");
+//		startDate.focus();
+		return;
 	}
 	
 	//강의료 음수
@@ -230,10 +228,6 @@ openBtn.onclick = function(){
 		confirmContent.innerHTML += "<br>";
 		confirmContent.innerHTML += "class capacity: ";
 		confirmContent.innerHTML += classCapacity.value;
-		confirmContent.innerHTML += "<br>";
-		
-		editBox.style.display = "none";
-		confirmBox.style.display = "block";
 	}
 	
 	confirmContent.innerHTML += "<br>";
@@ -242,7 +236,9 @@ openBtn.onclick = function(){
 	confirmContent.innerHTML += "<br>";
 	confirmContent.innerHTML += "class detail: ";
 	confirmContent.innerHTML += classDetail.value;
-	
+
+	editBox.style.display = "none";
+	confirmBox.style.display = "block";
 };
 	
 // 취소 버튼을 누르면 마이페이지로 이동
