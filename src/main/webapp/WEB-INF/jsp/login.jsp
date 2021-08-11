@@ -26,8 +26,17 @@
 </head>
 <script >
 window.onload = function(){
+	//카카오 로그인버튼
 	document.getElementById("kakao-login-btn").onclick = function(){
 		location.href='https://kauth.kakao.com/oauth/authorize?client_id=ba37492513672ce5ce23c00ff86bd01d&redirect_uri=http://localhost:8080/takeit_prj/login/kakao&response_type=code';
+	}
+	//네이버 로그인 버튼
+	document.getElementById("naver-login").onclick = function(){
+		location.href='https://nid.naver.com/oauth2.0/authorize?client_id=_DR4yv1dxw5JqPZv2e8g&redirect_uri=http://localhost:8080/takeit_prj/login/naver&response_type=code';
+	}
+	//구글 로그인 버튼
+	document.getElementById("google-login").onclick = function(){
+		location.href='https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=134711181820-tjdlp7ug9hegle7hmhnir9qkdrad5c0p.apps.googleusercontent.com&redirect_uri=http://localhost:8080/takeit_prj/login/google&scope=openid';
 	}
 }
 </script>
@@ -38,17 +47,17 @@ window.onload = function(){
 	</div>
 	<h1>로그인 페이지</h1>
 	<div>
-	<button type="button"class="login-btn" id="kakao-login-btn" alt="카카오 로그인">
+	<button type="button" class="login-btn" id="kakao-login-btn" alt="카카오 로그인">
 		<span ><img	src="assets/img/kakao_login_btn.png" ></span>
 	</button>
 	</div>
 	<div>
-	<button class="login-btn" id="naver-login"type="button" alt="네이버 로그인">
+	<button type="button" class="login-btn" id="naver-login" alt="네이버 로그인">
 		<span ><img	src="assets/img/naver_login_btn.png" style="height:46px"></span>
 	</button>
 	</div>
 	<div>
-	<button class="login-btn" id="google-login"type="button" alt="구글 로그인">
+	<button type="button" class="login-btn" id="google-login" alt="구글 로그인">
 		<span ><img	src="assets/img/google_login_btn.png" style="height:48px"></span>
 	</button>
 	</div>

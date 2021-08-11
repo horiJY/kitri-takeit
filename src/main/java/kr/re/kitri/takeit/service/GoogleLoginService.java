@@ -15,21 +15,20 @@ import javax.net.ssl.HttpsURLConnection;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-public class KakaoLoginService {
-
+public class GoogleLoginService {
     public String getAccessToken(String permisiveCode) {
-	String kakaoGetTokenUrl = "https://kauth.kakao.com/oauth/token";
+	String googleGetTokenUrl = "https://nid.naver.com/oauth2.0/token";
 	String access_Token = "";
 //	String refresh_Token = "";
 
 	try {
-	    URL url = new URL(kakaoGetTokenUrl);
+	    URL url = new URL(googleGetTokenUrl);
 	    String bodyData = "grant_type=authorization_code";
-	    bodyData += "&client_id=ba37492513672ce5ce23c00ff86bd01d";
-	    bodyData += "&redirect_uri=http://localhost:8080/takeit_prj/login/kakao";
+	    bodyData += "&client_id=_DR4yv1dxw5JqPZv2e8g";
+	    bodyData += "&client_secret=WT3qe4X8vh";
+	    bodyData += "&redirect_uri=http://localhost:8080/takeit_prj/login/naver";
+	    bodyData += "&state=takeit_naverlogin";
 	    bodyData += "&code=" + permisiveCode;
-	    // 보안강화를 위한 client_secret
-//	    bodyData += "client_secret=GZbFxa9pD2g6cmMa0bfRHLuOPIJrfrCY";
 
 	    // Stream 연결
 	    // Post요청, x-www-form-urlencoded
@@ -84,19 +83,13 @@ public class KakaoLoginService {
 
     public HashMap<String, String> getUserInfo(String accessToken) {// 유저 프로필url,닉네임,id를 가져온다
 
-//	https://kapi.kakao.com/v2/user/me
-//	    -H "Authorization: Bearer {ACCESS_TOKEN}"
-//	    secure_resource=true&
-//	    property_keys=["properties.nickname","properties.thumbnail_image","kakao_account.email"]
-//
+//	네이버는 accessToken만 넘겨주면 전체 데이터를 준다.
 
-	String kakaoGetUserInfoUrl = "https://kapi.kakao.com/v2/user/me";
+	String naverGetUserInfoUrl = "https://openapi.naver.com/v1/nid/me";
 	HashMap<String, String> resultUserInfo = new HashMap<>();
 
 	try {
-	    URL url = new URL(kakaoGetUserInfoUrl);
-	    String bodyData = "secure_resource=true";
-	    bodyData += "&property_keys=[\"properties.nickname\",\"properties.thumbnail_image\",\"kakao_account.email\"]";
+	    URL url = new URL(naverGetUserInfoUrl);
 
 	    // Stream 연결
 	    // Post요청, x-www-form-urlencoded
@@ -111,7 +104,7 @@ public class KakaoLoginService {
 	    // request 하기
 	    BufferedWriter bw;
 	    bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
-	    bw.write(bodyData);
+//	    bw.write(bodyData);
 	    bw.flush();
 	    bw.close();
 
@@ -133,12 +126,10 @@ public class KakaoLoginService {
 	    JsonParser parser = new JsonParser();
 	    JsonElement element = parser.parse(sb.toString());
 
-	    String nickname = element.getAsJsonObject().get("properties").getAsJsonObject().get("nickname")
+	    String id = element.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
+	    String nickname = element.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
+	    String thumnailURL = element.getAsJsonObject().get("response").getAsJsonObject().get("profile_image")
 		    .getAsString();
-	    String thumnailURL = element.getAsJsonObject().get("properties").getAsJsonObject().get("thumbnail_image")
-		    .getAsString();
-	    // email은 비즈앱 동의 필요, 대안으로 id를 가져와 앞에 k붙여 식별
-	    String id = "k" + element.getAsJsonObject().get("id").getAsString();
 
 	    resultUserInfo.put("id", id);
 	    resultUserInfo.put("nickname", nickname);
@@ -149,11 +140,11 @@ public class KakaoLoginService {
 	} catch (MalformedURLException e) {
 	    e.printStackTrace();
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (NullPointerException e) {
 	    e.printStackTrace();
 	}
 
 	return resultUserInfo;
     } // getUserInfo end
-
 }
