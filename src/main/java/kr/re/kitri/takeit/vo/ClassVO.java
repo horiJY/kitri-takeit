@@ -14,8 +14,15 @@ public class ClassVO {
 	private int capacity;
 	private String type;
 	private int favorite;
+	private String category;
 	private Date openDate;
 	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public String getClassName() {
 		return className;
 	}

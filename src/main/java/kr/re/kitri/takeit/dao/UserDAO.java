@@ -50,7 +50,7 @@ public class UserDAO {
 			
 			while (rs.next()) {
 				uvo.setUserId(rs.getString(1));
-				uvo.setPw(rs.getString(2));
+				uvo.setUserThumnail(rs.getString(2));
 				uvo.setUserName(rs.getString(3));
 				uvo.setUserType(rs.getString(4));
 				uvo.setPhone(rs.getString(5));
@@ -71,13 +71,14 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		int result =0;
 		
-		String sql = "UPDATE WEBUSER SET USERNAME =?"
+		String sql = "UPDATE WEBUSER SET USERNAME =?, USERPHONE =?"
 				+ " WHERE USERID =?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, uvo.getUserName());
-			pstmt.setString(2, uvo.getUserId());
+			pstmt.setString(2, uvo.getPhone());
+			pstmt.setString(3, uvo.getUserId());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
