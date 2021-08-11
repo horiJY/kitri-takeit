@@ -8,8 +8,18 @@
 </head>
 <body>
 <h1>메인페이지</h1>
+<% 
+String id =  (String)session.getAttribute("takeit-userid");
+String name =  (String)session.getAttribute("takeit-username");
+String userthumnail = (String)session.getAttribute("takeit-userthumnail");
+%>
 <div>
-accessToken정보 : ${accessToken}
+아이디: <%=id %>
+<br>
+닉네임: <%=name %>
+<br>
+<img alt="" src=<%=userthumnail %>><br>
+유저 썸네일경로:<%=userthumnail %> 
 </div>
 
 
