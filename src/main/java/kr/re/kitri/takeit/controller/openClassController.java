@@ -30,7 +30,8 @@ public class openClassController extends HttpServlet {
 		Gson gson = new Gson();
 		
 		ClassVO cvo = gson.fromJson(request.getParameter("json"),ClassVO.class);
-		List<ScheduleVO> svo = new ArrayList<ScheduleVO>();
+		//List<ScheduleVO> svo = gson.fromJson(request.getParameter("json"),ArrayList<ScaheduleVO>.class);
+		
 		
 		
 		HttpSession session = request.getSession();

@@ -274,7 +274,6 @@ confirmOpenBtn.onclick = function(){
 		category : category.value,
 		classType : classType,
 		period : classPeriod.value*7,
-		classSchedule : classSchedule,
 		capacity : classCapacity.value,
 		price : classFee.value,
 		detail : classDetail.value
