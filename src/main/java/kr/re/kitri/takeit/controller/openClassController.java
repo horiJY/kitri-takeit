@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
+import vo.ClassVO;
+import vo.ScheduleVO;
+
+@SuppressWarnings("serial")
 @WebServlet("/mypage/openclass")
 public class openClassController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -20,28 +27,14 @@ public class openClassController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//강의 개설
-//		HttpSession session = request.getSession();
-//		String id = (String)session.getAttribute("id");
+		//강의 개설		
+		JsonObject json = new JsonObject();		
 		
-		Gson gson = new Gson();
-		String className = request.getParameter("className");
-		String category = request.getParameter("category");
-		String classType = request.getParameter("classType");
+		ClassVO cvo = new ClassVO();
+		List<ScheduleVO> svo = new ArrayList<ScheduleVO>();
 		
-		String classPeriod = "";
-		String classScheduleNum = "";
-		String classSchedule = "";
-		String classCapacity = "";
-		if(classType.equals("on")){
-			classPeriod = request.getParameter("classPeriod");
-		}else if(classType.equals("off")){
-			classScheduleNum = request.getParameter("classScheduleNum");
-			classSchedule = request.getParameter("classSchedule");
-			classCapacity = request.getParameter("classCapacity");
-		}
-		String classFee = request.getParameter("classFee");
-		String classDetail = request.getParameter("classDetail");
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
 		
 		
 	}

@@ -267,21 +267,21 @@ openBtn.onclick = function(){
 confirmOpenBtn.onclick = function(){
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST","",true);
-	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	
 	var req = {
 		className : className.value,
 		category : category.value,
 		classType : classType,
-		classPeriod : classPeriod.value*7,
-		classSchedule : classSchedule,
-		classCapacity : classCapacity.value,
-		classFee : classFee.value,
-		classDetail : classDetail.value
+		period : classPeriod.value*7,
+		schedule : classSchedule,
+		capacity : classCapacity.value,
+		price : classFee.value,
+		detail : classDetail.value
 	};
 	var reqJson = JSON.stringify(req);
 	console.log(reqJson);
-	xhr.send(reqJson);
+	xhr.send("json="+reqJson);
 	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
