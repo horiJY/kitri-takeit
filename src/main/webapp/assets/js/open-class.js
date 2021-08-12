@@ -99,6 +99,18 @@ document.querySelectorAll("[name='repeat-method']").forEach(function(element) {
 	});
 });
 
+//스케쥴 클래스
+var schedule = {
+	
+};
+var schedule = function(day, stime, etime){
+	return {
+		day : day,
+		stime : stime,
+		etime : etime
+	}
+};
+
 //스케쥴 추가
 scheduleAddBtn.onclick = function(){
 	if(startDate.value==""){
@@ -120,12 +132,12 @@ scheduleAddBtn.onclick = function(){
 	if(repeatMethod=="repeat"){
 		//반복수 지정 방식
 		var repeatNum = document.getElementById("repeat").value;
-		classSchedule.push([sdate,stime,etime]); 
+		classSchedule.push(schedule(sdate,stime,etime)); 
 		var schd = new Date(sdate);
 		for(var i=1;i<repeatNum;i++){
 			schd.setDate(schd.getDate()+7);
 			var schdStr = schd.toISOString().slice(0,10);
-			classSchedule.push([schdStr,stime,etime]);
+			classSchedule.push(schedule(schdStr,stime,etime));
 		}
 	}else if(repeatMethod=="enddate"){
 		//종료일 지정 방식
@@ -143,16 +155,16 @@ scheduleAddBtn.onclick = function(){
 		
 		for(var schd = new Date(sdate);schd<=new Date(edate);schd.setDate(schd.getDate()+7)){
 			var schdStr = schd.toISOString().slice(0,10);
-			classSchedule.push([schdStr,stime,etime]);
+			classSchedule.push(schedule(schdStr,stime,etime));
 		}
 	}
-	console.log(classSchedule);
+//	console.log(classSchedule);
 	classSchedule.forEach(function(schd){
-		calendar.innerHTML += schd[0];
+		calendar.innerHTML += schd.day;
 		calendar.innerHTML += " ";
-		calendar.innerHTML += schd[1];
+		calendar.innerHTML += schd.stime;
 		calendar.innerHTML += " ";
-		calendar.innerHTML += schd[2];
+		calendar.innerHTML += schd.etime;
 		calendar.innerHTML += "<br>";
 	});
 };
@@ -255,31 +267,26 @@ openBtn.onclick = function(){
 confirmOpenBtn.onclick = function(){
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST","",true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.setRequestHeader("Content-Type", "application/json");
 	
-	var sendMsg = [];
-	
-	sendMsg.push("className="+className.value);
-	sendMsg.push("category="+category.value);
-	sendMsg.push("classType="+classType);
-	if(classType=="on"){
-		sendMsg.push("classPeriod="+classPeriod.value*7);
-	}else{
-		sendMsg.push("classScheduleNum="+classSchedule.length);
-		sendMsg.push("classSchedule="+classSchedule.join("/"));
-		sendMsg.push("classCapacity="+classCapacity.value);
-	}
-	sendMsg.push("classFee="+classFee.value);
-	sendMsg.push("classDetail="+classDetail.value);
-	
-	console.log(sendMsg.join("&"));
-	xhr.send(sendMsg.join("&"));
+	var req = {
+		className : className.value,
+		category : category.value,
+		classType : classType,
+		classPeriod : classPeriod.value*7,
+		classSchedule : classSchedule,
+		classCapacity : classCapacity.value,
+		classFee : classFee.value,
+		classDetail : classDetail.value
+	};
+	var reqJson = JSON.stringify(req);
+	console.log(reqJson);
+	xhr.send(reqJson);
 	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
 			var code = xhr.responseText;
 			if(code){
-				
 				alert("강의 개설을 완료했습니다.");
 				//강의 정보창으로 이동
 //				window.location.href="";

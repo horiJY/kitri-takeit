@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 @WebServlet("/mypage/openclass")
 public class openClassController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,14 +24,15 @@ public class openClassController extends HttpServlet {
 //		HttpSession session = request.getSession();
 //		String id = (String)session.getAttribute("id");
 		
+		Gson gson = new Gson();
 		String className = request.getParameter("className");
 		String category = request.getParameter("category");
 		String classType = request.getParameter("classType");
 		
-		String classPeriod = "-";
-		String classScheduleNum = "-";
-		String classSchedule = "-";
-		String classCapacity = "-";
+		String classPeriod = "";
+		String classScheduleNum = "";
+		String classSchedule = "";
+		String classCapacity = "";
 		if(classType.equals("on")){
 			classPeriod = request.getParameter("classPeriod");
 		}else if(classType.equals("off")){
@@ -40,15 +43,7 @@ public class openClassController extends HttpServlet {
 		String classFee = request.getParameter("classFee");
 		String classDetail = request.getParameter("classDetail");
 		
-		System.out.println(className);
-		System.out.println(category);
-		System.out.println(classType);
-		System.out.println(classPeriod);
-		System.out.println(classScheduleNum);
-		System.out.println(classSchedule);
-		System.out.println(classCapacity);
-		System.out.println(classFee);
-		System.out.println(classDetail);
+		
 	}
 
 }

@@ -55,7 +55,7 @@
 						종료일
 						<div id = "schedule-repeat">
 							<!-- 시작일 이후만 선택 가능하도록 제한 -->
-							<input type="number" id="repeat" value="0" min="0">
+							<input type="number" id="repeat" value="1" min="1">
 							회 반복
 						</div>
 						<div id = "schedule-enddate" style="display:none">
