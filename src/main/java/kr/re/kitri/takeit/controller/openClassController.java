@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import vo.ClassVO;
 import vo.ScheduleVO;
@@ -27,15 +26,18 @@ public class openClassController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//강의 개설		
-		JsonObject json = new JsonObject();		
+		//json 데이터 파싱
+		Gson gson = new Gson();
 		
-		ClassVO cvo = new ClassVO();
+		ClassVO cvo = gson.fromJson(request.getParameter("json"),ClassVO.class);
 		List<ScheduleVO> svo = new ArrayList<ScheduleVO>();
+		
 		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		
+		//강의 개설
+		//강의 일정 추가
 		
 	}
 

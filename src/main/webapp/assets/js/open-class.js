@@ -269,19 +269,23 @@ confirmOpenBtn.onclick = function(){
 	xhr.open("POST","",true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	
-	var req = {
+	var classStr = {
 		className : className.value,
 		category : category.value,
 		classType : classType,
 		period : classPeriod.value*7,
-		schedule : classSchedule,
+		classSchedule : classSchedule,
 		capacity : classCapacity.value,
 		price : classFee.value,
 		detail : classDetail.value
 	};
-	var reqJson = JSON.stringify(req);
+	var scheduleStr = {
+		classSchedule
+	};
+	var classJson = JSON.stringify(classStr);
+	var scheduleJson = JSON.stringify(scheduleStr);
 	console.log(reqJson);
-	xhr.send("json="+reqJson);
+	xhr.send("class="+classJson+"&schedule="+scheduleJson);
 	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
