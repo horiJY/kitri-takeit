@@ -48,20 +48,20 @@
 						<input type="date" id="start-date">
 					</div>
 					<div>
-						방식 선택: 
+						반복 기준: 
 						<input type="radio" name="repeat-method" value="repeat" checked>
-						반복
+						반복횟수
 						<input type="radio" name="repeat-method" value="enddate" >
-						종료
+						종료일
 						<div id = "schedule-repeat">
 							<!-- 시작일 이후만 선택 가능하도록 제한 -->
-							<input type="number" id="repeat">
+							<input type="number" id="repeat" value="0" min="0">
 							회 반복
 						</div>
 						<div id = "schedule-enddate" style="display:none">
 							종료일 
 							<!-- 시작일 이후만 선택 가능하도록 제한 -->
-							<input type="date" id="end-date">
+							<input type="date" id="end-date" disabled>
 						</div>
 					</div>
 <!-- 					<div> -->
@@ -82,7 +82,7 @@
 					</div>
 					<div>
 						<button id="schedule-add-btn">추가</button>
-						<button id="schedule-reset">리셋</button>
+						<button id="schedule-reset-btn">리셋</button>
 					</div>
 				</div>
 				<div>
@@ -114,7 +114,6 @@
 		</div>
 		<div>
 			<button id="open-btn">개설</button>
-			<button id="cancel-btn">취소</button>
 		</div>
 	</div>
 	<div id="confirm-box" style="display:none">
