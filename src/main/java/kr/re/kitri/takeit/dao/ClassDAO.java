@@ -100,55 +100,40 @@ public class ClassDAO {
 		}
 		return clist;
 	}
-
-	//select
-	public List<ClassVO> selectClassPage(String category, String range, int start, int end){
-		//conn
+	
+	
+	public List<ClassVO> selectClassList(String category, String range){
 		Connection conn = DBConnect.getInstance();
 		
-		//sql1 : 카테고리x
-		String sql1 = "SELECT * "
-				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
-				+ "      FROM (SELECT * "
-				+ "            FROM CLASS "
-				+ "			   WHERE TYPE = ?"
-				+ "            ORDER BY ? DESC) A "
-				+ "      ) "
-				+ "WHERE RNUM BETWEEN ? AND ?";
+		if(range == null || range.equals("null") || range.equals("추천순")) {
+			range = "RECOMMEND";
+		}else if(range.equals("최신순")) {
+			range = "OPENDATE";
+		}
 		
-		//sql2 : 카테고리o
-		String sql2 = "SELECT * "
-				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
-				+ "      FROM (SELECT * "
-				+ "            FROM CLASS "
-				+ "			   WHERE CATEGORY = ?"
-				+ "			   AND TYPE = ?"
-				+ "            ORDER BY ? DESC) A "
-				+ "      ) "
-				+ "WHERE RNUM BETWEEN ? AND ?";
+		String sql = "SELECT * FROM CLASS "
+				+ "	  WHERE TYPE = ? "
+				+ "	  AND CATEGORY = ?"
+				+ "	  ORDER BY "+range+" DESC";
 		
+		String sql2 = "SELECT * FROM CLASS"
+				+ "	   WHERE TYPE = ?"
+				+ "	   ORDER BY "+range+" DESC";
 		
-		//prepared
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
 		
 		try {
-			if(category == null) {
-				pstmt = conn.prepareStatement(sql1);
-				pstmt.setString(1, "O");
-				pstmt.setString(2, range);
-				pstmt.setInt(3, start);
-				pstmt.setInt(4, end);
-			}else {
+			
+			if(category==null || category.equals("null")) {
 				pstmt = conn.prepareStatement(sql2);
-				pstmt.setString(1, category);
-				pstmt.setString(2, "O");
-				pstmt.setString(3, range);
-				pstmt.setInt(4, start);
-				pstmt.setInt(5, end);
+				pstmt.setString(1, "O");
+			}else{
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(2, category);
+				pstmt.setString(1, "O");
 			}
-			//resultset
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -168,7 +153,50 @@ public class ClassDAO {
 				cvo.setFavorite(rs.getInt("FAVORITE"));
 				cvo.setCategory(rs.getString("CATEGORY"));
 				cvo.setOpenDate(rs.getDate("OPENDATE"));
-				
+				clist.add(cvo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeAll(conn, pstmt, null, rs);
+		}
+		return clist;
+	}
+	
+	//select
+	public List<ClassVO> selectClassPage(int start, int end){
+		//conn
+		Connection conn = DBConnect.getInstance();
+		
+		//sql
+		String sql = "SELECT * "
+				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
+				+ "      FROM (SELECT * "
+				+ "            FROM CLASS) A "
+				+ "      ) "
+				+ "WHERE RNUM BETWEEN ? AND ?";
+		
+		//prepared
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ClassVO> clist = new ArrayList<ClassVO>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			//resultset
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ClassVO cvo = new ClassVO();
+				cvo.setClassName(rs.getString("CLASSNAME"));
+				cvo.setCreater(rs.getString("CREATER"));
+				cvo.setClassType(rs.getString("CLASSTYPE"));
+				cvo.setRecommend(rs.getInt("RECOMMEND"));
+				cvo.setPrice(rs.getInt("PRICE"));
+				cvo.setSale(rs.getInt("SALE"));
 				//result
 				clist.add(cvo);
 			}
@@ -181,7 +209,6 @@ public class ClassDAO {
 		}
 		return clist;
 	}
-	
 
 	//count
 	public int selectClassCnt(String type) {
@@ -248,11 +275,11 @@ public class ClassDAO {
 		Connection conn = DBConnect.getInstance();
 
 		//대면
-		String sql1 = "INSERT INTO CLASS(CLASSID, CLASSNAME, CREATER, CLASSTYPE, DETAIL, PRICE, CAPACITY, ADDRESS, TYPE, CATEGORY, OPENDATE)"
-				+ "	   VALUES((SELECT COUNT(*)FROM CLASS)+1, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE+7)";
+		String sql1 = "INSERT INTO CLASS(CLASSID, CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, DETAIL, PRICE, CAPACITY, ADDRESS, TYPE, CATEGORY, OPENDATE)"
+				+ "	   VALUES((SELECT COUNT(*)FROM CLASS)+1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE+7)";
 		
 		//비대면
-		String sql2 = "INSERT INTO CLASS(CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, DETAIL, PRICE, TYPE, CATEGORY, OPENDATE)"
+		String sql2 = "INSERT INTO CLASS(CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, TYPE, CATEGORY, OPENDATE)"
 				+ "	   VALUES((SELECT COUNT(*)FROM CLASS)+1, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE+7)";
 		
 		PreparedStatement pstmt = null;
@@ -264,22 +291,24 @@ public class ClassDAO {
 				pstmt.setString(1, cvo.getClassName());
 				pstmt.setString(2, cvo.getCreater());
 				pstmt.setString(3, cvo.getClassType());
-				pstmt.setString(4, cvo.getDetail());
-				pstmt.setInt(5, cvo.getPrice());
-				pstmt.setInt(6, cvo.getCapacity());
-				pstmt.setString(7, cvo.getAddress());
-				pstmt.setString(8, "P");
-				pstmt.setString(9, cvo.getCategory());
+				pstmt.setInt(4, 0);
+				pstmt.setString(5, cvo.getDetail());
+				pstmt.setInt(6, cvo.getPrice());
+				pstmt.setInt(7, cvo.getCapacity());
+				pstmt.setString(8, cvo.getAddress());
+				pstmt.setString(9, "P");
+				pstmt.setString(10, cvo.getCategory());
 			}else if(classType.equals("OFF")) {
 				pstmt = conn.prepareStatement(sql1);
 				pstmt.setString(1, cvo.getClassName());
 				pstmt.setString(2, cvo.getCreater());
 				pstmt.setString(3, cvo.getClassType());
 				pstmt.setInt(4, cvo.getPeriod());
-				pstmt.setString(5, cvo.getDetail());
-				pstmt.setInt(6, cvo.getPrice());
-				pstmt.setString(7, "P");
-				pstmt.setString(8, cvo.getCategory());
+				pstmt.setInt(5, 0);
+				pstmt.setString(6, cvo.getDetail());
+				pstmt.setInt(7, cvo.getPrice());
+				pstmt.setString(8, "P");
+				pstmt.setString(9, cvo.getCategory());
 			}
 			
 			result = pstmt.executeUpdate();
