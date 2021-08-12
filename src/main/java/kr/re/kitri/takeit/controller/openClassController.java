@@ -30,9 +30,9 @@ public class openClassController extends HttpServlet {
 		String classScheduleNum = "-";
 		String classSchedule = "-";
 		String classCapacity = "-";
-		if(classType=="on"){
+		if(classType.equals("on")){
 			classPeriod = request.getParameter("classPeriod");
-		}else if(classType=="off"){
+		}else if(classType.equals("off")){
 			classScheduleNum = request.getParameter("classScheduleNum");
 			classSchedule = request.getParameter("classSchedule");
 			classCapacity = request.getParameter("classCapacity");

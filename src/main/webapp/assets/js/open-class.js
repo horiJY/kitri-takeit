@@ -236,7 +236,6 @@ openBtn.onclick = function(){
 		confirmContent.innerHTML += "class schedule: ";
 		confirmContent.innerHTML += "<br>";
 		confirmContent.innerHTML += calendar.innerHTML;
-		confirmContent.innerHTML += "<br>";
 		confirmContent.innerHTML += "class capacity: ";
 		confirmContent.innerHTML += classCapacity.value;
 	}
@@ -264,7 +263,7 @@ confirmOpenBtn.onclick = function(){
 	sendMsg.push("category="+category.value);
 	sendMsg.push("classType="+classType);
 	if(classType=="on"){
-		sendMsg.push("classPeriod"+classPeriod.value*7);
+		sendMsg.push("classPeriod="+classPeriod.value*7);
 	}else{
 		sendMsg.push("classScheduleNum="+classSchedule.length);
 		sendMsg.push("classSchedule="+classSchedule.join("/"));
