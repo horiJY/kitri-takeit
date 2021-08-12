@@ -283,7 +283,8 @@ confirmOpenBtn.onclick = function(){
 	};
 	var classJson = JSON.stringify(classStr);
 	var scheduleJson = JSON.stringify(scheduleStr);
-	console.log(reqJson);
+	console.log(classJson);
+	console.log(scheduleJson);
 	xhr.send("class="+classJson+"&schedule="+scheduleJson);
 	
 	xhr.onreadystatechange = function(){
