@@ -36,7 +36,7 @@ window.onload = function(){
 	}
 	//구글 로그인 버튼
 	document.getElementById("google-login").onclick = function(){
-		location.href='https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=134711181820-tjdlp7ug9hegle7hmhnir9qkdrad5c0p.apps.googleusercontent.com&redirect_uri=http://localhost:8080/takeit_prj/login/google&scope=openid';
+		location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id=134711181820-tjdlp7ug9hegle7hmhnir9qkdrad5c0p.apps.googleusercontent.com&redirect_uri=http://localhost:8080/takeit_prj/login/google&scope=profile+email+openid&response_type=code';
 	}
 }
 </script>

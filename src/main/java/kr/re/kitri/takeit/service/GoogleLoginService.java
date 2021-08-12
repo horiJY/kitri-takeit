@@ -9,142 +9,112 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-
 import javax.net.ssl.HttpsURLConnection;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class GoogleLoginService {
-    public String getAccessToken(String permisiveCode) {
-	String googleGetTokenUrl = "https://nid.naver.com/oauth2.0/token";
-	String access_Token = "";
-//	String refresh_Token = "";
 
-	try {
-	    URL url = new URL(googleGetTokenUrl);
-	    String bodyData = "grant_type=authorization_code";
-	    bodyData += "&client_id=_DR4yv1dxw5JqPZv2e8g";
-	    bodyData += "&client_secret=WT3qe4X8vh";
-	    bodyData += "&redirect_uri=http://localhost:8080/takeit_prj/login/naver";
-	    bodyData += "&state=takeit_naverlogin";
-	    bodyData += "&code=" + permisiveCode;
+  // 토큰요청
+  // https://developers.google.com/identity/protocols/oauth2/openid-connect#exchangecode
+  public String getAccessToken(String permisiveCode) {
+    String googleGetTokenUrl = "https://oauth2.googleapis.com/token";
+    String id_Token = "";
+    String access_Token = "";
+    // String refresh_Token = ""; // 이 필드는 인증 요청 에서 access_type 매개 변수가 offline 으로 설정된 경우에만 존재
 
-	    // Stream 연결
-	    // Post요청, x-www-form-urlencoded
-	    HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-	    conn.setRequestMethod("POST");
-	    // http header 값 넣기
-	    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-	    conn.setDoOutput(true);
+    try {
+      URL url = new URL(googleGetTokenUrl);
+      String bodyData = "grant_type=authorization_code";
+      bodyData +=
+          "&client_id=134711181820-tjdlp7ug9hegle7hmhnir9qkdrad5c0p.apps.googleusercontent.com";
+      bodyData += "&client_secret=tZfpHrgKkH6JrL9DsZYrIiKK";
+      bodyData += "&redirect_uri=http://localhost:8080/takeit_prj/login/google";
+      // bodyData += "&state=takeit_googlelogin";
+      bodyData += "&code=" + permisiveCode;
 
-	    // request 하기
-	    BufferedWriter bw;
-	    bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
-	    bw.write(bodyData);
-	    bw.flush();
-	    bw.close();
+      // Stream 연결
+      // Post요청, x-www-form-urlencoded
+      HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+      conn.setRequestMethod("POST");
+      // http header 값 넣기
+      conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+      conn.setDoOutput(true);
 
-	    // 결과코드 확인
-	    int responseCode = conn.getResponseCode();
-	    System.out.println("responseCode: " + responseCode);
+      // request 하기
+      BufferedWriter bw;
+      bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+      bw.write(bodyData);
+      bw.flush();
+      bw.close();
 
-//	     response JSON타입 메세지 가져오기
-	    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-	    String input = "";
-	    StringBuilder sb = new StringBuilder();
-	    while ((input = br.readLine()) != null) {
-		sb.append(input);
-	    }
-	    br.close();
+      // 결과코드 확인
+      int responseCode = conn.getResponseCode();
+      System.out.println("responseCode: " + responseCode);
 
-	    // 특정 토큰만 return, 전체 return은 마지막에 참고
-	    JsonParser parser = new JsonParser();
-	    JsonElement element = parser.parse(sb.toString());
-	    access_Token = element.getAsJsonObject().get("access_token").getAsString();
-//	    refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-//	    System.out.println("access_token : " + access_Token);
-//	    System.out.println("refresh_token : " + refresh_Token);
+      // response JSON타입 메세지 가져오기
+      BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+      String input = "";
+      StringBuilder sb = new StringBuilder();
+      while ((input = br.readLine()) != null) {
+        sb.append(input);
+      }
+      br.close();
 
-	} catch (UnsupportedEncodingException e) {
-	    e.printStackTrace();
-	} catch (MalformedURLException e) {
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
+      // 특정 토큰만 return, 전체 return은 마지막에 참고
+      JsonParser parser = new JsonParser();
+      JsonElement element = parser.parse(sb.toString());
+      id_Token = access_Token = element.getAsJsonObject().get("id_token").getAsString();
 
-	// 전체 데이터 Gson으로 파싱
-//	Gson gson = new Gson();
-//	return gson.toJson(sb.toString());
-	// accessToken만 리턴
-	return access_Token;
-    } // getAccessToken end
+      // access_Token = element.getAsJsonObject().get("access_token").getAsString();
+      // refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+      // System.out.println("access_token : " + access_Token);
+      // System.out.println("refresh_token : " + refresh_Token);
 
-    public HashMap<String, String> getUserInfo(String accessToken) {// 유저 프로필url,닉네임,id를 가져온다
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
-//	네이버는 accessToken만 넘겨주면 전체 데이터를 준다.
+    // 전체 데이터 Gson으로 파싱
+    // Gson gson = new Gson();
+    // return gson.toJson(sb.toString());
+    // accessToken만 리턴
+    return access_Token;
+  } // getAccessToken end
 
-	String naverGetUserInfoUrl = "https://openapi.naver.com/v1/nid/me";
-	HashMap<String, String> resultUserInfo = new HashMap<>();
+  public HashMap<String, String> getUserInfo(String idToken) {// 유저 프로필url,닉네임,id를 가져온다
 
-	try {
-	    URL url = new URL(naverGetUserInfoUrl);
+    // return값
+    // google은 accessToken과 id_token에 값을 같이 담아서 준다
+    // id_token에 값을 decode해 정보를 얻는다.
 
-	    // Stream 연결
-	    // Post요청, x-www-form-urlencoded
-	    HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-	    conn.setRequestMethod("POST");
-	    // 요청에 필요한 Header에 포함될 내용
-	    conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-	    // http header 값 넣기
-	    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-	    conn.setDoOutput(true);
+    HashMap<String, String> resultUserInfo = new HashMap<>();
 
-	    // request 하기
-	    BufferedWriter bw;
-	    bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
-//	    bw.write(bodyData);
-	    bw.flush();
-	    bw.close();
+    try {
+      JwtService jwtdecoder = new JwtService();
+      String userInfoJwt = jwtdecoder.decode(idToken);
+      System.out.println(userInfoJwt);
 
-	    // 결과코드 확인
-	    int responseCode = conn.getResponseCode();
-	    System.out.println("responseCode: " + responseCode);
 
-////	     response JSON타입 메세지 가져오기
-	    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-	    String input = "";
-	    StringBuilder sb = new StringBuilder();
-	    while ((input = br.readLine()) != null) {
-		sb.append(input);
-	    }
-	    br.close();
-//	    response 확인
-//	    System.out.println(sb.toString());
+      JsonParser parser = new JsonParser();
+      JsonElement element = parser.parse(userInfoJwt);
 
-	    JsonParser parser = new JsonParser();
-	    JsonElement element = parser.parse(sb.toString());
+      String id = element.getAsJsonObject().get("email").getAsString();
+      String nickname = element.getAsJsonObject().get("name").getAsString();
+      String thumnailURL = element.getAsJsonObject().get("picture").getAsString();
 
-	    String id = element.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
-	    String nickname = element.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
-	    String thumnailURL = element.getAsJsonObject().get("response").getAsJsonObject().get("profile_image")
-		    .getAsString();
+      resultUserInfo.put("id", id);
+      resultUserInfo.put("nickname", nickname);
+      resultUserInfo.put("thumnailURL", thumnailURL);
 
-	    resultUserInfo.put("id", id);
-	    resultUserInfo.put("nickname", nickname);
-	    resultUserInfo.put("thumnailURL", thumnailURL);
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    }
 
-	} catch (UnsupportedEncodingException e) {
-	    e.printStackTrace();
-	} catch (MalformedURLException e) {
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	} catch (NullPointerException e) {
-	    e.printStackTrace();
-	}
-
-	return resultUserInfo;
-    } // getUserInfo end
+    return resultUserInfo;
+  } // getUserInfo end
 }
