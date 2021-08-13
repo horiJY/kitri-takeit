@@ -33,15 +33,14 @@ public class OpenClassController extends HttpServlet {
 		Gson gson = new Gson();
 		
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
+		String userId = (String)session.getAttribute("takeit-userid");
 		
 		ClassVO cvo = gson.fromJson(request.getParameter("class"),ClassVO.class);
-		cvo.setCreater(id);
+		cvo.setCreater(userId);
 		int classId = -1;
-		//classId = ClassDAO.insertClass(cvo);
-		//if(classId<0){
-		//	클래스 개설 실패 응답
-		//}
+		//int result = ClassDAO.insertClass(cvo);
+		//if(result<0){ 클래스 개설 실패 응답 }
+		//select
 		
 		JsonObject sJson = gson.fromJson(request.getParameter("schedule"),JsonObject.class);
 		JsonArray sJarr = sJson.get("classSchedule").getAsJsonArray();
@@ -52,6 +51,7 @@ public class OpenClassController extends HttpServlet {
 			slist.add(svo);
 		}
 		//이미 존재하는 스케쥴과 겹치지 않는 지 확인
+		
 		
 		//int result = ScheduleDVO.insertSchedule(slist);
 		//if (result<sJarr.size()){ 실패 응답}

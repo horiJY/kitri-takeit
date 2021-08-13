@@ -101,9 +101,8 @@ document.querySelectorAll("[name='repeat-method']").forEach(function(element) {
 });
 
 //스케쥴 클래스
-var schedule = function(day, stime, etime){
+var schedule = function(stime, etime){
 	return {
-		day : day,
 		stime : stime,
 		etime : etime
 	}
@@ -130,12 +129,12 @@ scheduleAddBtn.onclick = function(){
 	if(repeatMethod=="repeat"){
 		//반복수 지정 방식
 		var repeatNum = document.getElementById("repeat").value;
-		classSchedule.push(schedule(sdate,stime,etime)); 
+		classSchedule.push(schedule(sdate+" "+stime,sdate+" "+etime)); 
 		var schd = new Date(sdate);
 		for(var i=1;i<repeatNum;i++){
 			schd.setDate(schd.getDate()+7);
 			var schdStr = schd.toISOString().slice(0,10);
-			classSchedule.push(schedule(schdStr,stime,etime));
+			classSchedule.push(schedule(schdStr+" "+stime,schdStr+" "+etime));
 		}
 	}else if(repeatMethod=="enddate"){
 		//종료일 지정 방식
@@ -153,7 +152,7 @@ scheduleAddBtn.onclick = function(){
 		
 		for(var schd = new Date(sdate);schd<=new Date(edate);schd.setDate(schd.getDate()+7)){
 			var schdStr = schd.toISOString().slice(0,10);
-			classSchedule.push(schedule(schdStr,stime,etime));
+			classSchedule.push(schedule(schdStr+" "+stime,schdStr+" "+etime));
 		}
 	}
 //	console.log(classSchedule);
