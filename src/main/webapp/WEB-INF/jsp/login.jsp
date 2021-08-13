@@ -48,17 +48,17 @@ window.onload = function(){
 	<h1>로그인 페이지</h1>
 	<div>
 	<button type="button" class="login-btn" id="kakao-login-btn" alt="카카오 로그인">
-		<span ><img	src="assets/img/kakao_login_btn.png" ></span>
+		<span ><img	src="assets/img/loginout/kakao_login_btn.png" ></span>
 	</button>
 	</div>
 	<div>
 	<button type="button" class="login-btn" id="naver-login" alt="네이버 로그인">
-		<span ><img	src="assets/img/naver_login_btn.png" style="height:46px"></span>
+		<span ><img	src="assets/img/loginout/naver_login_btn.png" style="height:46px"></span>
 	</button>
 	</div>
 	<div>
 	<button type="button" class="login-btn" id="google-login" alt="구글 로그인">
-		<span ><img	src="assets/img/google_login_btn.png" style="height:48px"></span>
+		<span ><img	src="assets/img/loginout/google_login_btn.png" style="height:48px"></span>
 	</button>
 	</div>
 
