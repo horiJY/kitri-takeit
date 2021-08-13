@@ -32,23 +32,29 @@ public class openClassController extends HttpServlet {
 		//json 데이터 파싱
 		Gson gson = new Gson();
 		
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		
 		ClassVO cvo = gson.fromJson(request.getParameter("class"),ClassVO.class);
-		System.out.println(cvo.getClassName());
+		cvo.setCreater(id);
+		int classId = -1;
+		//classId = ClassDAO.createClass(cvo);
+		//if(classId<0){
+		//	클래스 개설 실패 응답
+		//}
 		
 		JsonObject sJson = gson.fromJson(request.getParameter("schedule"),JsonObject.class);
 		JsonArray sJarr = sJson.get("classSchedule").getAsJsonArray();
 		List<ScheduleVO> slist = new ArrayList<ScheduleVO>();
 		for(int i=0;i<sJarr.size();i++) {
 			ScheduleVO svo = new Gson().fromJson(sJarr.get(i),ScheduleVO.class);
+			svo.setClassId(classId);
 			slist.add(svo);
 		}
-		System.out.println(slist.get(sJarr.size()-1).getDay());
-
-		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
+		//int result = ScheduleDVO.createSchedule(slist);
+		//if (result<sJarr.size()){ 실패 응답}
 		
-		//강의 개설
-		//강의 일정 추가
+		//강의 개설 성공 응답
 		
 	}
 

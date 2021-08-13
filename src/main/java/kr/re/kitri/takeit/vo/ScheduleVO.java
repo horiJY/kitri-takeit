@@ -6,10 +6,10 @@ public class ScheduleVO {
 	private String startTime;
 	private String endTime;
 	
-	public int getClassID() {
+	public int getClassId() {
 		return classId;
 	}
-	public void setClassID(int classId) {
+	public void setClassId(int classId) {
 		this.classId = classId;
 	}
 	public String getDay() {
