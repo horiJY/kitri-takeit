@@ -28,15 +28,15 @@
 		<header>
 			<a class="MyProfile" id="myInfoNav">
 				<h2 class="MyProfile-UserName">${uvo.userName }</h2>
-				<img id="userThumnail" alt="유저아이콘" src="${uvo.userThumnail }"><br>
 				<c:choose>
 						<c:when test="${uvo.userType=='C'}">
-							<img alt="크리에이터 이미지" src="${pageContext.request.contextPath}/assets/img/Ctype-icon.png" height="30px">
+							<img class="usertypeimg" alt="크리에이터 이미지" src="${pageContext.request.contextPath}/assets/img/Ctype-icon.png" height="30px">
 						</c:when>
 						<c:when test="${uvo.userType=='U'}">
-							<img alt="유저 이미지" src="${pageContext.request.contextPath}/assets/img/Utype-icon.png" height="30px">
+							<img class="usertypeimg" alt="유저 이미지" src="${pageContext.request.contextPath}/assets/img/Utype-icon.png" height="30px">
 						</c:when>
 				</c:choose>
+				<img id="userThumnail" alt="유저아이콘" src="${uvo.userThumnail }"><br>
 				<span>내 포인트 : ${uvo.point}P</span>
 			</a><br>
 		</header>
@@ -86,7 +86,7 @@
 				</ul>
 			</aside>
 			
-			<form action="form">
+			<form class="myPageForm" action="form">
 				<div id="myPageForm" id="Container">
 					<h3 id="myPageFormTitle"></h3>
 					<div id="myPageContent"></div>
@@ -100,6 +100,7 @@
 	<hr>
 	
 	<footer>
+		<div>footer</div>
 	</footer>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/mypage-nav.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/mypage-btn.js"></script>

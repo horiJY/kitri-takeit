@@ -24,14 +24,14 @@ public class MyPageController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("aaaaa");
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
+		System.out.println("id : "+id);
 		if(id==null) {
 			id="k1234567894";	//'C'
 //			id="k1489859146";	//'U'
 //			response.sendRedirect(request.getContextPath()+"/member/login");
-//		} else {
 			UserDAO udao = new UserDAO();
 			UserVO uvo = udao.selectUserInfo(id);
 			
@@ -40,8 +40,17 @@ public class MyPageController extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/mypage.jsp");
 			rd.forward(request, response);
+		} else {
+			UserDAO udao = new UserDAO();
+			UserVO uvo = udao.selectUserInfo(id);
 			
-		} 
+			session.setAttribute("takeit-userid", id);
+			request.setAttribute("uvo", uvo);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/mypage.jsp");
+			rd.forward(request, response);
+		}
+		
 	}
 
 }

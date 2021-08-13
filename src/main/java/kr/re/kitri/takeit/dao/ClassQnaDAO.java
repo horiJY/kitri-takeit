@@ -38,7 +38,39 @@ public class ClassQnaDAO {
 	//mypage -> Insert(qna등록)
 		
 	//mypage -> SelectAll(qna 및 답변 확인)
-	
+	public List<ClassQnaVO> selectMyQna(String id){
+		Connection conn = DBConnect.getInstance();
+		String sql = "SELECT C.CLASSNAME, Q.QNATITLE, Q.QNADATE"
+				+" FROM CLASS C, (SELECT CLASSID, QNATITLE, QNADATE FROM ART_QNA WHERE USERID = '" + id + "'),"
+				+" UNION ALL SELECT CLASSID, QNATITLE, QNADATE FROM COOKING_QNA WHERE USERID = '" + id + "'),"
+				+" UNION ALL SELECT CLASSID, QNATITLE, QNADATE FROM LANGUAGE_QNA WHERE USERID = '" + id + "'),"
+				+" UNION ALL SELECT CLASSID, QNATITLE, QNADATE FROM PROGRAMMING_QNA WHERE USERID = '" + id + "'),"
+				+" UNION ALL SELECT CLASSID, QNATITLE, QNADATE FROM SPORT_QNA WHERE USERID = '" + id + "') Q"
+				+" WHERE C.CLASSID = Q.CLASSID"
+				+" ORDER BY Q.QNADATE DESC";
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<ClassQnaVO> cqlist = new ArrayList<ClassQnaVO>();
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				ClassQnaVO cqvo = new ClassQnaVO();
+				cqvo.setClassName(rs.getString(1));
+				cqvo.setQnaTitle(rs.getString(2));
+				cqvo.setQnaDate(rs.getDate(3));
+				
+				cqlist.add(cqvo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, rs);
+		}
+		return cqlist;
+	}
 	
 	//mypage -> selectMyClassQna 내가 개설한 클래스 qna 목록
 		public List<ClassQnaVO> selectMyClassQna(String id){

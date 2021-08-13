@@ -36,20 +36,10 @@ public class QnaDAO {
 	
 	//help page -> Insert(qna등록)
 	
-	//mypage -> SelectAll(qna 및 답변 확인)
+	//mypage -> 일반 qna
 	public List<QnaVO> selectMyQnA(String id) {
 		Connection conn = DBConnect.getInstance();
-		//클래스 qna
-		String sql1 = "SELECT CLASSID, C.CLASSNAME, Q.QNATITLE, Q.QNADATE"
-				+" FROM CLASS C, (SELECT CLASSID, QNATITLE, QNADATE, 'ART' AS CATEGRY FROM ART_QNA WHERE USERID = '" + id + "'"
-				+" UNION ALL SELECT CLASSID, QNATITLE, QNADATE, 'COOKING' AS CATEGRY FROM COOKING_QNA WHERE USERID = '" + id + "'"
-				+" UNION ALL SELECT CLASSID, QNATITLE, QNADATE, 'LANGUAGE' AS CATEGRY FROM LANGUAGE_QNA WHERE USERID = '" + id + "'"
-				+" UNION ALL SELECT CLASSID, QNATITLE, QNADATE, 'PROGRAMMING' AS CATEGRY FROM PROGRAMMING_QNA WHERE USERID = '" + id + "'"
-				+" UNION ALL SELECT CLASSID, QNATITLE, QNADATE, 'SPORT' AS CATEGRY FROM SPORT_QNA WHERE USERID = '" + id + "') Q"
-				+" WHERE C.CLASSID = Q.CLASSID"
-				+" ORDER BY Q.QNADATE DESC";
-		//일반 qna
-		String sql2 = "SELECT QNATITLE, QNADATE"
+		String sql = "SELECT QNATITLE, QNADATE"
 					+ " FROM QNA"
 					+ " WHERE USERID ='" + id + "'"
 					+ " ORDER BY QNADATE DESC;";
@@ -59,7 +49,7 @@ public class QnaDAO {
 		
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql1);
+			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
 				QnaVO qvo = new QnaVO();
@@ -82,8 +72,6 @@ public class QnaDAO {
 		return qlist;
 		
 	}
-	
-	
 	
 	//mypage -> Delete
 }

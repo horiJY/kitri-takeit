@@ -147,35 +147,64 @@ myQnANav.onclick = function() {
 	myPageFormTitle.innerHTML = "내 질문"
 	myPageContent.innerHTML = "질문 목록";
 	
-	var html = "";
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "myassignment", true);
+	xhr.open("POST", "myqna", true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.send();
+	
+	var html = "";
+	
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
 			var jsonStr = xhr.responseText;//json
 			var json = JSON.parse(jsonStr);
-			var html = "";
+			
 			if (json.length != 0) {
+				html += "<h4>질문 내역</h4>";
 				for (var i = 0; i < json.length; i++) {
 					html += "<div>"
-
-//						+ "		<div> " + json[i].className + "</div> "
-//						+ "		<div> " + json[i].creater + "</div>"
-//						+ "		<div> " + json[i].classType + "</div>"
-//						+ "		<div> " + json[i].recommend + "</div>"
-//						+ "		<div> " + json[i].category + "</div>"
+						+ "		<div> " + json[i].className + "</div> "
+						+ "		<div> " + json[i].category + "</div>"
+						+ "		<div> " + json[i].openDate + "</div>"
+						+ "		<div> " + json[i].favorite + "</div>"
 						+ "</div>";
-
 				}
 			} else {
-				html += "<img alt='질문한 내역이 없습니다.' src=''><br>";
+				
+				html += "<img alt='일반 문의 내역이 없습니다.' src=''><br>";
 			}
-
+		}
+		
+	}
+	
+	var xhrclass = new XMLHttpRequest();
+	xhrclass.open("POST", "myclassqna", true);
+	xhrclass.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhrclass.send();
+	
+	xhrclass.onreadystatechange = function() {
+		if (xhrclass.readyState == XMLHttpRequest.DONE && xhrclass.status == 200) {
+			var jsonStr = xhrclass.responseText;//json
+			var json = JSON.parse(jsonStr);
+			
+			if (json.length != 0) {
+				html += "<h4>클래스 질문 내역</h4>";
+				for (var i = 0; i < json.length; i++) {
+					html += "<div>"
+						+ "		<div> " + json[i].className + "</div> "
+						+ "		<div> " + json[i].category + "</div>"
+						+ "		<div> " + json[i].classType + "</div>"
+						+ "		<div> " + json[i].recommend + "</div>"
+						+ "</div>";
+				}
+			} else {
+				html += "<img alt='클래스 문의 내역이 없습니다.' src=''><br>";
+			}
+			if(html==""){
+				html="<img alt='문의 내역이 없습니다.' src=''><br>"
+			}
 			myPageContent.innerHTML = html;
-			myPageBtns.innerHTML = "<input type='button' value='문의하기' id='qnaBtn'>";
-
+			myPageBtns.innerHTML = "<input type='button' value='문의하기' id='qnaBtn'>";		
 		}
 	}
 }
@@ -213,7 +242,6 @@ myClassNav.onclick = function() {
 			} else {
 				
 				html += "<img alt='오픈 예정 클래스가 없습니다.' src=''><br>";
-				myPageContent.innerHTML = html;
 			}
 		}
 		
@@ -234,13 +262,12 @@ myClassNav.onclick = function() {
 				}
 			} else {
 				html += "<img alt='오픈된 클래스가 없습니다.' src=''><br>";
-				myPageContent.innerHTML = html;
 			}
 		}
 		
-	}
-//		myPageContent.innerHTML = html;
+		myPageContent.innerHTML = html;
 		myPageBtns.innerHTML = "<input type='button' value='강의 등록하기' id='createClassBtn'>";		
+	}
 }
 myClassQnANav.onclick = function() {
 	myPageFormTitle.innerHTML = "받은 질문 내역"

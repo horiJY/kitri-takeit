@@ -114,7 +114,6 @@ public class ClassDAO {
 	}
 	
 	//mypage -> select my class
-	
 	public List<ClassVO> selectMyPreClass(String id){
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CATEGORY, FAVORITE, OPENDATE FROM CLASS"
