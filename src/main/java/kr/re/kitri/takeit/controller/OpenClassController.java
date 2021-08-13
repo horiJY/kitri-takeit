@@ -38,7 +38,7 @@ public class OpenClassController extends HttpServlet {
 		ClassVO cvo = gson.fromJson(request.getParameter("class"),ClassVO.class);
 		cvo.setCreater(id);
 		int classId = -1;
-		//classId = ClassDAO.createClass(cvo);
+		//classId = ClassDAO.insertClass(cvo);
 		//if(classId<0){
 		//	클래스 개설 실패 응답
 		//}
@@ -51,7 +51,9 @@ public class OpenClassController extends HttpServlet {
 			svo.setClassId(classId);
 			slist.add(svo);
 		}
-		//int result = ScheduleDVO.createSchedule(slist);
+		//이미 존재하는 스케쥴과 겹치지 않는 지 확인
+		
+		//int result = ScheduleDVO.insertSchedule(slist);
 		//if (result<sJarr.size()){ 실패 응답}
 		
 		//강의 개설 성공 응답

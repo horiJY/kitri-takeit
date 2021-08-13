@@ -109,6 +109,12 @@
 		<div>
 			강의 소개
 			<div>
+				<textarea id="class-introduce" rows="5" cols="50"></textarea>
+			</div>
+		</div>
+		<div>
+			강의 상세
+			<div>
 				<textarea id="class-detail" rows="15" cols="50"></textarea>
 			</div>
 		</div>

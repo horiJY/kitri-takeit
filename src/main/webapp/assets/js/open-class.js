@@ -26,6 +26,7 @@ var endTime = document.getElementById("end-time");
 
 var classCapacity = document.getElementById("class-capacity");
 var classFee = document.getElementById("class-fee");
+var classIntroduce = document.getElementById("class-introduce");
 var classDetail = document.getElementById("class-detail");
 
 var confirmBox = document.getElementById("confirm-box");
@@ -253,6 +254,9 @@ openBtn.onclick = function(){
 	confirmContent.innerHTML += "class fee: ";
 	confirmContent.innerHTML += classFee.value;
 	confirmContent.innerHTML += "<br>";
+	confirmContent.innerHTML += "class introduce: ";
+	confirmContent.innerHTML += classIntroduce.value;
+	confirmContent.innerHTML += "<br>";
 	confirmContent.innerHTML += "class detail: ";
 	confirmContent.innerHTML += classDetail.value;
 
@@ -270,6 +274,7 @@ confirmOpenBtn.onclick = function(){
 		className : className.value,
 		classType : classType,
 		period : classPeriod.value*7,
+		introduce : classIntroduce.value,
 		detail : classDetail.value,
 		price : classFee.value,
 		capacity : classCapacity.value,
