@@ -5,6 +5,8 @@ const phone = document.getElementById("userPhone");
 const logoutBtn = document.getElementById("logoutBtn");
 const myInfoSaveBtn = document.getElementById("myInfoUpdateBtn");
 const userDeleteBtn = document.getElementById("userDeleteBtn");
+const showpreClassBtn = document.getElementById("showpreClassBtn");
+const showClassBtn = document.getElementById("showClassBtn");
 const qnaBtn = document.getElementById("qnaBtn");
 
 logoutBtn.onclick = function(){

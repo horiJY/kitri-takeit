@@ -8,7 +8,21 @@ public class QnaVO {
 	private String question;
 	private String answer;
 	private String qnaTitle;
+	private String className;
+	private String category;
 	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
 	public String getQnaTitle() {
 		return qnaTitle;
 	}

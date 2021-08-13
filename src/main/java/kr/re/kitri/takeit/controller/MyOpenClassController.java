@@ -18,10 +18,9 @@ import com.google.gson.JsonObject;
 import dao.ClassDAO;
 import vo.ClassVO;
 
-
-@WebServlet("/myassignment")
-public class MyAssignmentController extends HttpServlet {
-
+@WebServlet("/myopenclass")
+public class MyOpenClassController extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
@@ -38,10 +37,9 @@ public class MyAssignmentController extends HttpServlet {
 		for(ClassVO cvo : clist) {
 			JsonObject json = new JsonObject();
 			json.addProperty("className", cvo.getClassName());
-			json.addProperty("creater", cvo.getCreater());
+			json.addProperty("category", cvo.getCategory());
 			json.addProperty("classType", cvo.getClassType());
 			json.addProperty("recommend", cvo.getRecommend());
-			json.addProperty("category", cvo.getCategory());
 			
 			jsonArr.add(json);
 		}
@@ -53,7 +51,6 @@ public class MyAssignmentController extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(jsonResponse);
-
 	}
 
 }

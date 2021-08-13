@@ -39,7 +39,6 @@ public class UserDAO {
 		String sql = "SELECT * FROM WEBUSER WHERE USERID = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int result = 0;
 		UserVO uvo = new UserVO();
 		
 		try {

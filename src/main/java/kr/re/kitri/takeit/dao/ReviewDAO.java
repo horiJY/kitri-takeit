@@ -5,6 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import db.DBConnect;
+import vo.ReviewVO;
 
 public class ReviewDAO {
 	//closeAll
@@ -28,6 +33,44 @@ public class ReviewDAO {
 		}
 
 	}
+	//mypage -> select
+	public List<ReviewVO> selectUserReview(String id) {
+		Connection conn = DBConnect.getInstance();
+		String sql = "SELECT C.CLASSNAME, R.REVIEWDATE, R.RECOMMEND, R.CATEGRY"
+				+" FROM CLASS C, (SELECT CLASSID, REVIEWDATE, RECOMMEND, 'ART' AS CATEGRY FROM ART_REVIEW WHERE USERID = '" + id + "'"
+				+" UNION ALL SELECT CLASSID, REVIEWDATE, RECOMMEND, 'COOKING' AS CATEGRY FROM COOKING_REVIEW WHERE USERID = '" + id + "'"
+				+" UNION ALL SELECT CLASSID, REVIEWDATE, RECOMMEND, 'LANGUAGE' AS CATEGRY FROM LANGUAGE_REVIEW WHERE USERID = '" + id + "'"
+				+" UNION ALL SELECT CLASSID, REVIEWDATE, RECOMMEND, 'PROGRAMMING' AS CATEGRY FROM PROGRAMMING_REVIEW WHERE USERID = '" + id + "'"
+				+" UNION ALL SELECT CLASSID, REVIEWDATE, RECOMMEND, 'SPORT' AS CATEGRY FROM SPORT_REVIEW WHERE USERID = '" + id + "') R"
+				+" WHERE C.CLASSID = R.CLASSID"
+				+" ORDER BY C.CLASSID";
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<ReviewVO> rlist = new ArrayList<ReviewVO>();
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				ReviewVO rvo = new ReviewVO();
+				rvo.setClassName(rs.getString(1));
+				rvo.setReviewDate(rs.getDate(2));
+				rvo.setRecommend(rs.getInt(3));
+				rvo.setCategory(rs.getString(4));;
+				
+				rlist.add(rvo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, rs);
+		}
+		
+		return rlist;
+		
+	}
+	
 	//mypage -> insert
 	
 	

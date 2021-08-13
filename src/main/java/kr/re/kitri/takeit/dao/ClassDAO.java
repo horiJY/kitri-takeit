@@ -77,8 +77,8 @@ public class ClassDAO {
 	
 	public List<ClassVO> selectAssignmentClass(String id){
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, CATEGORY  FROM CLASS "
-					+ "WHERE CLASSID IN ((SELECT CLASSID FROM ART_ASSIGNMENT WHERE USERID = '" + id + "'),"
+		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, CATEGORY  FROM CLASS"
+					+ " WHERE CLASSID IN ((SELECT CLASSID FROM ART_ASSIGNMENT WHERE USERID = '" + id + "'),"
 										+" (SELECT CLASSID FROM COOKING_ASSIGNMENT WHERE USERID = '" + id + "'),"
 										+" (SELECT CLASSID FROM LANGUAGE_ASSIGNMENT WHERE USERID = '" + id + "'),"
 										+" (SELECT CLASSID FROM PROGRAMMING_ASSIGNMENT WHERE USERID = '" + id + "'),"
@@ -113,7 +113,70 @@ public class ClassDAO {
 		return clist;
 	}
 	
+	//mypage -> select my class
 	
+	public List<ClassVO> selectMyPreClass(String id){
+		Connection conn = DBConnect.getInstance();
+		String sql = "SELECT CLASSNAME, CATEGORY, FAVORITE, OPENDATE FROM CLASS"
+				+ " WHERE CREATER = '" + id + "'"
+				+ " AND TYPE='P'";
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<ClassVO> clist = new ArrayList<ClassVO>();
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				ClassVO cvo = new ClassVO();
+				cvo.setClassName(rs.getString(1));
+				cvo.setCategory(rs.getString(2));
+				cvo.setFavorite(rs.getInt(3));
+				cvo.setOpenDate(rs.getDate(4));
+				
+				clist.add(cvo);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, rs);
+		}
+		return clist;
+	}
+	public List<ClassVO> selectMyOpenClass(String id){
+		Connection conn = DBConnect.getInstance();
+		String sql = "SELECT CLASSNAME, CATEGRY, RECOMMEND, CLASSTYPE FROM CLASS"
+				+ " WHERE CREATER = '" + id + "'"
+				+ " AND TYPE='O'";
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<ClassVO> clist = new ArrayList<ClassVO>();
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				ClassVO cvo = new ClassVO();
+				cvo.setClassName(rs.getString(1));
+				cvo.setCategory(rs.getString(2));
+				cvo.setRecommend(rs.getInt(3));
+				cvo.setClassType(rs.getString(4));
+				
+				clist.add(cvo);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, rs);
+		}
+		return clist;
+	}
 	
 	
 	

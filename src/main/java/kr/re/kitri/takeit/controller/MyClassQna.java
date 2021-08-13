@@ -15,13 +15,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import dao.ClassDAO;
-import vo.ClassVO;
+import dao.ClassQnaDAO;
+import vo.ClassQnaVO;
 
 
-@WebServlet("/myassignment")
-public class MyAssignmentController extends HttpServlet {
-
+@WebServlet("/myclassqna")
+public class MyClassQna extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
@@ -30,30 +30,25 @@ public class MyAssignmentController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
 		
-		ClassDAO cdao = new ClassDAO();
-		List<ClassVO> clist = cdao.selectFavoriteClass(id);
-		
+		ClassQnaDAO cqdao = new ClassQnaDAO();
+		List<ClassQnaVO> cqlist = cqdao.selectMyClassQna(id);
 		JsonArray jsonArr = new JsonArray();
 		
-		for(ClassVO cvo : clist) {
+		for(ClassQnaVO cqvo : cqlist) {
 			JsonObject json = new JsonObject();
-			json.addProperty("className", cvo.getClassName());
-			json.addProperty("creater", cvo.getCreater());
-			json.addProperty("classType", cvo.getClassType());
-			json.addProperty("recommend", cvo.getRecommend());
-			json.addProperty("category", cvo.getCategory());
+			json.addProperty("className", cqvo.getClassName());
+			json.addProperty("qnaTitle", cqvo.getQnaTitle());
+			json.addProperty("qnaDate", String.valueOf(cqvo.getQnaDate()));
+			json.addProperty("userId", cqvo.getUserId());
 			
 			jsonArr.add(json);
 		}
-		
-		System.out.println(jsonArr);
 		Gson gson = new Gson();
 		String jsonResponse = gson.toJson(jsonArr);
 		
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(jsonResponse);
-
 	}
 
 }

@@ -72,6 +72,11 @@
 								</a>
 							</li>
 							<li>
+								<a class="MyClassQnA" id="myClassQnANav"><!-- 내 강의 등록 -->
+									<div class="myClassQnA-text">내 클래스 질문</div> 
+								</a>
+							</li>
+							<li>
 								<a class="Create-class" id="createClass"><!-- 내 강의 등록 -->
 									<div class="createClass-text">강의 등록</div> 
 								</a>
@@ -85,12 +90,7 @@
 				<div id="myPageForm" id="Container">
 					<h3 id="myPageFormTitle"></h3>
 					<div id="myPageContent"></div>
-					<div id="buttons">
-						<input type="button" value="정보 수정하기" id="myInfoUpdateBtn" ><br>
-						<input type="button" value="회원탈퇴" id="userDeleteBtn"><br>
-						<input type='button' value='오픈 예정 클래스 둘러보기' id='showpreClassBtn'>
-						<input type='button' value='클래스 둘러보기' id='showClassBtn'>
-						<input type="button" value="문의하기" id="qnaBtn">
+					<div id="myPageBtns">
 					</div>
 				</div>
 			</form>

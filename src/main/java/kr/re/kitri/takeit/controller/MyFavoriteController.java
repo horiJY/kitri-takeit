@@ -37,10 +37,10 @@ public class MyFavoriteController extends HttpServlet {
 		
 		ClassDAO cdao = new ClassDAO();
 		List<ClassVO> clist = cdao.selectFavoriteClass(id);
-		System.out.println(clist);
 		JsonArray jsonArr = new JsonArray();
 		
 		for(ClassVO cvo : clist) {
+			
 			JsonObject json = new JsonObject();
 			json.addProperty("className", cvo.getClassName());
 			json.addProperty("creater", cvo.getCreater());
@@ -49,7 +49,6 @@ public class MyFavoriteController extends HttpServlet {
 			
 			jsonArr.add(json);
 		}
-		System.out.println(jsonArr);
 		Gson gson = new Gson();
 		String jsonResponse = gson.toJson(jsonArr);
 		
