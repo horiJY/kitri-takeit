@@ -8,17 +8,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 
 	1. 페이징
-	2. class 값 가져와서 보여주기(v) - test 필요
-	3. 카테고리, 추천순 정렬(v) - test 필요
+	2. class 값 가져와서 보여주기(v) 
+	3. 카테고리, 추천순 정렬(v)
 	4. 아이디 받아서 마이페이지 클릭 시 보내주기
 	5. 별점 갯수 보여주기
  -->
  <%
- 	ClassDAO cdao = new ClassDAO();
- 	String category = request.getParameter("category");
- 	String range = request.getParameter("range");
- 	
-	List<ClassVO> clist = cdao.selectClassList(category, range);
 	
 // 	String curPage = request.getParameter("curpage");
 // 	if(curPage == null){
@@ -37,7 +32,6 @@
  %>
 <!DOCTYPE html>
 <%-- <c:set var="paging" value="<%=pagination %>"/> --%>
-<c:set var="clist" value="<%=clist %>"/>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -45,6 +39,12 @@
 <script>
 	
 </script>
+<style>
+/* 	.class{
+		border: none;
+		background-color: white;
+	} */
+</style>
 </head>
 
 <body>
@@ -53,16 +53,14 @@
 			<span>takeit!</span> <input type="search">
 			<c:choose>
 				<c:when test="${!empty sessionScope.userId }">
+					<input type="button" value="mypage" id="mypage">
 					<a href=""> 
-						<input type="button" value="mypage">
-					</a>
-					<a href=""> 
-						<input type="button" value="logout">
+						<input type="button" value="logout" id="logout">
 					</a>
 				</c:when>
 				<c:otherwise>
 					<a href=""> 
-						<input type="button" value="login">
+						<input type="button" value="login" id="login">
 					</a>
 				</c:otherwise>
 			</c:choose>
@@ -101,27 +99,6 @@
 			</section>
 			<div id="classList">
 				<ul id="class">	
-					<li>
-						<a>
-							<c:forEach var="cvo" items="${clist }">
-								<div>
-									<img>
-								</div>
-								<div>
-									<div id="creater"> ${cvo.creater }</div>	
-									<div id="class-name"> ${cvo.className }</div>
-									<div id="recommend"> ${cvo.recommend }</div>		
-								</div>
-								<div>
-									<div id="price"> ${cvo.price }</div>
-									<div id="sale"> ${cvo.sale }</div>
-								</div>
-								<div>
-									<div id="class-type"> ${cvo.classType }</div>
-								</div>
-							</c:forEach>
-						</a>
-					</li>
 				</ul>
 			</div>
 			<div>

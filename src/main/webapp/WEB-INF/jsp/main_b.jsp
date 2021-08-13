@@ -36,7 +36,7 @@
 	
 	//한 페이지 내에 보여줘야 하는 게시물의 마지막 rownum
 	int end = curPageInt*pagination.getContentCnt();
-	List<ClassVO> clist = cdao.selectClassPage(category, range, start, end);
+	List<ClassVO> clist = cdao.selectClassPage(start, end);
 %>
 <!DOCTYPE html>
 <c:set var="paging" value="<%=pagination %>"/>

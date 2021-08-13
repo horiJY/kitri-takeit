@@ -208,28 +208,72 @@ public class ClassDAO {
 		return clist;
 	}
 
-	//count
-	public int selectClassCnt(String type) {
-		//conn
+	//count:pre-class
+	public int selectPreClassCnt(String range, String category) {
 		Connection conn = DBConnect.getInstance();
 		
-		//sql
-		String sql  = "SELECT COUNT(*) FROM CLASS WHERE TYPE = ?";
+		String sql = "SELECT COUNT(*) FROM CLASS "
+				+ "	  WHERE TYPE = ? "
+				+ "	  AND CATEGORY = ?";
+		
+		String sql2 = "SELECT COUNT(*) FROM CLASS"
+				+ "	   WHERE TYPE = ?";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int result = 0;
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, type);
-
-			// resultset
-			rs = pstmt.executeQuery();
 			
+			if(category==null || category.equals("null")) {
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setString(1, "P");
+			}else{
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(2, category);
+				pstmt.setString(1, "P");
+			}
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				ClassVO cvo = new ClassVO();
-				
+				result = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeAll(conn, pstmt, null, rs);
+		}
+		return result;
+	}
+	
+	//count:main
+	public int selectClassCnt(String category) {
+		Connection conn = DBConnect.getInstance();
+		
+		String sql = "SELECT COUNT(*) FROM CLASS "
+				+ "	  WHERE TYPE = ? "
+				+ "	  AND CATEGORY = ?";
+		
+		String sql2 = "SELECT COUNT(*) FROM CLASS"
+				+ "	   WHERE TYPE = ?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			
+			if(category==null || category.equals("null")) {
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setString(1, "O");
+			}else{
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(2, category);
+				pstmt.setString(1, "O");
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
 				result = rs.getInt(1);
 			}
 			

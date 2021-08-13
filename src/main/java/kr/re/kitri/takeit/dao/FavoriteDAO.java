@@ -82,7 +82,7 @@ public class FavoriteDAO {
 	}
 	
 	// pre-class page : delete
-	public int deleteBoard(String userId, String classId) {
+	public int deleteFavorite(String userId, String classId) {
 		Connection conn = DBConnect.getInstance();
 		
 		String sql = "DELETE FROM FAVORITE WHERE USERID = ? CLASSID = ?";

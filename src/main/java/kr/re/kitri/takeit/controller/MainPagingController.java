@@ -9,20 +9,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/detail")
-public class DetailController extends HttpServlet {
-//클래스 상세정보 받아오기
+import dao.ClassDAO;
+
+@WebServlet("/paging-main")
+public class MainPagingController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
+		ClassDAO cdao = new ClassDAO();
+		
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		String classId = request.getParameter("classId");
-		System.out.println(classId);
+		String category = request.getParameter("category");
+	
+		String classCnt = Integer.toString(cdao.selectClassCnt(category));
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/class-detail.jsp");
+		request.setAttribute("classCnt", classCnt);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 		rd.forward(request, response);
 	}
 
