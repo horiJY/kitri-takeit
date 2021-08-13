@@ -100,9 +100,6 @@ document.querySelectorAll("[name='repeat-method']").forEach(function(element) {
 });
 
 //스케쥴 클래스
-var schedule = {
-	
-};
 var schedule = function(day, stime, etime){
 	return {
 		day : day,
@@ -271,16 +268,16 @@ confirmOpenBtn.onclick = function(){
 	
 	var classStr = {
 		className : className.value,
-		category : category.value,
 		classType : classType,
 		period : classPeriod.value*7,
-		capacity : classCapacity.value,
+		detail : classDetail.value,
 		price : classFee.value,
-		detail : classDetail.value
+		capacity : classCapacity.value,
+		category : category.value,
 	};
 	var scheduleStr = {
 		classSchedule
-	};
+	}
 	var classJson = JSON.stringify(classStr);
 	var scheduleJson = JSON.stringify(scheduleStr);
 	console.log(classJson);

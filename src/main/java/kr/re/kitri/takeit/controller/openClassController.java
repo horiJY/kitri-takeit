@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import vo.ClassVO;
 import vo.ScheduleVO;
@@ -29,11 +32,18 @@ public class openClassController extends HttpServlet {
 		//json 데이터 파싱
 		Gson gson = new Gson();
 		
-		ClassVO cvo = gson.fromJson(request.getParameter("json"),ClassVO.class);
-		//List<ScheduleVO> svo = gson.fromJson(request.getParameter("json"),ArrayList<ScaheduleVO>.class);
+		ClassVO cvo = gson.fromJson(request.getParameter("class"),ClassVO.class);
+		System.out.println(cvo.getClassName());
 		
-		
-		
+		JsonObject sJson = gson.fromJson(request.getParameter("schedule"),JsonObject.class);
+		JsonArray sJarr = sJson.get("classSchedule").getAsJsonArray();
+		List<ScheduleVO> slist = new ArrayList<ScheduleVO>();
+		for(int i=0;i<sJarr.size();i++) {
+			ScheduleVO svo = new Gson().fromJson(sJarr.get(i),ScheduleVO.class);
+			slist.add(svo);
+		}
+		System.out.println(slist.get(sJarr.size()-1).getDay());
+
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		

@@ -1,15 +1,16 @@
 package vo;
 
 public class ScheduleVO {
-	private int classID;
+	private int classId;
 	private String day;
 	private String startTime;
 	private String endTime;
+	
 	public int getClassID() {
-		return classID;
+		return classId;
 	}
-	public void setClassID(int classID) {
-		this.classID = classID;
+	public void setClassID(int classId) {
+		this.classId = classId;
 	}
 	public String getDay() {
 		return day;
