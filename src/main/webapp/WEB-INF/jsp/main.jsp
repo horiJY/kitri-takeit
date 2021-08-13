@@ -11,27 +11,11 @@
 	2. class 값 가져와서 보여주기(v) 
 	3. 카테고리, 추천순 정렬(v)
 	4. 아이디 받아서 마이페이지 클릭 시 보내주기
-	5. 별점 갯수 보여주기
+	5. 별점 갯수 보여주기(v)
  -->
- <%
-	
-// 	String curPage = request.getParameter("curpage");
-// 	if(curPage == null){
-// 		curPage = "1";
-// 	}
-// 	int curPageInt = Integer.parseInt(curPage);
-// 	int totalContent = cdao.selectClassCnt("O");
-	
-// 	Pagination pagination = new Pagination(curPageInt, totalContent, 8);
-	
-// 	int start = (curPageInt*pagination.getContentCnt()) - (pagination.getContentCnt() - 1);
-	
-// 	int end = curPageInt*pagination.getContentCnt();
 
-// 	List<ClassVO> clist = cdao.selectClassPage(start, end);
- %>
 <!DOCTYPE html>
-<%-- <c:set var="paging" value="<%=pagination %>"/> --%>
+
 <html>
 <head>
 <meta charset="UTF-8">

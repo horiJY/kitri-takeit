@@ -30,13 +30,7 @@ public class MainController extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		
-		String category = request.getParameter("category");
-		String range = request.getParameter("range");
-	
-		request.setAttribute("category", category);
-		request.setAttribute("range", range);
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 		rd.forward(request, response);
 	}

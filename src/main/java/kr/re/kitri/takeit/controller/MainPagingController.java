@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 import dao.ClassDAO;
 
 @WebServlet("/paging-main")
@@ -26,10 +28,16 @@ public class MainPagingController extends HttpServlet {
 	
 		String classCnt = Integer.toString(cdao.selectClassCnt(category));
 		
-		request.setAttribute("classCnt", classCnt);
+		//request.setAttribute("classCnt", classCnt);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
-		rd.forward(request, response);
+		Gson gson = new Gson();
+		String result = gson.toJson(classCnt);
+		
+		response.setContentType("application/json; charset=utf8");
+		response.getWriter().write(result);
+		
+//		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/main.js");
+//		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

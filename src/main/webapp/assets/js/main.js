@@ -28,14 +28,12 @@ window.onload = function() {
 	var userId = sessionStorage.getItem('userId');
 	var mypageBtn = document.getElementById("mypage");
 	
-	//할 일 : classId 보내기, mypage에 userId, logout, 페이징 
+	//할 일 : mypage에 userId, logout, 페이징 
 
 	function list(c_val, r_val){
 		$.ajax({
 			type: 'POST',
 			url: 'range',
-			dataType: 'json',
-			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			data: { category: c_val, range: r_val },
 			success: function(result) {
 				$('#class').empty();
@@ -56,12 +54,10 @@ window.onload = function() {
 				alert('error');
 			}
 		})
-	}
-	
+		
+	}	
 	
 	list(c_val, r_val);
-	
-	
 	
 	category.onclick = function() {
 		if (categoryDrop.style.display == "block") {
