@@ -33,14 +33,7 @@ public class MainController extends HttpServlet {
 		
 		String category = request.getParameter("category");
 		String range = request.getParameter("range");
-		
-		/////////////////////////////////////////////////////
-		
-//		ClassDAO cdao = new ClassDAO();
-//		List<ClassVO> clist = cdao.selectClassList(category, range);
-//		
-//		
-//		request.setAttribute("clist", clist);
+	
 		request.setAttribute("category", category);
 		request.setAttribute("range", range);
 		

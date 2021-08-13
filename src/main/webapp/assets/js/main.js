@@ -15,16 +15,22 @@ window.onload = function() {
 
 	var recommend = document.getElementById("recommend");
 	var newest = document.getElementById("newest");
-
+	
+	sessionStorage.clear();
+	var cSession;
+	sessionStorage.setItem('cSession', 'null');
+	var rSession;
+	sessionStorage.setItem('rSession', 'null');
+	
 	category.onclick = function() {
-
 		if (categoryDrop.style.display == "block") {
 			categoryDrop.style.display = "none";
 		} else {
 			categoryDrop.style.display = "block";
 			all.onclick = function() {
 				var c_val = 'null';
-				var r_val = range.value;
+				var r_val = sessionStorage.getItem('rSession');
+				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
 				$.ajax({
 					type: 'POST',
@@ -33,17 +39,28 @@ window.onload = function() {
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					data: { category: c_val, range: r_val },
 					success: function(result) {
-						alert(result);
-
+						$('#class').empty();
+						for(var i = 0; i < result.length; i ++){
+							$('#class').append('<li><a>'
+							//+'<div><img></div>'
+							+'<div><div>'+result[i].creater+'</div>'
+							+'<div>'+result[i].calssName+'</div>'
+							+'<div>'+result[i].recommend+'</div></div>'
+							+'<div><div>'+result[i].price+'</div>'
+							+'<div>'+result[i].sale+'</div></div>'
+							+'<div><div>'+result[i].classType+'</div></div>'
+							+'</a></li>');	
+						}
 					}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 						alert('There is an error : method(group)에 에러가 있습니다.');
 					}
 				})
-
 			}
 			art.onclick = function() {
+				category.value = art.value;
 				var c_val = 'ART';
-				var r_val = range.value;
+				var r_val = sessionStorage.getItem('rSession');
+				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
 				$.ajax({
 					type: 'POST',
@@ -52,16 +69,28 @@ window.onload = function() {
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					data: { category: c_val, range: r_val },
 					success: function(result) {
-						alert(result);
-
+						$('#class').empty();
+						for(var i = 0; i < result.length; i ++){
+							$('#class').append('<li><a>'
+							//+'<div><img></div>'
+							+'<div><div>'+result[i].creater+'</div>'
+							+'<div>'+result[i].calssName+'</div>'
+							+'<div>'+result[i].recommend+'</div></div>'
+							+'<div><div>'+result[i].price+'</div>'
+							+'<div>'+result[i].sale+'</div></div>'
+							+'<div><div>'+result[i].classType+'</div></div>'
+							+'</a></li>');	
+						}
 					}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 						alert('There is an error : method(group)에 에러가 있습니다.');
 					}
 				})
 			}
 			cooking.onclick = function() {
+				category.value = cooking.value;
 				var c_val = 'COOKING';
-				var r_val = range.value;
+				var r_val = sessionStorage.getItem('rSession');
+				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
 				$.ajax({
 					type: 'POST',
@@ -70,16 +99,28 @@ window.onload = function() {
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					data: { category: c_val, range: r_val },
 					success: function(result) {
-						alert(result);
-
+						$('#class').empty();
+						for(var i = 0; i < result.length; i ++){
+							$('#class').append('<li><a>'
+							//+'<div><img></div>'
+							+'<div><div>'+result[i].creater+'</div>'
+							+'<div>'+result[i].calssName+'</div>'
+							+'<div>'+result[i].recommend+'</div></div>'
+							+'<div><div>'+result[i].price+'</div>'
+							+'<div>'+result[i].sale+'</div></div>'
+							+'<div><div>'+result[i].classType+'</div></div>'
+							+'</a></li>');	
+						}
 					}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 						alert('There is an error : method(group)에 에러가 있습니다.');
 					}
 				})
 			}
 			language.onclick = function() {
+				category.value = language.value;
 				var c_val = 'LANGUAGE';
-				var r_val = range.value;
+				var r_val = sessionStorage.getItem('rSession');
+				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
 				$.ajax({
 					type: 'POST',
@@ -88,16 +129,28 @@ window.onload = function() {
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					data: { category: c_val, range: r_val },
 					success: function(result) {
-						alert(result);
-
+						$('#class').empty();
+						for(var i = 0; i < result.length; i ++){
+							$('#class').append('<li><a>'
+							//+'<div><img></div>'
+							+'<div><div>'+result[i].creater+'</div>'
+							+'<div>'+result[i].calssName+'</div>'
+							+'<div>'+result[i].recommend+'</div></div>'
+							+'<div><div>'+result[i].price+'</div>'
+							+'<div>'+result[i].sale+'</div></div>'
+							+'<div><div>'+result[i].classType+'</div></div>'
+							+'</a></li>');	
+						}
 					}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 						alert('There is an error : method(group)에 에러가 있습니다.');
 					}
 				})
 			}
 			programming.onclick = function() {
+				category.value = programming.value;
 				var c_val = 'PROGRAMMING';
-				var r_val = range.value;
+				var r_val = sessionStorage.getItem('rSession');
+				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
 				$.ajax({
 					type: 'POST',
@@ -106,16 +159,28 @@ window.onload = function() {
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					data: { category: c_val, range: r_val },
 					success: function(result) {
-						alert(result);
-
+						$('#class').empty();
+						for(var i = 0; i < result.length; i ++){
+							$('#class').append('<li><a>'
+							//+'<div><img></div>'
+							+'<div><div>'+result[i].creater+'</div>'
+							+'<div>'+result[i].calssName+'</div>'
+							+'<div>'+result[i].recommend+'</div></div>'
+							+'<div><div>'+result[i].price+'</div>'
+							+'<div>'+result[i].sale+'</div></div>'
+							+'<div><div>'+result[i].classType+'</div></div>'
+							+'</a></li>');	
+						}
 					}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 						alert('There is an error : method(group)에 에러가 있습니다.');
 					}
 				})
 			}
 			sport.onclick = function() {
+				category.value = sport.value;
 				var c_val = 'SPORT';
-				var r_val = range.value;
+				var r_val = sessionStorage.getItem('rSession');
+				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
 				$.ajax({
 					type: 'POST',
@@ -124,20 +189,18 @@ window.onload = function() {
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					data: { category: c_val, range: r_val },
 					success: function(result) {
-						let json = JSON.parse(result);
-						let res = "";
-						for(let i = 0; i < json.lenth; i++){
-							res +="<li>"
-							+"<a><div><img>"+"</div>"
-							+"<div><div>"+json[i].creater+"</div>"
-							+"<div>"+json[i].className+"</div>"
-							+"<div>"+json[i].recommend+"</div></div>"
-							+"<div><div>"+json[i].price+"</div>"
-							+"<div>"+json[i].sale+"</div></div>"
-							+"<div><div>"+json[i].classType+"</div></div>"
-							+"</div></a></li>"
+						$('#class').empty();
+						for(var i = 0; i < result.length; i ++){
+							$('#class').append('<li><a>'
+							//+'<div><img></div>'
+							+'<div><div>'+result[i].creater+'</div>'
+							+'<div>'+result[i].calssName+'</div>'
+							+'<div>'+result[i].recommend+'</div></div>'
+							+'<div><div>'+result[i].price+'</div>'
+							+'<div>'+result[i].sale+'</div></div>'
+							+'<div><div>'+result[i].classType+'</div></div>'
+							+'</a></li>');	
 						}
-						$("#class").html(res);
 					}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 						alert('There is an error : method(group)에 에러가 있습니다.');
 					}
@@ -153,9 +216,11 @@ window.onload = function() {
 			rangeDrop.style.display = "block";
 
 			recommend.onclick = function() {
-				var c_val = category.value;
-				var r_val = range.value;
-				categoryDrop.style.display = "none";
+				range.value = recommend.value;
+				var c_val = sessionStorage.getItem('cSession');
+				var r_val = 'RECOMMEND';
+				sessionStorage.setItem('rSession', r_val);
+				rangeDrop.style.display = "none";
 				$.ajax({
 					type: 'POST',
 					url: 'range',
@@ -163,17 +228,29 @@ window.onload = function() {
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					data: { category: c_val, range: r_val },
 					success: function(result) {
-						alert(result);
-
+						$('#class').empty();
+						for(var i = 0; i < result.length; i ++){
+							$('#class').append('<li><a>'
+							//+'<div><img></div>'
+							+'<div><div>'+result[i].creater+'</div>'
+							+'<div>'+result[i].calssName+'</div>'
+							+'<div>'+result[i].recommend+'</div></div>'
+							+'<div><div>'+result[i].price+'</div>'
+							+'<div>'+result[i].sale+'</div></div>'
+							+'<div><div>'+result[i].classType+'</div></div>'
+							+'</a></li>');	
+						}
 					}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 						alert('There is an error : method(group)에 에러가 있습니다.');
 					}
 				})
 			}
 			newest.onclick = function() {
-				var c_val = category.value;
-				var r_val = range.value;
-				categoryDrop.style.display = "none";
+				range.value = newest.value;
+				var c_val = sessionStorage.getItem('cSession');
+				var r_val = 'OPENDATE';
+				sessionStorage.setItem('rSession', r_val);
+				rangeDrop.style.display = "none";
 				$.ajax({
 					type: 'POST',
 					url: 'range',
@@ -181,8 +258,18 @@ window.onload = function() {
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					data: { category: c_val, range: r_val },
 					success: function(result) {
-						alert(result);
-
+						$('#class').empty();
+						for(var i = 0; i < result.length; i ++){
+							$('#class').append('<li><a>'
+							//+'<div><img></div>'
+							+'<div><div>'+result[i].creater+'</div>'
+							+'<div>'+result[i].calssName+'</div>'
+							+'<div>'+result[i].recommend+'</div></div>'
+							+'<div><div>'+result[i].price+'</div>'
+							+'<div>'+result[i].sale+'</div></div>'
+							+'<div><div>'+result[i].classType+'</div></div>'
+							+'</a></li>');	
+						}
 					}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 						alert('There is an error : method(group)에 에러가 있습니다.');
 					}

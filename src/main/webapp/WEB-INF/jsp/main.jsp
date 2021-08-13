@@ -18,6 +18,8 @@
  	String category = request.getParameter("category");
  	String range = request.getParameter("range");
  	
+	List<ClassVO> clist = cdao.selectClassList(category, range);
+	
 // 	String curPage = request.getParameter("curpage");
 // 	if(curPage == null){
 // 		curPage = "1";
@@ -31,11 +33,6 @@
 	
 // 	int end = curPageInt*pagination.getContentCnt();
 
-	List<ClassVO> clist = cdao.selectClassList(category, range);
-	
-	for(int i = 0; i < clist.size(); i++){
-		System.out.println(clist.get(i).getCategory());
-	}
 // 	List<ClassVO> clist = cdao.selectClassPage(start, end);
  %>
 <!DOCTYPE html>
@@ -103,24 +100,26 @@
 				</div>
 			</section>
 			<div id="classList">
-				<ul id="class">
+				<ul id="class">	
 					<li>
 						<a>
-							<div>
-								<img>
-							</div>
-							<div>
-								<div id="creater"></div>
-								<div id="class-name"></div>
-								<div id="recommend"></div>
-							</div>
-							<div>
-								<div id="price"></div>
-								<div id="sale"></div>
-							</div>
-							<div>
-								<div id="class-type"></div>
-							</div>
+							<c:forEach var="cvo" items="${clist }">
+								<div>
+									<img>
+								</div>
+								<div>
+									<div id="creater"> ${cvo.creater }</div>	
+									<div id="class-name"> ${cvo.className }</div>
+									<div id="recommend"> ${cvo.recommend }</div>		
+								</div>
+								<div>
+									<div id="price"> ${cvo.price }</div>
+									<div id="sale"> ${cvo.sale }</div>
+								</div>
+								<div>
+									<div id="class-type"> ${cvo.classType }</div>
+								</div>
+							</c:forEach>
 						</a>
 					</li>
 				</ul>

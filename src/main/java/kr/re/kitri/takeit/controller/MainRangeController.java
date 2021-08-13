@@ -28,20 +28,11 @@ public class MainRangeController extends HttpServlet {
 		String category = request.getParameter("category");
 		String range = request.getParameter("range");
 		
-		System.out.println(category);
-		System.out.println(range);
-		
 		ClassDAO cdao = new ClassDAO();
 		List<ClassVO> clist = cdao.selectClassList(category, range);
 		
 		Gson gson = new Gson();
 		String result = gson.toJson(clist);
-		
-		//request.setAttribute("category", category);
-		//request.setAttribute("range", range);
-		
-		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
-		//rd.forward(request, response);
 		
 		response.setContentType("application/json; charset=utf8");
 		response.getWriter().write(result);

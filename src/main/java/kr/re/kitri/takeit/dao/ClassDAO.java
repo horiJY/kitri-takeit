@@ -105,10 +105,8 @@ public class ClassDAO {
 	public List<ClassVO> selectClassList(String category, String range){
 		Connection conn = DBConnect.getInstance();
 		
-		if(range == null || range.equals("null") || range.equals("추천순")) {
+		if(range == null || range.equals("null")) {
 			range = "RECOMMEND";
-		}else if(range.equals("최신순")) {
-			range = "OPENDATE";
 		}
 		
 		String sql = "SELECT * FROM CLASS "
