@@ -22,7 +22,7 @@ import vo.ScheduleVO;
 
 @SuppressWarnings("serial")
 @WebServlet("/mypage/openclass")
-public class openClassController extends HttpServlet {
+public class OpenClassController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/openclass/open-class.jsp");
 		rd.forward(request, response);
