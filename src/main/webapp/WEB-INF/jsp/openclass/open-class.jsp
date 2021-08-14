@@ -64,16 +64,6 @@
 							<input type="date" id="end-date" disabled>
 						</div>
 					</div>
-<!-- 					<div> -->
-<!-- 						수업 요일: -->
-<!-- 						<input type="checkbox" value="1" name="class-day">월 -->
-<!-- 						<input type="checkbox" value="2" name="class-day">화 -->
-<!-- 						<input type="checkbox" value="3" name="class-day">수 -->
-<!-- 						<input type="checkbox" value="4" name="class-day">목 -->
-<!-- 						<input type="checkbox" value="5" name="class-day">금 -->
-<!-- 						<input type="checkbox" value="6" name="class-day">토 -->
-<!-- 						<input type="checkbox" value="0" name="class-day">일 -->
-<!-- 					</div> -->
 					<div>
 						수업 시간
 						<input type="time" id="start-time">

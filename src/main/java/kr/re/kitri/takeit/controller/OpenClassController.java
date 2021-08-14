@@ -19,6 +19,7 @@ import com.google.gson.JsonParser;
 
 import vo.ClassVO;
 import vo.ScheduleVO;
+import dao.ScheduleDAO;
 
 @SuppressWarnings("serial")
 @WebServlet("/mypage/openclass")
@@ -31,28 +32,33 @@ public class OpenClassController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//json 데이터 파싱
 		Gson gson = new Gson();
-		
-		HttpSession session = request.getSession();
-		String userId = (String)session.getAttribute("takeit-userid");
-		
 		ClassVO cvo = gson.fromJson(request.getParameter("class"),ClassVO.class);
-		cvo.setCreater(userId);
-		int classId = -1;
-		//int result = ClassDAO.insertClass(cvo);
-		//if(result<0){ 클래스 개설 실패 응답 }
-		//select
 		
 		JsonObject sJson = gson.fromJson(request.getParameter("schedule"),JsonObject.class);
 		JsonArray sJarr = sJson.get("classSchedule").getAsJsonArray();
 		List<ScheduleVO> slist = new ArrayList<ScheduleVO>();
 		for(int i=0;i<sJarr.size();i++) {
 			ScheduleVO svo = new Gson().fromJson(sJarr.get(i),ScheduleVO.class);
-			svo.setClassId(classId);
 			slist.add(svo);
 		}
+
 		//이미 존재하는 스케쥴과 겹치지 않는 지 확인
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("takeit-userid");
+		ScheduleDAO sdao = new ScheduleDAO();
+		int result = 0;
+		for(int i=0;i<slist.length();i++){
+			String stime = slist.get(i).getStartTime();
+			String etime = slist.get(i).getEndTime();
+			result = selectScheduleOverlap(userId,stime,etime);
+			if(result>0){
+				//중복 일정 존재 : 클래스 개설 거절
+			}
+		}
 		
-		
+		//int result = ClassDAO.insertClass(cvo);
+		//if(result<0){ 클래스 개설 실패 응답 }
+
 		//int result = ScheduleDVO.insertSchedule(slist);
 		//if (result<sJarr.size()){ 실패 응답}
 		
