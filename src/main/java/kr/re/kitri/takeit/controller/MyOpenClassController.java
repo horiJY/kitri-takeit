@@ -30,7 +30,7 @@ public class MyOpenClassController extends HttpServlet {
 		String id = (String) session.getAttribute("takeit-userid");
 		
 		ClassDAO cdao = new ClassDAO();
-		List<ClassVO> clist = cdao.selectFavoriteClass(id);
+		List<ClassVO> clist = cdao.selectMyOpenClass(id);
 		
 		JsonArray jsonArr = new JsonArray();
 		

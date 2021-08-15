@@ -42,6 +42,7 @@ public class MyFavoriteController extends HttpServlet {
 		for(ClassVO cvo : clist) {
 			
 			JsonObject json = new JsonObject();
+			json.addProperty("classId", cvo.getClassId());
 			json.addProperty("className", cvo.getClassName());
 			json.addProperty("creater", cvo.getCreater());
 			json.addProperty("favorite", cvo.getFavorite());

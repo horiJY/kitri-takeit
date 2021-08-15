@@ -43,7 +43,7 @@ public class ClassDAO {
 	//mypage -> select favorite class
 	public List<ClassVO> selectFavoriteClass(String id){
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CREATER, FAVORITE, OPENDATE FROM CLASS "
+		String sql = "SELECT CLASSID, CLASSNAME, CREATER, FAVORITE, OPENDATE FROM CLASS "
 				+ "WHERE CLASSID = (SELECT CLASSID FROM FAVORITE WHERE USERID = '" + id + "')"
 				+ "AND TYPE='P'";
 		Statement stmt = null;
@@ -56,10 +56,11 @@ public class ClassDAO {
 			
 			while (rs.next()) {
 				ClassVO cvo = new ClassVO();
-				cvo.setClassName(rs.getString(1));
-				cvo.setCreater(rs.getString(2));
-				cvo.setFavorite(rs.getInt(3));
-				cvo.setOpenDate(rs.getDate(4));
+				cvo.setClassId(rs.getInt(1));
+				cvo.setClassName(rs.getString(2));
+				cvo.setCreater(rs.getString(3));
+				cvo.setFavorite(rs.getInt(4));
+				cvo.setOpenDate(rs.getDate(5));
 				
 				clist.add(cvo);
 				

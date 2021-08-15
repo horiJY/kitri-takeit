@@ -3,6 +3,7 @@ package vo;
 import java.sql.Date;
 
 public class ClassVO {
+	private int classId;
 	private String className;
 	private String creater;
 	private String classType;
@@ -17,6 +18,12 @@ public class ClassVO {
 	private String category;
 	private Date openDate;
 	
+	public int getClassId() {
+		return classId;
+	}
+	public void setClassId(int classId) {
+		this.classId = classId;
+	}
 	public String getCategory() {
 		return category;
 	}

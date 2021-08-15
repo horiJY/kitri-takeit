@@ -40,6 +40,7 @@ public class MyInfoEditController extends HttpServlet {
 		json.addProperty("id", uvo.getUserId());
 		json.addProperty("name", uvo.getUserName());
 		json.addProperty("phone", uvo.getPhone());
+		json.addProperty("userType", uvo.getUserType());
 		
 		Gson gson = new Gson();
 		String jsonResponse = gson.toJson(json);

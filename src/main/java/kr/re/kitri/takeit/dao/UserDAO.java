@@ -78,6 +78,7 @@ public class UserDAO {
 			pstmt.setString(1, uvo.getUserName());
 			pstmt.setString(2, uvo.getPhone());
 			pstmt.setString(3, uvo.getUserId());
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
