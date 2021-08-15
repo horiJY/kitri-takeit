@@ -78,12 +78,8 @@ public class ClassDAO {
 	
 	public List<ClassVO> selectAssignmentClass(String id){
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, CATEGORY  FROM CLASS"
-					+ " WHERE CLASSID IN ((SELECT CLASSID FROM ART_ASSIGNMENT WHERE USERID = '" + id + "'),"
-										+" (SELECT CLASSID FROM COOKING_ASSIGNMENT WHERE USERID = '" + id + "'),"
-										+" (SELECT CLASSID FROM LANGUAGE_ASSIGNMENT WHERE USERID = '" + id + "'),"
-										+" (SELECT CLASSID FROM PROGRAMMING_ASSIGNMENT WHERE USERID = '" + id + "'),"
-										+" (SELECT CLASSID FROM SPORT_ASSIGNMENT WHERE USERID = '" + id + "'))"
+		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, CATEGORY FROM CLASS"
+					+ " WHERE CLASSID IN (SELECT CLASSID FROM ASSIGNMENT WHERE USERID = '" + id + "')"
 					+ " AND TYPE='O'"
 					+ " ORDER BY CATEGORY, CLASSID DESC";
 		Statement stmt = null;
