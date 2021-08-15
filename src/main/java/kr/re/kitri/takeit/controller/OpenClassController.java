@@ -41,7 +41,6 @@ public class OpenClassController extends HttpServlet {
 			ScheduleVO svo = new Gson().fromJson(sJarr.get(i),ScheduleVO.class);
 			slist.add(svo);
 		}
-
 		//이미 존재하는 스케쥴과 겹치지 않는 지 확인
 		HttpSession session = request.getSession();
 		String userId = (String)session.getAttribute("takeit-userid");
@@ -52,18 +51,27 @@ public class OpenClassController extends HttpServlet {
 			String etime = slist.get(i).getEndTime();
 			result = selectScheduleOverlap(userId,stime,etime);
 			if(result>0){
-				//중복 일정 존재 : 클래스 개설 거절
+				//중복 일정 존재
+				response.getWriter().println("OVERLAP");
+				return;
 			}
 		}
-		
-		//int result = ClassDAO.insertClass(cvo);
-		//if(result<0){ 클래스 개설 실패 응답 }
+		result = ClassDAO.insertClass(cvo);
+		if(result!=1){
+			// 클래스 insert 실패
+			response.getWriter().println("FAIL");
+			return;
+		}
 
-		//int result = ScheduleDVO.insertSchedule(slist);
-		//if (result<sJarr.size()){ 실패 응답}
+		result = ScheduleDVO.insertSchedule(slist);
+		if (result!=sJarr.size()){ 
+			// 앞에서 추가한 클래스 delete
+			// 스케쥴 insert 실패 응답
+			response.getWriter().println("FAIL");
+			return;
+		}
 		
 		//강의 개설 성공 응답
-		
+		response.getWriter().println("SUCCESS");
 	}
-
 }

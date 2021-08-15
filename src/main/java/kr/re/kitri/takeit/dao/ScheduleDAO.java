@@ -73,8 +73,8 @@ public class ScheduleDAO {
 		Connection conn = DBConnect.getInstance();
 		//sql 작성
 		String sql = " SELECT COUNT(*) FROM SCHEDULE WHERE "
-				+ " ( CLASSID IN ( SELECT CLASSID FROM ASSIGNMENT WHERE USERID = ? ) "
-				+ " OR CLASSID IN ( SELECT CLASSID FROM CLASS WHERE CREATER = ? ) )"
+				+ " CLASSID IN ( SELECT CLASSID FROM ASSIGNMENT WHERE USERID = ? ) "
+				+ " OR CLASSID IN ( SELECT CLASSID FROM CLASS WHERE CREATER = ? ) "
 				+ " AND TO_CHAR(ENDTIME,'YYYY-MM-DD HH24:MI) > ? "
 				+ " AND TO_CHAR(STARTTIME,'YYYY-MM-DD HH24:MI) < ? ";
 		PreparedStatement psmt = null;
