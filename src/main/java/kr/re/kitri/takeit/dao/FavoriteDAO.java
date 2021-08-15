@@ -62,7 +62,6 @@ public class FavoriteDAO {
 		
 		return flist;
 	}
-	
 	//pre-class page - insert
 
 	//pre-class page - delete

@@ -37,7 +37,7 @@ public class QnaDAO {
 	//help page -> Insert(qna등록)
 	
 	//mypage -> 일반 qna
-	public List<QnaVO> selectMyQnA(String id) {
+	public List<QnaVO> selectMyQna(String id) {
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT QNATITLE, QNADATE"
 					+ " FROM QNA"
@@ -70,8 +70,27 @@ public class QnaDAO {
 		}
 		
 		return qlist;
-		
 	}
 	
 	//mypage -> Delete
+	public int deletQna(String userId) {
+		Connection conn = DBConnect.getInstance();
+		String sql = "DELETE FROM CLASSQNA"
+				+ " WHERE USERID = ?";
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, pstmt, null, null);
+		}
+		
+		return result;
+	}
 }

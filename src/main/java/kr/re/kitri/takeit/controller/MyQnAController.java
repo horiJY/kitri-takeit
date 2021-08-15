@@ -30,7 +30,7 @@ public class MyQnAController extends HttpServlet {
 		String id = (String) session.getAttribute("takeit-userid");
 		
 		QnaDAO qdao = new QnaDAO();
-		List<QnaVO> qlist = qdao.selectMyQnA(id);
+		List<QnaVO> qlist = qdao.selectMyQna(id);
 		JsonArray jsonArr = new JsonArray();
 		
 		for(QnaVO qvo : qlist) {

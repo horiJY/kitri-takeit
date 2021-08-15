@@ -103,4 +103,24 @@ public class ClassQnaDAO {
 		}
 	
 	//mypage -> Delete
+	public int deletClasseQna(String userId, int classId) {
+		Connection conn = DBConnect.getInstance();
+		String sql = "DELETE FROM CLASSQNA" + " WHERE USERID = ?" + " AND CLASSID = ?";
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, classId);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, pstmt, null, null);
+		}
+
+		return result;
+	}
 }

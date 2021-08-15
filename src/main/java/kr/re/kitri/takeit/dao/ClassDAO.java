@@ -75,7 +75,6 @@ public class ClassDAO {
 	}
 	
 	//mypage -> select assignment class
-	
 	public List<ClassVO> selectAssignmentClass(String id){
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, CATEGORY FROM CLASS"
@@ -111,6 +110,7 @@ public class ClassDAO {
 	}
 	
 	//mypage -> select my class
+	//pre
 	public List<ClassVO> selectMyPreClass(String id){
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CATEGORY, FAVORITE, OPENDATE FROM CLASS"
@@ -142,6 +142,7 @@ public class ClassDAO {
 		}
 		return clist;
 	}
+	//open
 	public List<ClassVO> selectMyOpenClass(String id){
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CATEGRY, RECOMMEND, CLASSTYPE FROM CLASS"

@@ -9,14 +9,7 @@ public class ReviewVO {
 	private Date reviewDate;
 	private int recommend;
 	private String className;
-	private String category;
 	
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
 	public String getClassName() {
 		return className;
 	}
