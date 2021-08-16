@@ -145,6 +145,7 @@ public class ClassDAO {
 		}
 		return clist;
 	}
+	
 	public List<ClassVO> selectMyOpenClass(String id){
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CATEGRY, RECOMMEND, CLASSTYPE FROM CLASS"
@@ -178,7 +179,23 @@ public class ClassDAO {
 	}
 	
 	
-	
-	
-	
+	//delete class by classId
+	public int deleteClass(String classid){
+		Connection conn = DBConnect.getInstance();
+		String sql = " DELETE FROM CLASS WHERE CLASSID = '"+classid+"'' ";
+		Statement stmt = null;
+		int result = 0;
+		try {
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, null);
+		}
+		return result;
+	}
+
+	//create class
+	//select seq_classid.currval
 }

@@ -291,15 +291,22 @@ confirmOpenBtn.onclick = function(){
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
 			var code = xhr.responseText;
-			if(code){
+			if(code=="SUCCESS"){
 				alert("강의 개설을 완료했습니다.");
 				//강의 정보창으로 이동
 //				window.location.href="";
-			}else{
+			}else if(code==="OVERLAP"){
+				//중복 일정 존재
+				alert("중복 일정이 존재합니다.");
+			}else if(code==="FAIL"){
 				//강의 개설 실패
 				alert("강의 개설을 완료하지 못 했습니다. 다시 시도해 주세요.\n"+
-					"문제가 지속되면 고객센터로 문의바랍니다.");
+				"문제가 지속되면 고객센터로 문의바랍니다.");
 			}
+		}else{
+			//강의 개설 실패
+			alert("강의 개설을 완료하지 못 했습니다. 다시 시도해 주세요.\n"+
+				"문제가 지속되면 고객센터로 문의바랍니다.");
 		}
 	}
 }
