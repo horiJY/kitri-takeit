@@ -1,54 +1,9 @@
-const name = document.getElementById("userName");
-const phone = document.getElementById("userPhone");
-
-const logoutBtn = document.getElementById("logoutBtn");
-const myInfoUpdateBtn = document.getElementById("myInfoUpdateBtn");
-const userDeleteBtn = document.getElementById("userDeleteBtn");
-const showpreClassBtn = document.getElementById("showpreClassBtn");
-const showClassBtn = document.getElementById("showClassBtn");
-const qnaBtn = document.getElementById("qnaBtn");
-
-var deleteFBtn = document.getElementById("deleteFBtn");
-
-//logoutBtn.onclick = function() {
-//	document.formI.action = "${pageContext.request.contextPath }/logout";
-//	alert("로그아웃 되었습니다.");
-//}
-//
-//myInfoUpdateBtn.onclick = function() {
-//
-//	var xhr = new XMLHttpRequest();
-//	xhr.open("POST", "user-update", true);
-//	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//	xhr.send("userName='" + name + "'&phone='" + phone+"'");
-//	xhr.onreadystatechange = function() {
-//		if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-//			var jsonStr = xhr.responseText;//json
-//			var json = JSON.parse(jsonStr);
-//			alert("json="+json.value);
-//			
-//				alert(json.msg);
-//		}
-//		
-//		document.form.submit();
-//	}
-//}
-//
-//userDeleteBtn.onclick = function() {
-//	document.formI.action = "${pageContext.request.contextPath }/user-delete";
-//}
-//
-//qnaBtn.onclick = function() {
-//	location.href = "${pageContext.request.contextPath }/qna-regist";
-//}
-
-$("#myInfoUpdateBtn").click(function(){
-	
+// 내 정보 수정
+function myInfoUpdateBtn() {
 	var params = {
 		 userName	:$("#userName").val()
 		,phone		:$("#phone").val()
 	}
-	alert(params)
 	
 	$.ajax({
 		type:"POST",
@@ -58,19 +13,32 @@ $("#myInfoUpdateBtn").click(function(){
 			alert(res.code);
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown){
-			alert("통신 실패")
+			alert("유저 정보 업데이트 실패")
 		}
 	})
-});
+}
+function myInfoDeleteBtn() {
+	$.ajax({
+		type:"POST",
+		url:"userupdate",
+		success: function(res){
+			alert(res.code);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown){
+			alert("회원 탈퇴 실패")
+		}
+	})
+}
 
-function deleteFBtn(i) {
+// 내 응원
+function deleteFavoriteBtn(i) {
 	$.ajax({
 		type: 'POST',
-		url: 'myfavoritedelete',
+		url: 'favoritedelete',
 		data: { classId: i },
-		success: function() {
+		success: function(res) {
 			console.log(i);
-			alert("응원 내역 삭제 성공");
+			alert(res.code);
 		},
 		
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -78,6 +46,101 @@ function deleteFBtn(i) {
 		}
    })
 }
+function showpreClassBtn() {
+	$.ajax({
+		type: 'POST',
+		url: '',		//오픈예정클래스 페이지 컨트롤러
+		success: function(){},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {}
+	})
+}
 
+//내 결제목록
+function showClassBtn() {
+	$.ajax({
+		type: 'POST',
+		url: 'main',
+		success: function(){},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {}
+	})
+}
+
+//내 리뷰
+function deleteReviewBtn(i) {
+	$.ajax({
+		type: 'POST',
+		url: 'reviewdelete',
+		data: { classId: i },
+		success: function(res) {
+			alert(res.code);
+		},
+		
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("리뷰 삭제 실패");
+		}
+   })
+	
+}
+function reviewBtn() {
+	$.ajax({
+		type: 'POST',
+		url: '',	//리뷰 작성 페이지
+		success: function(){},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {}
+	})
+}
+
+//내 QNA
+function deleteQnaBtn() {	//일반 QnA
+	$.ajax({
+		type: 'POST',
+		url: 'qna-delete',		//오픈예정클래스 페이지 컨트롤러
+		success: function(){
+			alert(res.code);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("QnA 삭제 실패");
+		}
+	})
+}
+function deleteClassQnaBtn(i) {	//클래스 QnA
+	$.ajax({
+		type: 'POST',
+		url: 'class-qna-delete',
+		data: { classId: i },
+		success: function(res) {
+			alert(res.code);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("리뷰 삭제 실패");
+		}
+   })
+}
+function qnaBtn() {
+	$.ajax({
+		type: 'POST',
+		url: 'qna-regist',
+		success: function(res) {
+		},
+		
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("리뷰 삭제 실패");
+		}
+   })
+}
+
+//내 클래스
+function createClassBtn() {	//새 클래스 만들기
+	$.ajax({
+		type: 'POST',
+		url: 'class-regist',
+		data: { classId: i },
+		success: function(res) {
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("클래스 생성 실패");
+		}
+   })
+}
 
 

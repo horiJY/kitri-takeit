@@ -11,13 +11,6 @@ const myPageFormTitle = document.getElementById("myPageFormTitle");
 const myPageContent = document.getElementById("myPageContent");
 const myPageBtns = document.getElementById("myPageBtns");
 
-const logoutBtn = document.getElementById("logoutBtn");
-const myInfoSaveBtn = document.getElementById("myInfoUpdateBtn");
-const userDeleteBtn = document.getElementById("userDeleteBtn");
-const showpreClassBtn = document.getElementById("showpreClassBtn");
-const showClassBtn = document.getElementById("showClassBtn");
-const qnaBtn = document.getElementById("qnaBtn");
-
 
 myInfoNav.onclick = function() {
 	myPageFormTitle.innerHTML = "내 정보 조회 / 수정";
@@ -44,8 +37,8 @@ myInfoNav.onclick = function() {
 					+ "</div>";
 
 				myPageContent.innerHTML = html;
-				myPageBtns.innerHTML = "<button type='button' value='정보 수정하기' id='myInfoUpdateBtn' ></button><br>"
-										+"<input type='button' value='회원탈퇴' id='userDeleteBtn'>";
+				myPageBtns.innerHTML = "<button type='button' onclick='myInfoUpdateBtn() id='myInfoUpdateBtn' value='정보 수정하기'></button><br>"
+										+"<button type='button' onclick='myInfoDeleteBtn() 'value id='myInfoDeleteBtn'value='회원탈퇴' ></button>";
 			}
 		}
 	}
@@ -71,14 +64,14 @@ myFavoriteNav.onclick = function() {
 						+ "		<div class='creater'> " + json[i].creater + "</div>"
 						+ "		<div class='favorite'> " + json[i].favorite + "</div>"
 						+ "		<div class='openDate'> " + json[i].openDate + "</div>"
-						+ "		<button onclick='deleteFBtn(" + json[i].classId +")' id='deleteFBtn' value='그만 응원 할래요'> "
+						+ "		<button type='button' onclick='deleteFavoriteBtn(" + json[i].classId +")' id='deleteFavoriteBtn' value='그만 응원 할래요'></button> "
 						+ "</div>";
 				}
 			} else {
 				html += "<img alt='응원한 내역이 없습니다.' src=''><br>";
 			}
 			myPageContent.innerHTML = html;
-			myPageBtns.innerHTML = "<input type='button' value='오픈 예정 클래스 둘러보기' id='showpreClassBtn'>";
+			myPageBtns.innerHTML = "<button type='button' onclick='showpreClassBtn()' id='showpreClassBtn' value='오픈 예정 클래스 둘러보기'></button>";
 		}
 	}
 
@@ -112,7 +105,7 @@ myAssignmentNav.onclick = function() {
 			}
 
 			myPageContent.innerHTML = html;
-			myPageBtns.innerHTML = "<input type='button' value='클래스 둘러보기' id='showClassBtn'>";
+			myPageBtns.innerHTML = "<input type='button' onclick='showClassBtn()' id='showClassBtn' value='클래스 둘러보기'>";
 		
 		}
 	}
@@ -137,6 +130,7 @@ myReviewNav.onclick = function() {
 						+ "		<div class='reviewDate'> " + json[i].reviewDate + "</div>"
 						+ "		<div class='recommend'> " + json[i].recommend + "</div>"
 						+ "		<div class='category'> " + json[i].category + "</div>"
+						+ "		<button type='button' onclick='deleteReviewBtn(" + json[i].classId +")' id='deleteReviewBtn' value='삭제'></button> "
 						+ "</div>";
 
 				}
@@ -144,7 +138,7 @@ myReviewNav.onclick = function() {
 				html += "<img alt='작성한 리뷰가 없습니다.' src=''><br>";
 			}
 			myPageContent.innerHTML = html;
-			myPageBtns.innerHTML = "<input type='button' value='리뷰 작성하기' id='reviewBtn'>";;
+			myPageBtns.innerHTML = "<button type='button' onclick='reviewBtn()' id='reviewBtn' value='리뷰 작성하기'></button>";;
 			
 		}
 	}
@@ -169,10 +163,13 @@ myQnANav.onclick = function() {
 				html += "<h4>질문 내역</h4>";
 				for (var i = 0; i < json.length; i++) {
 					html += "<div class='qna-box'>"
-						+ "		<div class='className'> " + json[i].className + "</div>"
-						+ "		<div class='category'> " + json[i].category + "</div>"
-						+ "		<div class='openDate'> " + json[i].openDate + "</div>"
-						+ "		<div class='favorite'> " + json[i].favorite + "</div>"
+						+ "		<a class='qna-box-a'>"
+						+ "			<div class='className'> " + json[i].className + "</div>"
+						+ "			<div class='category'> " + json[i].category + "</div>"
+						+ "			<div class='openDate'> " + json[i].openDate + "</div>"
+						+ "			<div class='favorite'> " + json[i].favorite + "</div>"
+						+ "		</a>";
+						+ "		<button onclick='deleteQnaBtn()' id='deleteQnaBtn' value='삭제'></button> "
 						+ "</div>";
 				}
 			} else {
@@ -197,10 +194,13 @@ myQnANav.onclick = function() {
 				html += "<h4>클래스 질문 내역</h4>";
 				for (var i = 0; i < json.length; i++) {
 					html += "<div>"
-						+ "		<div class='className'> " + json[i].className + "</div> "
-						+ "		<div class='category'> " + json[i].category + "</div>"
-						+ "		<div class='classType'> " + json[i].classType + "</div>"
-						+ "		<div class='recommend'> " + json[i].recommend + "</div>"
+						+ "		<a class='qna-box-a'> "
+						+ "			<div class='className'> " + json[i].className + "</div> "
+						+ "			<div class='category'> " + json[i].category + "</div>"
+						+ "			<div class='classType'> " + json[i].classType + "</div>"
+						+ "			<div class='recommend'> " + json[i].recommend + "</div>"
+						+ "		</a>"
+						+ "		<button onclick='deleteClassQnaBtn(" + json[i].classId +")' id='deleteQnaBtn' value='삭제'></button> "
 						+ "</div>";
 				}
 			} else {
@@ -210,7 +210,7 @@ myQnANav.onclick = function() {
 				html="<img alt='문의 내역이 없습니다.' src=''><br>"
 			}
 			myPageContent.innerHTML = html;
-			myPageBtns.innerHTML = "<input type='button' value='문의하기' id='qnaBtn'>";		
+			myPageBtns.innerHTML = "<button type='button' onclick='qnaBtn()' id='qnaBtn' value='문의하기'></button>";		
 		}
 	}
 }
@@ -238,10 +238,12 @@ myClassNav.onclick = function() {
 			if (json.length != 0) {
 				for (var i = 0; i < json.length; i++) {
 					html += "<div class='class-box'>"
-						+ "		<div class='className'> " + json[i].className + "</div> "
-						+ "		<div class='category'> " + json[i].category + "</div>"
-						+ "		<div class='openDate'> " + json[i].openDate + "</div>"
-						+ "		<div class='favorite'> " + json[i].favorite + "</div>"
+						+ "		<a class='class-box-a'> "
+						+ "			<div class='className'> " + json[i].className + "</div> "
+						+ "			<div class='category'> " + json[i].category + "</div>"
+						+ "			<div class='openDate'> " + json[i].openDate + "</div>"
+						+ "			<div class='favorite'> " + json[i].favorite + "</div>"
+						+ "		</a>"
 						+ "</div>";
 				}
 			} else {
@@ -259,10 +261,12 @@ myClassNav.onclick = function() {
 			if (json.length != 0) {
 				for (var i = 0; i < json.length; i++) {
 					html += "<div class='class-box'>"
-						+ "		<div class='className'> " + json[i].className + "</div> "
-						+ "		<div class='category'> " + json[i].category + "</div>"
-						+ "		<div class='classType'> " + json[i].classType + "</div>"
-						+ "		<div class='recommend'> " + json[i].recommend + "</div>"
+						+ "		<a class='class-box-a'> "
+						+ "			<div class='className'> " + json[i].className + "</div> "
+						+ "			<div class='category'> " + json[i].category + "</div>"
+						+ "			<div class='classType'> " + json[i].classType + "</div>"
+						+ "			<div class='recommend'> " + json[i].recommend + "</div>"
+						+ "		</a>"
 						+ "</div>";
 				}
 			} else {
@@ -271,7 +275,7 @@ myClassNav.onclick = function() {
 		}
 		
 		myPageContent.innerHTML = html;
-		myPageBtns.innerHTML = "<input type='button' value='강의 등록하기' id='createClassBtn'>";		
+		myPageBtns.innerHTML = "<button type='button' onclick='createClassBtn()' id='createClassBtn' value='강의 등록하기'></button>";		
 	}
 }
 myClassQnANav.onclick = function() {

@@ -63,6 +63,10 @@ public class FavoriteDAO {
 		return flist;
 	}
 	//pre-class page - insert
+	public int deleteFavorite(String id, int classId) {
+		
+		return 0;
+	}
 
 	//pre-class page - delete
 }

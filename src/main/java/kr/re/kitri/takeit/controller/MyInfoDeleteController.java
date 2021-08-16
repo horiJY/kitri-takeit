@@ -14,37 +14,26 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import dao.UserDAO;
-import vo.UserVO;
 
+@WebServlet("/userdelete")
+public class MyInfoDeleteController extends HttpServlet {
 
-@WebServlet("/userupdate")
-public class MyInfoUpdateController extends HttpServlet {
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String name = request.getParameter("name");
-		String phone = request.getParameter("phone");
-		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("takeit-id");
 		
-		UserVO uvo = new UserVO();
-		uvo.setUserId(id);
-		uvo.setUserName(name);
-		uvo.setPhone(phone);
-		
 		UserDAO udao = new UserDAO();
-		int result = udao.updateUser(uvo);
+		int result = udao.deleteUser(id);
 		
 		JsonObject json = new JsonObject();
 		if(result!=0) {
-			json.addProperty("code", "성공적으로 업데이트 되었습니다.");
+			json.addProperty("code", "회원 탈퇴 처리 되었습니다.");
 		} else {
-			json.addProperty("code", "업데이트를 실패했습니다. 다시 시도해주세요.");
+			json.addProperty("code", "회원 탈퇴를 실패했습니다. 다시 시도해주세요.");
 		}
 		
 		Gson gson = new Gson();
