@@ -170,6 +170,7 @@ myQnANav.onclick = function() {
 						+ "			<div class='favorite'> " + json[i].favorite + "</div>"
 						+ "		</a>";
 						+ "		<button onclick='deleteQnaBtn()' id='deleteQnaBtn' value='삭제'></button> "
+						+ "		<div type='hidden' onclick='showAnswer()' id='answer'>" + json[i].answer + "</div> "
 						+ "</div>";
 				}
 			} else {
