@@ -19,6 +19,7 @@ import com.google.gson.JsonParser;
 
 import vo.ClassVO;
 import vo.ScheduleVO;
+import dao.ClassDAO;
 import dao.ScheduleDAO;
 
 @SuppressWarnings("serial")
@@ -46,26 +47,28 @@ public class OpenClassController extends HttpServlet {
 		String userId = (String)session.getAttribute("takeit-userid");
 		ScheduleDAO sdao = new ScheduleDAO();
 		int result = 0;
-		for(int i=0;i<slist.length();i++){
+		for(int i=0;i<slist.size();i++){
 			String stime = slist.get(i).getStartTime();
 			String etime = slist.get(i).getEndTime();
-			result = selectScheduleOverlap(userId,stime,etime);
+			result = sdao.selectScheduleOverlap(userId,stime,etime);
 			if(result>0){
 				//중복 일정 존재
 				response.getWriter().println("OVERLAP");
 				return;
 			}
 		}
-		result = ClassDAO.insertClass(cvo);
-		if(result!=1){
+		ClassDAO cdao = new ClassDAO();
+		int classId = cdao.insertClass(cvo);
+		if(classId==0){
 			// 클래스 insert 실패
 			response.getWriter().println("FAIL");
 			return;
 		}
 
-		result = ScheduleDVO.insertSchedule(slist);
+		result = sdao.insertSchedule(slist);
 		if (result!=sJarr.size()){ 
 			// 앞에서 추가한 클래스 delete
+			cdao.deleteClass(classId);
 			// 스케쥴 insert 실패 응답
 			response.getWriter().println("FAIL");
 			return;

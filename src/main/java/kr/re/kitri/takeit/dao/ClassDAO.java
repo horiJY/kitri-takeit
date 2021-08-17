@@ -180,7 +180,7 @@ public class ClassDAO {
 	
 	
 	//delete class by classId
-	public int deleteClass(String classid){
+	public int deleteClass(int classid){
 		Connection conn = DBConnect.getInstance();
 		String sql = " DELETE FROM CLASS WHERE CLASSID = '"+classid+"'' ";
 		Statement stmt = null;
@@ -197,5 +197,30 @@ public class ClassDAO {
 	}
 
 	//create class
-	//select seq_classid.currval
+	//classvo 확정되면 수정
+	public int insertClass(ClassVO cvo){
+		Connection conn = DBConnect.getInstance();
+		String sql = " INSERT INTO CLASS ( CLASSID, CLASSNAME, ) "
+				+ " VALUES ( SEQ_CLASSID.NEXTVAL, ? ) ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int classid = 0;
+		try {
+			pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			//set prepared statement
+			
+			//get result
+			pstmt.executeUpdate();
+			rs = pstmt.getGeneratedKeys();
+			if(rs.next()) {
+				classid = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, pstmt, null, null);
+		}
+		return classid;
+	}
+	
 }

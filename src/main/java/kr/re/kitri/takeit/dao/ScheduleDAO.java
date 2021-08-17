@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import db.DBConnect;
 import vo.ScheduleVO;
 
@@ -33,7 +34,7 @@ public class ScheduleDAO {
 	}
 
 	//스케쥴 생성
-	public int insertSchedule(ArrayList<ScheduleVO> slist) {
+	public int insertSchedule(List<ScheduleVO> slist) {
 		//db 접속
 		Connection conn = DBConnect.getInstance();
 		//sql 작성
