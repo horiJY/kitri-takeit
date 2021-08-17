@@ -86,36 +86,10 @@
 				</ul>
 			</div>
 			<div>
-				<%-- <div id="paging">
-					<ul>
-						<c:if test="${page.prevBtn }">
-							<c:if test="${page.startPage != 1 }">
-								<li>
-									<a href="main.jsp?curpage=${page.startPage-1 }">
-										<img src='${pageContext.request.contextPath}/assets/img/prev.png' width=15px; id="prev">
-									</a>
-								</li>
-							</c:if>
-						</c:if>
-						<c:forEach var="i" begin="${page.startPage }" end="${page.endPage }" step="1">
-							<c:choose>
-								<c:when test="${i eq param.curpage }">
-									<li>${i }</li>
-								</c:when>
-								<c:otherwise>
-									<li><a href="main.jsp?curpage=${i }">${i }</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:if test="${page.nextBtn }">
-							<li>
-								<a href="main.jsp?curpage=${page.endPage+1 }"> 
-									<img src='${pageContext.request.contextPath}/assets/img/next.png' width=15px;>
-								</a>
-							</li>
-						</c:if>
+				<div id="pagnation">
+					<ul id="paging">
 					</ul>
-				</div> --%>
+				</div>
 			</div>
 		</div>
 	</main>

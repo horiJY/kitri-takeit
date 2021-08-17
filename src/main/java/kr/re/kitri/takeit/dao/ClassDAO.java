@@ -111,7 +111,7 @@ public class ClassDAO {
 		
 		String sql = "SELECT * FROM CLASS "
 				+ "	  WHERE TYPE = ? "
-				+ "	  AND CATEGORY = ?"
+				+ "	  AND CATEGORY = ? "
 				+ "	  ORDER BY "+range+" DESC";
 		
 		String sql2 = "SELECT * FROM CLASS"
@@ -163,15 +163,31 @@ public class ClassDAO {
 	}
 	
 	//select
-	public List<ClassVO> selectClassPage(int start, int end){
+	public List<ClassVO> selectClassPage(String category, String range, String type, int start, int end){
+		if(range == null || range.equals("null")) {
+			range = "RECOMMEND";
+		}
+		
 		//conn
 		Connection conn = DBConnect.getInstance();
 		
 		//sql
-		String sql = "SELECT * "
+		String sql1 = "SELECT * "
 				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
 				+ "      FROM (SELECT * "
-				+ "            FROM CLASS) A "
+				+ "            FROM CLASS"
+				+ "			   WHERE CATEGORY = ? "
+				+ "			   AND TYPE = ? "
+				+ "			   ORDER BY "+range+" DESC ) A "
+				+ "      ) "
+				+ "WHERE RNUM BETWEEN ? AND ?";
+		
+		String sql2 = "SELECT * "
+				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
+				+ "      FROM (SELECT * "
+				+ "            FROM CLASS"
+				+ "			   WHERE TYPE = ? "
+				+ "			   ORDER BY "+range+" DESC ) A "
 				+ "      ) "
 				+ "WHERE RNUM BETWEEN ? AND ?";
 		
@@ -180,15 +196,26 @@ public class ClassDAO {
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
+			
+			if(category==null || category.equals("null")) {
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setString(1, type);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+			}else{
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setString(1, category);
+				pstmt.setString(2, type);
+				pstmt.setInt(3, start);
+				pstmt.setInt(4, end);
+			}
 			
 			//resultset
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				ClassVO cvo = new ClassVO();
+				cvo.setClassId(rs.getInt("CLASSID"));
 				cvo.setClassName(rs.getString("CLASSNAME"));
 				cvo.setCreater(rs.getString("CREATER"));
 				cvo.setClassType(rs.getString("CLASSTYPE"));
