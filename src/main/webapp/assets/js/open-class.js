@@ -48,6 +48,7 @@ document.querySelectorAll("[name='class-type']").forEach(function(element) {
 		}else if(classType=="off"){
 			classOff.style.display="block";
 			classOn.style.display="none";
+			fullcalendar.render();
 		}
 	});
 });
@@ -157,12 +158,17 @@ scheduleAddBtn.onclick = function(){
 	}
 //	console.log(classSchedule);
 	classSchedule.forEach(function(schd){
-		calendar.innerHTML += schd.day;
-		calendar.innerHTML += " ";
-		calendar.innerHTML += schd.stime;
-		calendar.innerHTML += " ";
-		calendar.innerHTML += schd.etime;
-		calendar.innerHTML += "<br>";
+//		calendar.innerHTML += schd.day;
+//		calendar.innerHTML += " ";
+//		calendar.innerHTML += schd.stime;
+//		calendar.innerHTML += " ";
+//		calendar.innerHTML += schd.etime;
+//		calendar.innerHTML += "<br>";
+		calendar.addEvent({	
+			title : className.value,
+			start : schd.day,
+			description: schd.stime+'~'+schd.etime
+		});
 	});
 };
 
@@ -174,12 +180,13 @@ scheduleResetBtn.onclick = function(){
 	}
 };
 
+
 //달력 표시
-/* var calendarEl = document.getElementById('calendar');
-var calendar = new FullCalendar.Calendar(calendarEl, {
-	initialView: 'dayGridMonth'
+var fullcalendar = new FullCalendar.Calendar(calendar, {
+	initialView: 'dayGridMonth',
+	
 });
-calendar.render(); */
+
 
 // 저장 버튼을 누르면 개설 정보 확인 창 출력
 openBtn.onclick = function(){

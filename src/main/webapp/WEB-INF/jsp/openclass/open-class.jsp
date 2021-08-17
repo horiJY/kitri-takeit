@@ -5,8 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>강의 개설 페이지</title>
+
 <link href='${pageContext.request.contextPath}/calendar-assets/main.css' rel='stylesheet' />
-<script src='${pageContext.request.contextPath}/calendar-assets/main.js'></script>
+
 </head>
 <body>
 	<div id="edit-box">
@@ -120,6 +121,7 @@
 		<button id="confirm-open-btn">개설</button>
 		<button id="confirm-cancel-btn">취소</button>
 	</div>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/calendar-assets/main.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/open-class.js"></script>
 </body>
 </html>
