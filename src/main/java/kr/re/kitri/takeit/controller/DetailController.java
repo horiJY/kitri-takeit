@@ -1,13 +1,18 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.ClassDAO;
+import dao.ReviewDAO;
+import vo.ClassVO;
+import vo.ReviewVO;
 
 @WebServlet("/detail")
 public class DetailController extends HttpServlet {
@@ -15,13 +20,22 @@ public class DetailController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/class-detail.jsp");
-	rd.forward(request, response);
-    }
+	int classid = 1;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
+	ReviewDAO rdao = new ReviewDAO();
+	ReviewVO rvo = rdao.getRecommandCountAndScore(classid);
+	List<ReviewVO> rlist = rdao.getRecentRecommands(classid);
+	System.out.println(rvo.getTotalRecommendNum() + "/" + rvo.getAvgScore());
+	for (ReviewVO c : rlist) {
+	    System.out.println(c.toString());
+	}
 
+	ClassDAO cdao = new ClassDAO();
+	ClassVO cvo = cdao.getClassDetail(classid);
+	System.out.println(cvo.toString());
+
+//	RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/class-detail.jsp");
+//	rd.forward(request, response);
     }
 
 }
