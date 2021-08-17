@@ -16,46 +16,9 @@
 	4. 응원하기(ajax)
 	5. 응원 마감 날짜
 -->
-<%
-	String category = null;
-	String range = "recommend";
-	
-	ClassDAO cdao = new ClassDAO();
 
-	String curPage = request.getParameter("curpage");
-	if(curPage == null){
-		curPage = "1";
-	}
-	int curPageInt = Integer.parseInt(curPage);
-	int totalContent = cdao.selectClassCnt("O");
-	
-	Pagination pagination = new Pagination(curPageInt, totalContent, 5);
-	
-	//한 페이지 내에 보여줘야 하는 게시물의 첫 번째 rownum
-	int start = (curPageInt*pagination.getContentCnt()) - (pagination.getContentCnt() - 1);
-	
-	//한 페이지 내에 보여줘야 하는 게시물의 마지막 rownum
-	int end = curPageInt*pagination.getContentCnt();
-	List<ClassVO> clist = cdao.selectClassPage(start, end);
-	
-	Calendar getToday = Calendar.getInstance();
-	getToday.setTime(new Date()); //금일 날짜
-	
-	String s_date = "2021-08-17";
-	Date date = new SimpleDateFormat("yyyy-MM-dd").parse(s_date);
-	Calendar cmpDate = Calendar.getInstance();
-	cmpDate.setTime(date); //특정 일자
-	
-	long diffSec = (cmpDate.getTimeInMillis()-getToday.getTimeInMillis()) / 1000;
-	long diffDays = diffSec / (24*60*60); //일자수 차이
-	
-	System.out.println(diffSec + "초 차이");
-	System.out.println(diffDays + "일 차이");
-	
-%>
 <!DOCTYPE html>
-<c:set var="paging" value="<%=pagination %>"/>
-<c:set var="clist" value="<%=clist %>"/>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -65,21 +28,19 @@
 </script>
 </head>
 <body>
-<header>
+	<header>
 		<div>
 			<span>takeit!</span> <input type="search">
 			<c:choose>
 				<c:when test="${!empty sessionScope.userId }">
+					<input type="button" value="mypage" id="mypage">
 					<a href=""> 
-						<input type="button" value="mypage">
-					</a>
-					<a href=""> 
-						<input type="button" value="logout">
+						<input type="button" value="logout" id="logout">
 					</a>
 				</c:when>
 				<c:otherwise>
 					<a href=""> 
-						<input type="button" value="login">
+						<input type="button" value="login" id="login">
 					</a>
 				</c:otherwise>
 			</c:choose>
@@ -98,74 +59,70 @@
 	</div>
 	<main>
 		<div>
-			<div>
-				<ul>
-					<li>
-						<a href="">
-							<c:forEach var="cvo" items="${clist }">
-								<div>
-									<img>
-								</div>
-								<div>
-									<div> ${cvo.creater }</div>	
-									<div> ${cvo.className }</div>
-								</div>
-								<div>
-									<div> ${cvo.favorite }</div>
-								</div>
-								<div>
-									<div> ${cvo.openDate}</div>
-								</div>
-								<div>
-								
-								<!-- 응원하기 클릭 시 해당 클래스의 classId, userId 전달 -->
-								
-									<button>응원하기</button>
-								</div>
-							</c:forEach>
-						</a>
-					</li>
+			<section>
+				<div>
+					<input type="button" id="category" value="카테고리">
+					<div id="category-drop" style="display:none;">
+						<input type="button" id="all" value="All">
+						<input type="button" id="art" value="Art">
+						<input type="button" id="cooking" value="Cooking">
+						<input type="button" id="language" value="Language">
+						<input type="button" id="programming" value="Programming">
+						<input type="button" id="sport" value="Sport">
+					</div>			
+					<input type="button" id="range" value="추천순">
+					<div id="range-drop" style="display:none;">
+						<input type="button" id="recommend" value="추천순">
+						<input type="button" id="newest" value="최신순">
+					</div>
+				</div>
+			</section>
+			<div id="classList">
+				<ul id="class">	
 				</ul>
 			</div>
-			<div>
-				<section>
-					<div id="paging">
-						<ul>
-							<c:if test="${page.prevBtn }">
-								<c:if test="${page.startPage != 1 }">
-									<li>
-										<a href="main.jsp?curpage=${page.startPage-1 }">
-											<img src='${pageContext.request.contextPath}/assets/img/prev.png' width=15px; id="prev">
-										</a>
-									</li>
-								</c:if>
-							</c:if>
-							<c:forEach var="i" begin="${page.startPage }" end="${page.endPage }" step="1">
-								<c:choose>
-									<c:when test="${i eq param.curpage }">
-										<li>${i }</li>
-									</c:when>
-									<c:otherwise>
-										<li><a href="main.jsp?curpage=${i }">${i }</a></li>
-									</c:otherwise>
-
-								</c:choose>
-							</c:forEach>
-							<c:if test="${page.nextBtn }">
-								<li>
-									<a href="main.jsp?curpage=${page.endPage+1 }"> 
-										<img src='${pageContext.request.contextPath}/assets/img/next.png' width=15px;>
-									</a>
-								</li>
-							</c:if>
-						</ul>
+			<div id="swiper" style="display: none">
+				<div>
+					<button>공유하기</button>
+					<button>닫기</button>
+				</div>
+				<div id="slide">
+					<img src="">
+					<div>
+						<div>creater</div>
+						<div>className</div>
 					</div>
-				</section>
+					<div></div>
+					<div></div>
+					<button>left</button>
+					<button>right</button>
+				</div>
+				<div>
+					<span id="bar"></span>
+				</div>
+				<div>
+					<div id="favorite">
+						<div>
+							<span>현재 응원 수</span> 
+							<span>@@명</span> 
+							<span>/ 50명</span>
+						</div>
+						<div>
+							<button id="favorite">응원하기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="pagnation">
+				<ul id="paging">
+				</ul>
 			</div>
 		</div>
 	</main>
 	<footer>
 	
 	</footer>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/pre-class.js"></script>
 </body>
 </html>
