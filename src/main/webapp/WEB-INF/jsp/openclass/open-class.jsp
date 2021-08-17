@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>강의 개설 페이지</title>
+<link href='${pageContext.request.contextPath}/calendar-assets/main.css' rel='stylesheet' />
+<script src='${pageContext.request.contextPath}/calendar-assets/main.js'></script>
 </head>
 <body>
 	<div id="edit-box">

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import dao.AssignmentDAO;
+import dao.ClassDAO;
 import dao.ScheduleDAO;
 import dao.UserDAO;
 import vo.AssignmentVO;
@@ -44,8 +47,8 @@ public class AssignmentRegistController extends HttpServlet {
 		int result = 0;
 		ScheduleDAO sdao = new ScheduleDAO();
 		for(int i=0;i<slist.size();i++){
-			String stime = slist.get(i).getStartTime();
-			String etime = slist.get(i).getEndTime();
+			Date stime = slist.get(i).getStartTime();
+			Date etime = slist.get(i).getEndTime();
 			result = sdao.selectScheduleOverlap(userId,stime,etime);
 			if(result>0){
 				//중복 시 해당 마이페이지>수강/강의 내역으로 이동
@@ -54,21 +57,30 @@ public class AssignmentRegistController extends HttpServlet {
 			}
 		}
 		
-		ClassVO cvo = gson.fromJson(request.getParameter("class"),ClassVO.class);
+		JsonObject cJson = gson.fromJson(request.getParameter("class"),JsonObject.class);
 		
-		//포인트 잔액 조회
-		UserDAO udao = new UserDAO();
-		int point = udao.selectPoint(userId);
-		if(point < 0) {
-			//포인트 조회 실패
-			
-		}else if (point < cvo.getPrice()) {
-			//포인트 부족시 결제로 이동
-		}
-
 		//등록 조건 충족
 		AssignmentVO avo = new AssignmentVO();
-		avo.setClassId(cvo.getClassId());
+		int classid = cJson.get("classid").getAsInt();
+		avo.setClassId(classid);
+		avo.setUserId(userId);
+		Date startdate = sdao.selectMinSchedule(classid);
+		if(startdate==null) {
+			//시작일 조회 실패
+		}
+		
+		avo.setStartDate(startdate);
+		Date enddate = sdao.selectMaxSchedule(classid);
+		if(enddate==null) {
+			//종료일 조회 실패
+		}
+		avo.setEndDate(enddate);
+		AssignmentDAO adao = new AssignmentDAO();
+		result = adao.insertAssignment(avo);
+		if(result!=1) {
+			//등록 실패
+		}
+		//등록 완료
 	}
 
 }
