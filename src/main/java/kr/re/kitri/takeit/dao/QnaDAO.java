@@ -36,13 +36,69 @@ public class QnaDAO {
 	
 	//help page -> Insert(qna등록)
 	
+	//mypage -> admin
+	//select
+	public List<QnaVO> selectAllQna(){
+		Connection conn = DBConnect.getInstance();
+		String sql =" SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE"
+				+ " FROM QNA"
+				+ " ORDER BY QNADATE DESC";
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<QnaVO> qlist = new ArrayList<QnaVO>();
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				QnaVO qvo = new QnaVO();
+				qvo.setUserId(rs.getString(1));
+				qvo.setQnaDate(rs.getDate(2));
+				qvo.setQuestion(rs.getString(3));
+				qvo.setAnswer(rs.getString(4));
+				qvo.setQnaTitle(rs.getString(5));
+				
+				qlist.add(qvo);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, rs);
+		}
+		
+		return qlist;
+	}
+	//update
+	public int updateQna(String qnaTitle,String userId, String answer){
+		Connection conn = DBConnect.getInstance();
+		String sql ="UPDATE QNA SET ANSWER='" + answer + "'"
+				+ " WHERE QNATITLE='" + qnaTitle + "'"
+				+ " AND USERID='" + userId + "'";
+		Statement stmt = null;
+		int result = 0;
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, null);
+		}
+		
+		return result;
+	}
+	
 	//mypage -> 일반 qna
 	public List<QnaVO> selectMyQna(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT QNATITLE, QNADATE"
+		String sql = "SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE"
 					+ " FROM QNA"
 					+ " WHERE USERID ='" + id + "'"
-					+ " ORDER BY QNADATE DESC;";
+					+ " ORDER BY QNADATE DESC";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<QnaVO> qlist = new ArrayList<QnaVO>();

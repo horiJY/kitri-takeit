@@ -71,7 +71,7 @@ public class ClassQnaDAO {
 	//mypage -> selectMyClassQna 내가 개설한 클래스 qna 목록
 		public List<ClassQnaVO> selectMyClassQna(String id){
 			Connection conn = DBConnect.getInstance();
-			String sql = "SELECT C.CLASSNAME, Q.QNATITLE, Q.QNADATE, Q.USERID"
+			String sql = "SELECT C.CLASSNAME, Q.QNATITLE, Q.QNADATE, Q.USERID, C.CLASSID, Q.ANSWER"
 					+" FROM CLASS C, (SELECT CLASSID, USERID, QNATITLE, QNADATE FROM CLASS_QNA) Q"
 					+" WHERE C.CLASSID = Q.CLASSID"
 					+" AND C.CREATER='" + id + "'"
@@ -90,6 +90,8 @@ public class ClassQnaDAO {
 					cqvo.setQnaTitle(rs.getString(2));
 					cqvo.setQnaDate(rs.getDate(3));
 					cqvo.setUserId(rs.getString(4));
+					cqvo.setClassId(rs.getInt(5));
+					cqvo.setAnswer(rs.getString(6));
 					
 					cqlist.add(cqvo);
 				}

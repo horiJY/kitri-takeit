@@ -18,9 +18,8 @@ import com.google.gson.JsonObject;
 import dao.QnaDAO;
 import vo.QnaVO;
 
-@WebServlet("/myqna")
-public class MyQnAController extends HttpServlet {
-
+@WebServlet("/admin-qna")
+public class AdminQnaController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
@@ -28,11 +27,9 @@ public class MyQnAController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
-		
-		QnaDAO qdao = new QnaDAO();
-		List<QnaVO> qlist = qdao.selectMyQna(id);
+		QnaDAO qdao = new QnaDAO();		
+		List<QnaVO> qlist = qdao.selectAllQna();
 		JsonArray jsonArr = new JsonArray();
-		
 		for(QnaVO qvo : qlist) {
 			JsonObject json = new JsonObject();
 			json.addProperty("qnaTitle", qvo.getQnaTitle());

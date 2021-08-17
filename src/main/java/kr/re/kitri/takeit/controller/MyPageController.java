@@ -30,20 +30,25 @@ public class MyPageController extends HttpServlet {
 		if(id==null) {
 			id="k1234567894";	//'C'
 //			id="jytest0110@gmail.com";	//'U'
+//			id="hori_q@naver.com";	//'A'
 			UserDAO udao = new UserDAO();
 			UserVO uvo = udao.selectUserInfo(id);
-			
+			System.out.println(uvo.getUserType());
 			session.setAttribute("takeit-userid", id);
+			session.setAttribute("userType", uvo.getUserType());
 			request.setAttribute("uvo", uvo);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/mypage.jsp");
 			rd.forward(request, response);
 //			response.sendRedirect(request.getContextPath()+"/member/login");
 		} else {
+			id="k1234567894";	//'C'
 			UserDAO udao = new UserDAO();
 			UserVO uvo = udao.selectUserInfo(id);
 			
+			System.out.println(uvo.getUserType());
 			session.setAttribute("takeit-userid", id);
+			session.setAttribute("userType", uvo.getUserType());
 			request.setAttribute("uvo", uvo);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/mypage.jsp");
