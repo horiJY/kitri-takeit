@@ -30,34 +30,9 @@ public class FavoriteDAO {
 			e.printStackTrace();
 		}
 	}
-
-	//pre-class page : 응원하기 확인 
-	public int selectFavorite(String userId, String classId) {
-		Connection conn = DBConnect.getInstance();
-
-		String sql = "SELECT COUNT(*) FROM FAVORITE WHERE USESRID = ? AND CLASSID = ?";
-
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, classId);
-
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeAll(conn, pstmt, null, null);
-		}
-		return result;
-	}
 	
 	// pre-class page : insert
-	public int insertFavorite(String userId, String classId) {
+	public int insertFavorite(String userId, int classId) {
 		Connection conn = DBConnect.getInstance();
 		
 		String sql = "INSERT INTO FAVORITE(USERID, CLASSID)"
@@ -68,7 +43,7 @@ public class FavoriteDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-			pstmt.setString(2, classId);
+			pstmt.setInt(2, classId);
 			
 			result = pstmt.executeUpdate();
 			
@@ -82,7 +57,7 @@ public class FavoriteDAO {
 	}
 	
 	// pre-class page : delete
-	public int deleteFavorite(String userId, String classId) {
+	public int deleteFavorite(String userId, int classId) {
 		Connection conn = DBConnect.getInstance();
 		
 		String sql = "DELETE FROM FAVORITE WHERE USERID = ? CLASSID = ?";
@@ -93,7 +68,30 @@ public class FavoriteDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-			pstmt.setString(2, classId);
+			pstmt.setInt(2, classId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeAll(conn, pstmt, null, null);
+		}
+		return result;
+	}
+	
+	public int selectFavorite(String userId, int classId) {
+		Connection conn = DBConnect.getInstance();
+		
+		String sql = "SELECT COUNT(*) FROM FAVORITE WHERE USERID = ? AND CLASSID = "+ classId + "";
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
 			
 			result = pstmt.executeUpdate();
 			

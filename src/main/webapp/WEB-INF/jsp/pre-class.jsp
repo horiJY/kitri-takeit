@@ -33,13 +33,13 @@
 			<span>takeit!</span> <input type="search">
 			<c:choose>
 				<c:when test="${!empty sessionScope.userId }">
+					<a href="${pageContext.request.contextPath}/mypage"> 
 					<input type="button" value="mypage" id="mypage">
-					<a href=""> 
-						<input type="button" value="logout" id="logout">
 					</a>
+						<input type="button" value="logout" id="logout">
 				</c:when>
 				<c:otherwise>
-					<a href=""> 
+					<a href="${pageContext.request.contextPath}/login"> 
 						<input type="button" value="login" id="login">
 					</a>
 				</c:otherwise>
@@ -47,10 +47,10 @@
 		</div>
 	</header>
 	<div>
-		<a href="main.jsp">
+		<a href="${pageContext.request.contextPath}/main">
 			<input type="button" value="바로수강">
 		</a>
-		<a href="">
+		<a href="${pageContext.request.contextPath}/pre-class">
 			<input type="button" value="오픈예정">
 		</a>
 		<a href="">		
@@ -81,36 +81,8 @@
 				<ul id="class">	
 				</ul>
 			</div>
-			<div id="swiper" style="display: none">
-				<div>
-					<button>공유하기</button>
-					<button>닫기</button>
-				</div>
-				<div id="slide">
-					<img src="">
-					<div>
-						<div>creater</div>
-						<div>className</div>
-					</div>
-					<div></div>
-					<div></div>
-					<button>left</button>
-					<button>right</button>
-				</div>
-				<div>
-					<span id="bar"></span>
-				</div>
-				<div>
-					<div id="favorite">
-						<div>
-							<span>현재 응원 수</span> 
-							<span>@@명</span> 
-							<span>/ 50명</span>
-						</div>
-						<div>
-							<button id="favorite">응원하기</button>
-						</div>
-					</div>
+			<div id="swiper">
+				<div id="favorite-btn">
 				</div>
 			</div>
 			<div id="pagnation">

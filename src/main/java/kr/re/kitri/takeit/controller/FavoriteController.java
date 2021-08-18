@@ -11,8 +11,9 @@ import javax.servlet.http.HttpSession;
 import dao.ClassDAO;
 import dao.FavoriteDAO;
 
-@WebServlet("/favorite-regist")
-public class FavoriteRegistController extends HttpServlet {
+
+@WebServlet("/favorite")
+public class FavoriteController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -27,15 +28,14 @@ public class FavoriteRegistController extends HttpServlet {
 
 		int classId = Integer.parseInt(request.getParameter("classId"));
 		
-		int favoriteResult = fdao.insertFavorite(userId, classId);
-		int classResult = cdao.updateFavorite(classId);
+		int favoriteResult = fdao.selectFavorite(userId, classId);
 		
 		response.setContentType("application/json; charset=utf8");
-		response.getWriter().write(classResult);
+		response.getWriter().write(favoriteResult);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 
 }

@@ -41,7 +41,7 @@
 	var totalData;
 	var type = 'P';
 	
-	var favorite;
+	var favoriteCnt;
 	
 	if (userId == null) {
 		loginBtn.onclick = function() {
@@ -68,8 +68,8 @@
 			data: { category: c_val, range: r_val, type: type },
 			success: function(result) {
 				for(var i = 0; i < result.length; i++){
-					favorite = result[i].favorite;
-					update(favorite);
+					favoriteCnt = result[i].favorite;
+					update(favoriteCnt);
 				}
 				totalData = result.length;		
 				paging(c_val, r_val, totalData, dataPerPage, pageCount, currentPage);		
@@ -134,6 +134,7 @@
 						+ '<div>' + result[i].sale + '</div></div>'
 						+ '<div><div>' + result[i].classType + '</div></div>'
 						+ '<div><div><span>응원 마감까지 ' + result[i].countdown + '일</span></div></div>'
+						+ '<div><button onclick="favoriteClick("'+ result[i].classId +','+result[i].favorite+')">응원하기</button></div>'
 						+ '</label></li>'
 					);
 				}
@@ -141,12 +142,12 @@
 		})	
 	}
 
-	function update(favorite){
+	function update(favoriteCnt){
 		$.ajax({
 			type: 'POST',
 			url: 'pre-class-update',
 			async: false,
-			data: {favorite: favorite },
+			data: {favorite: favoriteCnt },
 			success: function(result) {
 				
 			}
@@ -226,7 +227,7 @@
 			rangeDrop.style.display = "block";
 
 			favorite.onclick = function() {
-				range.value = recommend.value;
+				range.value = favorite.value;
 				c_val = sessionStorage.getItem('cSession');
 				r_val = 'FAVORITE';
 				sessionStorage.setItem('rSession', r_val);
@@ -245,21 +246,78 @@
 		}
 	}
 
-var swiper = document.getElementById("swiper");
-
-function classDetail(i) {
-	swiper.style.display = 'block';
+function classDetail(classId,favoriteCnt) {
+	selectFavorite(classId, favoriteCnt);
 }
+
+var favoriteBtn = document.getElementById("favorite-btn");
 
 function pageClick(i){
 	currentPage = i;
 	list(c_val, r_val, type);
 }
 
-//오늘 날짜 비교해서 오늘 날짜와 opendate가 같고, favorite이 10개가 넘는 class들은 type "P"로 변경, 그렇지 않을 시 type null로 변경 - ClassDAO에 classUpdate 추가 완료
-// favorite 값 받아서 classUpdate 실행하고 그 후에 list 호출!
-function init() {
-  setInterval(list, 1000*60*60*24); 		//하루에 한 번씩 리스트 불러오기 (자정에 실행되도록 변경해야댐!)
+function selectFavorite(classId, favoriteCnt) {
+	$.ajax({
+		type: 'POST',
+		url: 'favorite',
+		async: false,
+		data: { classId: classId },
+		success: function(result) {
+			if(result = 0){
+				favoriteBtn.append(
+				'		<div>'
+				+'			<button onclick="favoriteClick("'+ classId +')">응원하기</button>'
+				+'		</div>'
+				);
+				
+			}else{
+				favoriteBtn.append(
+				'		<div>'
+				+'			<span>응원완료</span>'
+				+'		</div>'
+				);
+			}
+			$('#swiper').append(
+				'<div>'
+				+'	<button onclick="share()">공유하기</button>'
+				+'	<button onclick="close()">닫기</button>'
+				+'</div>'
+				+'<div id="slide">'
+				+'	<img src="">'
+				+'	<div>'
+				+'		<div>creater</div>'
+				+'		<div>className</div>'
+				+'	</div>'
+				+'	<div></div>'
+				+'	<div></div>'
+				+'	<button>left</button>'
+				+'	<button>right</button>'
+				+'</div>'
+				+'<div>'
+				+'	<span id="bar"></span>'
+				+'</div>'
+				+'<div>'
+				+'	<div id="favoriteF">'
+				+'		<div>'
+				+'			<span>현재 응원 수</span> '
+				+'			<span>'+favorite+'</span> '
+				+'			<span>/ 50명</span>'
+				+'		</div>'
+				+'	</div>'
+				+'</div>');
+				$('swiper').append(favoritBtn);
+		}
+	})
 }
 
-init();
+function favoriteClick(i) {
+	$.ajax({
+		type: 'POST',
+		url: 'favorite-regist',
+		data: { classId: i },
+		success: function(result) {
+			list(c_val, r_val, type);
+		}
+	})
+}

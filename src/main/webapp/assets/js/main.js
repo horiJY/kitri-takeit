@@ -73,10 +73,6 @@
 	function paging(c_val, r_val, totalData, dataPerPage, pageCount, currentPage){
 		var totalPage = Math.ceil(totalData/dataPerPage);
 		var pageGroup = Math.ceil(currentPage/pageCount);
-		console.log("currentPage : "+currentPage);
-		console.log("totalData : "+totalData);
-		console.log("totalPage : "+totalPage);
-		console.log("pageGroup : "+pageGroup);
 		
 		var last = pageGroup * pageCount;
 		if(last > totalPage){
@@ -85,10 +81,7 @@
 		var first = last - (pageCount - 1);
 		var next = last + 1;
 		var prev = first - 1;
-		console.log("last : "+last);
-		console.log("first : "+first);
-		console.log("next : "+next);
-		console.log("prev : "+prev);
+
 		if(totalPage < 1){
 			first = last;
 		}
@@ -102,7 +95,6 @@
 			async: false,
 			data: { category: c_val, range: r_val, type: 'O', start: start, end: end },
 			success: function(result) {
-				console.log(result);
 				let pageHtml = "";
 				if (prev > 0) {
 					pageHtml += '<li><button onclick="pageClickPN()" id="prev"> 이전 </li>';
@@ -141,9 +133,7 @@
 	}
 
 	list(c_val, r_val);
-	
 
-	
 	category.onclick = function() {
 		if (categoryDrop.style.display == "block") {
 			categoryDrop.style.display = "none";
