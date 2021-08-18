@@ -69,12 +69,13 @@ public class OpenClassController extends HttpServlet {
 
 		result = sdao.insertSchedule(slist);
 		if (result!=sJarr.size()){ 
-			// 앞에서 추가한 클래스 delete
-			cdao.deleteClass(classId);
+			// 앞에서 추가한 클래스 폐지
+			cdao.closeClass(classId);
 			// 스케쥴 insert 실패 응답
 			response.getWriter().println("FAIL");
 			return;
 		}
+		//opendate 설정
 		
 		//강의 개설 성공 응답
 		response.getWriter().println("SUCCESS");

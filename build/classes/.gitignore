@@ -1,6 +1,3 @@
-/controller/
-/dao/
 /db/
-/filter/
-/pagination/
-/vo/
+/dao/
+/controller/

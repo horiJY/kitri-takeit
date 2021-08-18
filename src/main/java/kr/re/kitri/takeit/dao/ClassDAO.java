@@ -178,15 +178,91 @@ public class ClassDAO {
 		return clist;
 	}
 	
-	
-	//delete class by classId
-	public int deleteClass(int classid){
+	//create class
+	//classvo 확정되면 수정
+	public int insertClass(ClassVO cvo){
 		Connection conn = DBConnect.getInstance();
-		String sql = " DELETE FROM CLASS WHERE CLASSID = '"+classid+"'' ";
+		StringBuilder sb = new StringBuilder();
+		sb.append(" INSERT INTO CLASS ( CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, " );
+		sb.append(" DETAIL, PRICE, CAPACITY, TYPE, CATEGORY, OPENDATE, INTRODUCE ) ");
+		sb.append(" VALUES ( ( SELECT COUNT(*)+1 FROM CLASS ), '");
+		sb.append(cvo.getClassName());
+		sb.append("', '");
+		sb.append(cvo.getCreater());
+		sb.append("', '");
+		sb.append(cvo.getClassType());
+		sb.append("', ");
+		sb.append(cvo.getPeriod());
+		sb.append(", '");
+		sb.append(cvo.getDetail());
+		sb.append("', ");
+		sb.append(cvo.getPrice());
+		sb.append(", ");
+		sb.append(cvo.getCapacity());
+		sb.append(", '");
+		sb.append(cvo.getType());
+		sb.append("', '");
+		sb.append(cvo.getCategory());
+		sb.append("', '");
+		sb.append(cvo.getOpenDate());
+		sb.append("', '");
+		sb.append(cvo.getIntroduce());
+		sb.append("') ");
+		String sql = sb.toString();
+		Statement stmt = null;
+		int result = 0;
+		int classid = 0;
+		try {
+			stmt = conn.createStatement();
+			//set prepared statement
+			
+			//get result
+			result = stmt.executeUpdate(sql);
+			if(result == 1) {
+				classid = countClass();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, null);
+		}
+		return classid;
+	}
+	
+	//get classid
+	public int countClass() {
+		Connection conn = DBConnect.getInstance();
+		String sql = " SELECT COUNT(*) FROM CLASS ";
+		Statement stmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			stmt = conn.createStatement();
+			
+			//get result
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, rs);
+		}
+		return count;
+	}
+	
+	//강의 페지
+	public int closeClass(int classid) {
+		Connection conn = DBConnect.getInstance();
+		//폐지상태로 변경
+		String sql = " UPDATE CLASS SET TYPE = 'C' WHERE CLASSID = '"+classid+"' ";
 		Statement stmt = null;
 		int result = 0;
 		try {
 			stmt = conn.createStatement();
+			
+			//get result
 			result = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -195,32 +271,4 @@ public class ClassDAO {
 		}
 		return result;
 	}
-
-	//create class
-	//classvo 확정되면 수정
-	public int insertClass(ClassVO cvo){
-		Connection conn = DBConnect.getInstance();
-		String sql = " INSERT INTO CLASS ( CLASSID, CLASSNAME, ) "
-				+ " VALUES ( SEQ_CLASSID.NEXTVAL, ? ) ";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int classid = 0;
-		try {
-			pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-			//set prepared statement
-			
-			//get result
-			pstmt.executeUpdate();
-			rs = pstmt.getGeneratedKeys();
-			if(rs.next()) {
-				classid = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll(conn, pstmt, null, null);
-		}
-		return classid;
-	}
-	
 }

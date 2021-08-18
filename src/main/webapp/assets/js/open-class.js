@@ -29,11 +29,6 @@ var classFee = document.getElementById("class-fee");
 var classIntroduce = document.getElementById("class-introduce");
 var classDetail = document.getElementById("class-detail");
 
-var confirmBox = document.getElementById("confirm-box");
-var confirmContent = document.getElementById("confirm-content");
-var confirmOpenBtn = document.getElementById("confirm-open-btn");
-var confirmCancelBtn = document.getElementById("confirm-cancel-btn");
-
 // 대면/비대면 수업 유형 변경 시 기간 설정 형식 변경 eventlistener
 document.querySelectorAll("[name='class-type']").forEach(function(element) {
 	element.addEventListener("click", function() {
@@ -101,13 +96,13 @@ document.querySelectorAll("[name='repeat-method']").forEach(function(element) {
 	});
 });
 
-//스케쥴 클래스
-var schedule = function(stime, etime){
-	return {
-		stime : stime,
-		etime : etime
+//달력 표시
+var fullcalendar = new FullCalendar.Calendar(calendar, {
+	initialView: 'dayGridMonth',
+	eventClick: function(arg){
+		arg.event.remove();
 	}
-};
+});
 
 //스케쥴 추가
 scheduleAddBtn.onclick = function(){
@@ -122,20 +117,18 @@ scheduleAddBtn.onclick = function(){
 		return;
 	}
 	
-	var sdate = startDate.value;
-	var stime = startTime.value;
-	var etime = endTime.value;
+	var stime = new Date(startDate.value+" "+startTime.value);
+	var etime = new Date(startDate.value+" "+endTime.value);;
+	classSchedule.push({startTime:stime,endTime:etime});
 	
 	//스케쥴 반복 입력
 	if(repeatMethod=="repeat"){
 		//반복수 지정 방식
 		var repeatNum = document.getElementById("repeat").value;
-		classSchedule.push(schedule(sdate+" "+stime,sdate+" "+etime)); 
-		var schd = new Date(sdate);
 		for(var i=1;i<repeatNum;i++){
-			schd.setDate(schd.getDate()+7);
-			var schdStr = schd.toISOString().slice(0,10);
-			classSchedule.push(schedule(schdStr+" "+stime,schdStr+" "+etime));
+			var start = setDate(stime.getDate()+7);
+			etime.setDate(etime.getDate()+7);
+			classSchedule.push({startTime:stime,endTime:etime}); 
 		}
 	}else if(repeatMethod=="enddate"){
 		//종료일 지정 방식
@@ -149,14 +142,17 @@ scheduleAddBtn.onclick = function(){
 			endTime.focus();
 			return;
 		}
-		var edate = endDate.value;
 		
-		for(var schd = new Date(sdate);schd<=new Date(edate);schd.setDate(schd.getDate()+7)){
-			var schdStr = schd.toISOString().slice(0,10);
-			classSchedule.push(schedule(schdStr+" "+stime,schdStr+" "+etime));
+		var edate = new Date(endDate.value+" "+startTime.value);
+		
+		while(stime <= edate){
+			stime.setDate(stime.getDate()+7);
+			etime.setDate(etime.getDate()+7);
+			classSchedule.push({startTime:stime,endTime:etime});
 		}
 	}
-//	console.log(classSchedule);
+	fullcalendar.removeAllEvents();
+	console.log(classSchedule);
 	classSchedule.forEach(function(schd){
 //		calendar.innerHTML += schd.day;
 //		calendar.innerHTML += " ";
@@ -164,28 +160,21 @@ scheduleAddBtn.onclick = function(){
 //		calendar.innerHTML += " ";
 //		calendar.innerHTML += schd.etime;
 //		calendar.innerHTML += "<br>";
-		calendar.addEvent({	
-			title : className.value,
-			start : schd.day,
-			description: schd.stime+'~'+schd.etime
+		fullcalendar.addEvent({	
+			title : startTime.value+"~"+endTime.value,
+			start : schd.startTime.toISOString().slice(0,10)
 		});
 	});
 };
 
 //스케쥴 리셋: 스케쥴 배열 비우기
 scheduleResetBtn.onclick = function(){
-	if(confirm("추가된 일정이 초기화됩니다.")){
+	if(confirm("일정이 모두 초기화됩니다.")){
 		classSchedule = [];
-		calendar.innerHTML = "";		
+		//calendar.innerHTML = "";
+		fullcalendar.removeAllEvents();
 	}
 };
-
-
-//달력 표시
-var fullcalendar = new FullCalendar.Calendar(calendar, {
-	initialView: 'dayGridMonth',
-	
-});
 
 
 // 저장 버튼을 누르면 개설 정보 확인 창 출력
@@ -235,43 +224,13 @@ openBtn.onclick = function(){
 		return;
 	}
 	
-	confirmContent.innerHTML += "class name: ";
-	confirmContent.innerHTML += className.value;
-	confirmContent.innerHTML += "<br>";
-	confirmContent.innerHTML += "category: ";
-	confirmContent.innerHTML += category.value;
-	confirmContent.innerHTML += "<br>";
-	confirmContent.innerHTML += "class type: ";
-	confirmContent.innerHTML += classType;
-	confirmContent.innerHTML += "<br>";
-	
-	if(classType=="on"){
-		confirmContent.innerHTML += "class period: ";
-		confirmContent.innerHTML += classPeriod.value*7;
-	}else{
-		confirmContent.innerHTML += "class schedule: ";
-		confirmContent.innerHTML += "<br>";
-		confirmContent.innerHTML += calendar.innerHTML;
-		confirmContent.innerHTML += "class capacity: ";
-		confirmContent.innerHTML += classCapacity.value;
+	if(confirm("강의를 개설하시겠습니까?")){
+		send();
 	}
-	
-	confirmContent.innerHTML += "<br>";
-	confirmContent.innerHTML += "class fee: ";
-	confirmContent.innerHTML += classFee.value;
-	confirmContent.innerHTML += "<br>";
-	confirmContent.innerHTML += "class introduce: ";
-	confirmContent.innerHTML += classIntroduce.value;
-	confirmContent.innerHTML += "<br>";
-	confirmContent.innerHTML += "class detail: ";
-	confirmContent.innerHTML += classDetail.value;
-
-	editBox.style.display = "none";
-	confirmBox.style.display = "block";
-};
+}
 
 // 확인창 확인 버튼 클릭 시 폼 전송 후 마이페이지로 이동
-confirmOpenBtn.onclick = function(){
+var send = function(){
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST","",true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -291,11 +250,12 @@ confirmOpenBtn.onclick = function(){
 	}
 	var classJson = JSON.stringify(classStr);
 	var scheduleJson = JSON.stringify(scheduleStr);
-	console.log(classJson);
-	console.log(scheduleJson);
+	//console.log(classJson);
+	//console.log(scheduleJson);
 	xhr.send("class="+classJson+"&schedule="+scheduleJson);
 	
 	xhr.onreadystatechange = function(){
+		console.log(xhr.status);
 		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
 			var code = xhr.responseText;
 			if(code=="SUCCESS"){
@@ -316,14 +276,6 @@ confirmOpenBtn.onclick = function(){
 				+ "문제가 지속되면 고객센터로 문의바랍니다.");
 		}
 	}
-}
-
-// 확인창 취소 버튼 클릭 시 편집 페이지로 되돌아감
-confirmCancelBtn.onclick = function(){
-	editBox.style.display = "block";
-	confirmBox.style.display = "none";
-	
-	confirmContent.innerHTML = "";
 }
 
 
