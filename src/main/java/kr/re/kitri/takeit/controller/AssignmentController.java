@@ -47,7 +47,7 @@ public class AssignmentController extends HttpServlet {
 		request.setAttribute("AVO", avo);
 		request.setAttribute("CVO", cvo);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("assignment.jsp"); //jsp로 보내줌
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/assignment.jsp"); //jsp로 보내줌
 		rd.forward(request, response);
 		
 		
