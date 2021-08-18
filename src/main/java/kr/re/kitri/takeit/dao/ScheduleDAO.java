@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -97,6 +98,40 @@ public class ScheduleDAO {
 			closeAll(conn,pstmt,null,null);
 		}
 		return result;
+	}
+	
+	//해당 유저의 스케쥴 조회
+	public ArrayList<ScheduleVO> selectSchedule(String userId) {
+		//db 접속
+		Connection conn = DBConnect.getInstance();
+		//sql 작성
+		String sql = " SELECT CLASSID, STARTTIME, ENDTIME FROM SCHEDULE WHERE "
+				+ " CLASSID IN ( SELECT CLASSID FROM ASSIGNMENT WHERE USERID = ? ) "
+				+ " OR CLASSID IN ( SELECT CLASSID FROM CLASS WHERE CREATER = ? ) ";
+		PreparedStatement pstmt= null;
+		ArrayList<ScheduleVO> slist = null;
+		ResultSet rs = null;
+		try {
+			//쿼리 설정
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
+			//쿼리 실행
+			rs = pstmt.executeQuery();
+			//scheduleVO list로 변환
+			while(rs.next()) {
+				ScheduleVO svo = new ScheduleVO();
+				svo.setClassId(rs.getInt("CLASSID"));
+				svo.setStartTime(rs.getString("STARTTIME"));
+				svo.setEndTime(rs.getString("ENDTIME"));
+				slist.add(svo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeAll(conn,pstmt,null,null);
+		}
+		return slist;
 	}
 	
 	//클래스의 첫 일정 조회
