@@ -149,4 +149,32 @@ public class QnaDAO {
 		
 		return result;
 	}
+	
+	public int qna(QnaVO qvo ) {
+        Connection conn = DBConnect.getInstance();
+        
+        String sql = "INSERT INTO QNA (USERID, QNADATE, QUESTION, QNATITLE)"
+                + "VALUES (?,sysdate,?,?)";
+        
+        PreparedStatement pstmt = null;
+        int result = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, qvo.getUserid());
+            pstmt.setString(2, qvo.getQuestion());
+            pstmt.setString(3, qvo.getQnatitle());
+            
+            
+            result = pstmt.executeUpdate();
+        
+        
+        
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            closeAll(conn,pstmt,null,null);
+        }
+        return result;
+    }
 }

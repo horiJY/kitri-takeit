@@ -7,6 +7,10 @@ public class AssignmentVO {
 	private String userId;
 	private Date startDate;
 	private Date endDate;
+    private String username;
+    private String usertype;
+    private String userphone;
+    private int point;
 	
 	public int getClassId() {
 		return classId;
@@ -32,4 +36,28 @@ public class AssignmentVO {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}	
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getUsertype() {
+        return usertype;
+    }
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+    public String getUserphone() {
+        return userphone;
+    }
+    public void setUserphone(String userphone) {
+        this.userphone = userphone;
+    }
+    public int getPoint() {
+        return point;
+    }
+    public void setPoint(int point) {
+        this.point = point;
+    }
 }
