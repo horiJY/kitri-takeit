@@ -1,6 +1,7 @@
 package vo;
 
-import java.sql.Date;
+//import java.sql.Date;
+import java.util.Date;
 
 public class ClassVO {
 	private int classId;
@@ -17,7 +18,15 @@ public class ClassVO {
 	private int favorite;
 	private String category;
 	private Date openDate;
-	
+	private String introduce;
+
+	public String getIntroduce() {
+		return introduce;
+	}
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
 	public int getClassId() {
 		return classId;
 	}
@@ -102,5 +111,5 @@ public class ClassVO {
 	public void setFavorite(int favorite) {
 		this.favorite = favorite;
 	}
-	
+
 }
