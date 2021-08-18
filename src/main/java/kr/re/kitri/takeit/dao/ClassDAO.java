@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,9 +13,10 @@ import db.DBConnect;
 import vo.ClassVO;
 
 public class ClassDAO {
-	//closeAll
-	public void closeAll(Connection conn, PreparedStatement pstmt, Statement stmt, ResultSet rs) {
 
+	// closeAll
+	public void closeAll(Connection conn, PreparedStatement pstmt,
+			Statement stmt, ResultSet rs) {
 		try {
 			if (rs != null && !rs.isClosed()) {
 				rs.close();
@@ -29,19 +31,13 @@ public class ClassDAO {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 	}
-	
-	//main page -> Select(className, creater, recommend, price, sale, classType)
-	
-	//class-detail page -> SelectAll
-	
-	//pre-class page -> Select(className, create, classType, favorite)
-	
-	//mypage -> select favorite class
-	public List<ClassVO> selectFavoriteClass(String id){
+
+	// class-detail page -> SelectAll
+	public List<ClassVO> selectDetail(int classId) {
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSID, CLASSNAME, CREATER, FAVORITE, OPENDATE FROM CLASS "
 				+ "WHERE CLASSID = (SELECT CLASSID FROM FAVORITE WHERE USERID = '" + id + "')"
@@ -49,7 +45,7 @@ public class ClassDAO {
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
-		
+
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -74,8 +70,9 @@ public class ClassDAO {
 		return clist;
 	}
 	
-	//mypage -> select assignment class
 	
+	
+	//mypage -> select assignment class
 	public List<ClassVO> selectAssignmentClass(String id){
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, CATEGORY FROM CLASS"
@@ -268,4 +265,43 @@ public class ClassDAO {
 		}
 		return result;
 	}
+	
+	// detail page : class정보
+    public ClassVO getClassDetail(int classId) {
+        Connection conn = DBConnect.getInstance();
+
+        String sql = "select classname, u.username, introduce, period, content_num, detail, chapter, creater_info, address "
+                + "from class c, webuser u "
+                + "where c.creater = u.userid and classid = " + classId;
+
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        ClassVO cvo = new ClassVO();
+
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                cvo.setClassName(rs.getString(1));
+                cvo.setClassName(rs.getString(1));
+                cvo.setCreater(rs.getString(2));
+                cvo.setIntroduce(rs.getString(3));
+                cvo.setPeriod(rs.getInt(4));
+                cvo.setContent_num(rs.getInt(5));
+                cvo.setDetail(rs.getString(6));
+                cvo.setChapter(rs.getString(7));
+                cvo.setCreater_info(rs.getString(8));
+                cvo.setAddress(rs.getString(9));
+            }
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            closeAll(conn, null, stmt, rs);
+        }
+        return cvo;
+    }
 }

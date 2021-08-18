@@ -8,7 +8,40 @@ public class ReviewVO {
 	private String content;
 	private Date reviewDate;
 	private int recommend;
-	private String className;
+	private int totalRecommendNum;
+    private double avgScore;
+    private String userName;
+    private String className;
+
+    @Override
+    public String toString() {
+    return "ReviewVO [userId=" + userId + ", classId=" + classId + ", content=" + content + ", reviewDate="
+        + reviewDate + ", userName=" + userName + "]";
+    }
+	
+	    public String getUserName() {
+    return userName;
+    }
+
+    public void setUserName(String userName) {
+    this.userName = userName;
+    }
+
+    public int getTotalRecommendNum() {
+    return totalRecommendNum;
+    }
+
+    public void setTotalRecommendNum(int totalRecommendNum) {
+    this.totalRecommendNum = totalRecommendNum;
+    }
+
+    public double getAvgScore() {
+    return avgScore;
+    }
+
+    public void setAvgScore(double avgScore) {
+    this.avgScore = avgScore;
+    }
 	
 	public String getClassName() {
 		return className;
