@@ -15,9 +15,9 @@
 	<header>
 		<form action="header">
 			<div>
-				<img alt="tatkit-logo" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg" height="50px">
+				<img alt="tatkit-logo" onclick="gotomain()" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg" height="50px">
 				<input type="search" id="search" name="search">
-				<a href="#"><img alt="search-icon" src="" height="20px"></a>
+				<a href="#"><img alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png" height="20px"></a>
 				<input type="button" onclick="logoutBtn()" value="LOGOUT" id="logoutBtn">
 			</div>
 		</form>
@@ -70,7 +70,7 @@
 										</a>
 									</li>
 									<li>
-										<a class="MyClassReg" id="myClassRegNav"><!-- 내 강의 등록 -->
+										<a onclick="clickMPOC()" class="MyClassReg" id="myClassRegNav"><!-- 내 강의 등록 -->
 											<div id="myClassReg-text">강의 등록</div> 
 										</a>
 									</li>

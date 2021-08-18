@@ -356,7 +356,7 @@ function mypreclass(){
 				$("#myPageBtns").empty();
 				
 				$("#myPageFormTitle").append("내 클래스");
-				$("#myPageBtns").append("<button type='button' onclick='createClassBtn()' id='createClassBtn' value='강의 등록하기'></button>");
+				$("#myPageBtns").append("<button type='button' onclick='clickMPOC()' id='createClassBtn' value='강의 등록하기'></button>");
 				$("#myPageContent1").append("<h4>오픈 예정 클래스</h4>");
 				if (result.length != 0) {
 					$("#myPageContent1").append("<div class='class-box'></div>");

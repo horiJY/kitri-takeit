@@ -8,6 +8,25 @@ function logoutBtn() {
 		error: function(XMLHttpRequest, textStatus, errorThrown) { }
 	})
 }
+
+function gotomain(){
+	$.ajax({
+		type: "POST",
+		url: "main",
+		success: function() { },
+		error: function(XMLHttpRequest, textStatus, errorThrown) { }
+	})
+}
+
+function clickMPOC(){	//click MyPageOpenClass
+	$.ajax({
+		type: "POST",
+		url: "mypage/openclass",
+		success: function(res) {},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {}
+	})
+}
+
 //admin- 답변
 function saveQnaAnswerBtn(i) {//
 //	debugger;
@@ -56,36 +75,38 @@ function clickMIUB() {	//click myInfoUpdateBtn
 		}
 	})
 }
-function clickMIDB() {	//click myInfoDeleteBtn
-	$.ajax({
-		type: "POST",
-		url: "user-delete",
-		success: function(res) {
-			alert(res.code);
-			
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("회원 탈퇴 실패")
-		}
-	})
-}
-//
-//// 내 응원
-//function deleteFavoriteBtn(i) {
+//function clickMIDB() {	//click myInfoDeleteBtn
 //	$.ajax({
-//		type: 'POST',
-//		url: 'favoritedelete',
-//		data: { classId: i },
+//		type: "POST",
+//		url: "user-delete",
 //		success: function(res) {
-//			console.log(i);
 //			alert(res.code);
+//			
 //		},
-//
 //		error: function(XMLHttpRequest, textStatus, errorThrown) {
-//			alert("응원 내역 삭제 실패");
+//			alert("회원 탈퇴 실패")
 //		}
 //	})
 //}
+
+
+
+// 내 응원
+function deleteFavoriteBtn(i) {
+	$.ajax({
+		type: 'POST',
+		url: 'favoritedelete',
+		data: { classId: i },
+		success: function(res) {
+			console.log(i);
+			alert(res.code);
+		},
+
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("응원 내역 삭제 실패");
+		}
+	})
+}
 //function showpreClassBtn() {
 //	$.ajax({
 //		type: 'POST',
