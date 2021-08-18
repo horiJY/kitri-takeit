@@ -8,15 +8,22 @@ public class ReviewVO {
     private String content;
     private Date reviewDate;
     private int recommend;
-    private String classTag;
     private int totalRecommendNum;
     private double avgScore;
+    private String userName;
 
     @Override
     public String toString() {
 	return "ReviewVO [userId=" + userId + ", classId=" + classId + ", content=" + content + ", reviewDate="
-		+ reviewDate + ", recommend=" + recommend + ", classTag=" + classTag + ", totalRecommendNum="
-		+ totalRecommendNum + ", avgScore=" + avgScore + "]";
+		+ reviewDate + ", userName=" + userName + "]";
+    }
+
+    public String getUserName() {
+	return userName;
+    }
+
+    public void setUserName(String userName) {
+	this.userName = userName;
     }
 
     public int getTotalRecommendNum() {
@@ -33,14 +40,6 @@ public class ReviewVO {
 
     public void setAvgScore(double avgScore) {
 	this.avgScore = avgScore;
-    }
-
-    public String getClassTag() {
-	return classTag;
-    }
-
-    public void setClassTag(String classTag) {
-	this.classTag = classTag;
     }
 
     public String getUserId() {

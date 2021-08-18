@@ -15,7 +15,7 @@ import service.GoogleLoginService;
 import service.KakaoLoginService;
 import service.NaverLoginService;
 
-@WebServlet(urlPatterns = { "/kakao.li", "/naver.li", "/login/google" })
+@WebServlet(urlPatterns = { "/login/kakao", "/login/naver", "/login/google" })
 public class LoginTokenController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -54,13 +54,10 @@ public class LoginTokenController extends HttpServlet {
 	} else if (requestURI.contains("google.do")) {
 	    // .do를 붙여서 Mapping하게되면.. 한글이나 다른 언어로 url유입이 되었을 때 filter 처리를 할 수 있게됨
 	    // 인가코드로 엑세스토큰 발급
-	    System.out.println("구글 분기 code:" + code);
 	    GoogleLoginService googleApi = new GoogleLoginService();
 	    String idToken = googleApi.getAccessToken(code);
-	    System.out.println("google idToken: " + idToken);
 	    // id토큰으로 유저정보 가져와 DB확인
 	    UserInfo = googleApi.getUserInfo(idToken);
-	    System.out.println(UserInfo);
 	    WebUserDAO webuserdao = new WebUserDAO();
 	    // webuser 테이블에 로그인 유저 id조회 후 없을 시 등록
 	    if (!webuserdao.getWebUser(UserInfo.get("id"))) {
@@ -69,7 +66,6 @@ public class LoginTokenController extends HttpServlet {
 	    }
 	}
 
-	System.out.println(UserInfo);
 	HttpSession session = request.getSession();
 	// attribute 할때 - 말고 _로 할 것 : JS에서 마이너스 연산으로 인식할 수 있음
 	session.setAttribute("takeit-userid", UserInfo.get("id"));

@@ -12,6 +12,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%-- <% --%>
+// int recommentNum = (int)session.getAttribute
+<%-- %> --%>
 	<header>
 		<div>
 			<span>takeit!</span> 
