@@ -10,7 +10,8 @@ function test(userType) {
 
 	const Container = document.getElementById("Container");
 	const myPageFormTitle = document.getElementById("myPageFormTitle");
-	const myPageContent = document.getElementById("myPageContent");
+	const myPageContent1 = document.getElementById("myPageContent1");
+	const myPageContent2 = document.getElementById("myPageContent2");
 	const myPageBtns = document.getElementById("myPageBtns");
 
 	var userType = userType;
@@ -50,14 +51,15 @@ function allQNA() {
 			data: {},
 			success: function(result) {
 				
-				$("#myPageContent").empty();
+				$("#myPageContent1").empty();
+				$("#myPageContent2").empty();
 				if (result.length != 0) {
-					$("#myPageContent").append("<table border='1' id='allQnaTable'>"
+					$("#myPageContent1").append("<table border='1' id='allQnaTable'>"
 						+ "<thead>"
 						+ "<tr> <th>제목</th> <th>날짜</th> <th>ID</th> </tr> </thead>"
 						+ "<tbody class='qnaBody'></tbody>"
 						+ "</table>");
-					console.log(result + " 총 " + result.length + "개 데이터");
+//					console.log(result + " 총 " + result.length + "개 데이터");
 					$.each(result, function(inx, obj) {
 
 						$(".qnaBody").append("<tr class='qna_qbox'>"
@@ -91,30 +93,6 @@ function allQNA() {
 
 	}
 }
-function saveQnaAnswerBtn(i) {//
-	var params = {
-		qnaTitle: qnaTitleArr[i]
-		, userId: userIdArr[i]
-		, answer: $("#answerarea").val()
-	}
-//	console.log(params);
-		$.ajax({
-			type: 'POST',
-			url: 'qna-update',
-			dataType: 'json',
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			data: {
-				params
-			},
-			success: function(res) {
-				alert(res.code);
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("클래스 생성 실패");
-			}
-		})
-
-	}
 
 function myInfo() {
 	try {
@@ -126,20 +104,21 @@ function myInfo() {
 			data: {},
 			success: function(result) {
 				$("#myPageFormTitle").empty();
-				$("#myPageContent").empty();
+				$("#myPageContent1").empty();
+				$("#myPageContent2").empty();
 				$("#myPageBtns").empty();
 				var usertype = result.userType;
 				usertype = (usertype=='C') ? 'Creater' : 'User';
 				
 				$("#myPageFormTitle").append("내 정보 조회 / 수정");
 				if (result.length != 0) {
-					$("#myPageContent").append("<div class='userinfo-box'></div>");
+					$("#myPageContent1").append("<div class='userinfo-box'></div>");
 					$(".userinfo-box").append("<img id='userThumnail' alt='유저아이콘' src='" + result.thumnail + "'><br>"
-									+ "<label>ID <input type='text' value='" + result.id + "' id='userId' name='userId' disabled></label><br>"
-									+ "<label>Type <input type='text' value='" + usertype + "' id='userType' name='userType' disabled></label><br>"
-									+ "<label>이름 <input type='text' value='" + result.name + "' id='userName' name='userName' required></label><br>"
-									+ "<label>번호 <input type='text' value='" + result.phone + "' id='phone' name='phone' required></label><br>"
-									+ "<label>자기소개 <input type='text' value='" + result.introduce + "' id='introduce' name='introduce' required></label><br>"
+									+ "<label class='myInfoLabel'><div>ID</div><br><input type='text' value='" + result.id + "' id='userId' name='userId' disabled></label><br>"
+									+ "<label class='myInfoLabel'><div>TYPE</div><br> <input type='text' value='" + usertype + "' id='userType' name='userType' disabled></label><br>"
+									+ "<label class='myInfoLabel'><div>이름</div><br> <input type='text' value='" + result.name + "' id='userName' name='userName' required></label><br>"
+									+ "<label class='myInfoLabel'><div>번호</div><br> <input type='text' value='" + result.phone + "' id='phone' name='phone' required></label><br>"
+									+ "<label class='myInfoLabel'><div>자기소개</div><br> <input type='text' value='" + result.introduce + "' id='introduce' name='introduce' required></label><br>"
 					);
 					$("#myPageBtns").append("<button type='button' onclick='myInfoUpdateBtn() id='myInfoUpdateBtn' value='정보 수정하기'></button><br>"
 					+ "<button type='button' onclick='myInfoDeleteBtn() 'value id='myInfoDeleteBtn'value='회원탈퇴' ></button>");
@@ -163,12 +142,13 @@ function myFavorite() {
 			data: {},
 			success: function(result) {
 				$("#myPageFormTitle").empty();
-				$("#myPageContent").empty();
+				$("#myPageContent1").empty();
+				$("#myPageContent2").empty();
 				$("#myPageBtns").empty();
 				
 				$("#myPageFormTitle").append("내 응원 내역");
 				if (result.length != 0) {
-					$("#myPageContent").append("<div class='class-box'></div>");
+					$("#myPageContent1").append("<div class='class-box'></div>");
 					$.each(result, function(inx, obj) {
 
 						$(".class-box").append("<div class='className'> " + obj.className + "</div> "
@@ -180,7 +160,7 @@ function myFavorite() {
 
 					});
 				} else {
-					$("#myPageContent").append("<img alt='응원한 내역이 없습니다.' src=''><br>");
+					$("#myPageContent1").append("<img alt='응원한 내역이 없습니다.' src=''><br>");
 				}
 				$("#myPageBtns").append("<button type='button' onclick='showPreClassBtn()' id='showPreClassBtn' value='오픈 예정 클래스 둘러보기'></button>");
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -202,12 +182,13 @@ function myAssignment() {
 			data: {},
 			success: function(result) {
 				$("#myPageFormTitle").empty();
-				$("#myPageContent").empty();
+				$("#myPageContent1").empty();
+				$("#myPageContent2").empty();
 				$("#myPageBtns").empty();
 				
 				$("#myPageFormTitle").append("결제 내역");
 				if (result.length != 0) {
-					$("#myPageContent").append("<div class='class-box'></div>");
+					$("#myPageContent1").append("<div class='class-box'></div>");
 					$.each(result, function(inx, obj) {
 
 						$(".class-box").append("<div class='className'> " + obj.className + "</div> "
@@ -219,7 +200,7 @@ function myAssignment() {
 
 					});
 				} else {
-					$("#myPageContent").append("<img alt='결제한 내역이 없습니다.' src=''><br>");
+					$("#myPageContent1").append("<img alt='결제한 내역이 없습니다.' src=''><br>");
 				}
 				$("#myPageBtns").append("<button type='button' onclick='showClassBtn()' id='showClassBtn' value='클래스 둘러보기'></button>");
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -240,12 +221,13 @@ function myReview() {
 			data: {},
 			success: function(result) {
 				$("#myPageFormTitle").empty();
-				$("#myPageContent").empty();
+				$("#myPageContent1").empty();
+				$("#myPageContent2").empty();
 				$("#myPageBtns").empty();
 				
 				$("#myPageFormTitle").append("내 리뷰");
 				if (result.length != 0) {
-					$("#myPageContent").append("<div class='review-box'></div>");
+					$("#myPageContent1").append("<div class='review-box'></div>");
 					$.each(result, function(inx, obj) {
 
 						$(".review-box").append("<div class='className'> " + obj.className + "</div> "
@@ -257,7 +239,7 @@ function myReview() {
 
 					});
 				} else {
-					$("#myPageContent").append("<img alt='작성한 리뷰가 없습니다.' src=''><br>");
+					$("#myPageContent1").append("<img alt='작성한 리뷰가 없습니다.' src=''><br>");
 				}
 				$("#myPageBtns").append("<button type='button' onclick='reviewBtn()' id='reviewBtn' value='리뷰 작성하기'></button>");
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -269,6 +251,12 @@ function myReview() {
 	}
 }
 function myQnA() {
+	myqna();
+	myclassqna();
+	
+}
+
+function myqna(){
 	try {
 		$.ajax({
 			type: 'POST',
@@ -278,14 +266,14 @@ function myQnA() {
 			data: {},
 			success: function(result) {
 				$("#myPageFormTitle").empty();
-				$("#myPageContent").empty();
+				$("#myPageContent1").empty();
 				$("#myPageBtns").empty();
 				
 				$("#myPageFormTitle").append("내 질문");
 				$("#myPageBtns").append("<button type='button' onclick='qnaBtn()' id='qnaBtn' value='문의하기'></button>");
 				if (result.length != 0) {
-					$("#myPageContent").append("<h4>질문 내역</h4>");
-					$("#myPageContent").append("<table>"
+					$("#myPageContent1").append("<h4>질문 내역</h4>");
+					$("#myPageContent1").append("<table>"
 					+ "<thead> <tr> <th>제목</th> <th>날짜</th> </tr> </thead>"
 					+ "<tbody class='qna_list'></tbody></table>");
 					$.each(result, function(inx, obj) {
@@ -297,7 +285,7 @@ function myQnA() {
 
 					});
 				} else {
-					$("#myPageContent").append("<img alt='일반 문의 내역이 없습니다.' src=''><br>");
+					$("#myPageContent1").append("<img alt='일반 문의 내역이 없습니다.' src=''><br>");
 				}
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 				alert('There is an error : method(group)에 에러가 있습니다.');
@@ -306,6 +294,8 @@ function myQnA() {
 	} catch (e) {
 
 	}
+}
+function myclassqna(){
 	try {
 		$.ajax({
 			type: 'POST',
@@ -314,11 +304,11 @@ function myQnA() {
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			data: {},
 			success: function(result) {
-				
+				$("#myPageContent2").empty();
+				$("#myPageContent2").append("<h4>클래스 질문 내역</h4>");
 				if (result.length != 0) {
-					$("#myPageContent").append("<h4>클래스 질문 내역</h4>");
-					$("#myPageContent").append("<table>"
-					+ "<thead> <tr> <th>클래스 이름</th> <th>제목</th> <th>날짜</th> <th>ID</th> </tr> </thead>"
+					$("#myPageContent2").append("<table>"
+						+ "<thead> <tr> <th>클래스 이름</th> <th>제목</th> <th>날짜</th> <th>ID</th> </tr> </thead>"
 					+ "<tbody class='qna_list'></tbody></table>");
 					$.each(result, function(inx, obj) {
 
@@ -331,7 +321,7 @@ function myQnA() {
 
 					});
 				} else {
-					$("#myPageContent").append("<img alt='클래스 문의 내역이 없습니다.' src=''><br>");
+					$("#myPageContent2").append("<img alt='내 클래스의 문의 내역이 없습니다.' src=''><br>");
 				}
 					
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -342,70 +332,88 @@ function myQnA() {
 
 	}
 }
+
 function myClass() {
-	myPageFormTitle.innerHTML = "내 클래스"
-	myPageContent.innerHTML = "클래스 목록";
+	mypreclass();
+	myopenclass();
+}
 
-	var xhrpre = new XMLHttpRequest();
-	xhrpre.open("POST", "mypreclass", true);
-	xhrpre.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhrpre.send();
+function mypreclass(){
+	try {
+		$.ajax({
+			type: 'POST',
+			url: 'mypreclass',
+			dataType: 'json',
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			data: {},
+			success: function(result) {
+				$("#myPageFormTitle").empty();
+				$("#myPageContent1").empty();
+				$("#myPageBtns").empty();
+				
+				$("#myPageFormTitle").append("내 클래스");
+				$("#myPageBtns").append("<button type='button' onclick='createClassBtn()' id='createClassBtn' value='강의 등록하기'></button>");
+				$("#myPageContent1").append("<h4>오픈 예정 클래스</h4>");
+				if (result.length != 0) {
+					$("#myPageContent1").append("<div class='class-box'></div>");
+					$.each(result, function(inx, obj) {
+						$(".class-box").append("<a class='class-box-a'> "
+						+ "	<div class='className'> " + obj.className + "</div> "
+						+ "	<div class='category'> " + obj.category + "</div>"
+						+ "	<div class='openDate'> " + obj.openDate + "</div>"
+						+ "	<div class='favorite'> " + obj.favorite + "</div>"
+						+ "	</a>"
+						);
 
-	var xhropen = new XMLHttpRequest();
-	xhropen.open("POST", "myopenclass", true);
-	xhropen.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhropen.send();
-
-	var html = "";
-
-	xhrpre.onreadystatechange = function() {
-		if (xhrpre.readyState == XMLHttpRequest.DONE && xhrpre.status == 200) {
-			var jsonStr = xhrpre.responseText;//json
-			var json = JSON.parse(jsonStr);
-			html += "<h4>오픈 예정 클래스</h4>";
-			if (json.length != 0) {
-				for (var i = 0; i < json.length; i++) {
-					html += "<div class='class-box'>"
-						+ "		<a class='class-box-a'> "
-						+ "			<div class='className'> " + json[i].className + "</div> "
-						+ "			<div class='category'> " + json[i].category + "</div>"
-						+ "			<div class='openDate'> " + json[i].openDate + "</div>"
-						+ "			<div class='favorite'> " + json[i].favorite + "</div>"
-						+ "		</a>"
-						+ "</div>";
+					});
+				} else {
+					$("#myPageContent1").append("<img alt='오픈 예정 클래스가 없습니다.' src=''><br>");
 				}
-			} else {
-
-				html += "<img alt='오픈 예정 클래스가 없습니다.' src=''><br>";
+			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert('There is an error : method(group)에 에러가 있습니다.');
 			}
-		}
+		})
+	} catch (e) {
 
-	}
-	xhropen.onreadystatechange = function() {
-		if (xhropen.readyState == XMLHttpRequest.DONE && xhropen.status == 200) {
-			var jsonStr = xhropen.responseText;//json
-			var json = JSON.parse(jsonStr);
-			html += "<h4>오픈된 클래스</h4>";
-			if (json.length != 0) {
-				for (var i = 0; i < json.length; i++) {
-					html += "<div class='class-box'>"
-						+ "		<a class='class-box-a'> "
-						+ "			<div class='className'> " + json[i].className + "</div> "
-						+ "			<div class='category'> " + json[i].category + "</div>"
-						+ "			<div class='classType'> " + json[i].classType + "</div>"
-						+ "			<div class='recommend'> " + json[i].recommend + "</div>"
-						+ "		</a>"
-						+ "</div>";
-				}
-			} else {
-				html += "<img alt='오픈된 클래스가 없습니다.' src=''><br>";
-			}
-		}
-
-		myPageContent.innerHTML = html;
-		myPageBtns.innerHTML = "<button type='button' onclick='createClassBtn()' id='createClassBtn' value='강의 등록하기'></button>";
 	}
 }
+
+function myopenclass(){
+	try {
+		$.ajax({
+			type: 'POST',
+			url: 'myopenclass',
+			dataType: 'json',
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			data: {},
+			success: function(result) {
+				$("#myPageContent2").empty();	
+				$("#myPageContent2").append("<h4>오픈된 클래스</h4>");
+				if (result.length != 0) {
+					$("#myPageContent2").append("<div class='class-box'></div>");
+					$.each(result, function(inx, obj) {
+						$(".class-box").append("<a class='class-box-a'> "
+							+ "	<div class='className'> " + obj.className + "</div> "
+							+ "	<div class='category'> " + obj.category + "</div>"
+							+ "	<div class='classType'> " + obj.classType + "</div>"
+							+ "	<div class='recommend'> " + obj.recommend + "</div>"
+							+ "	</a>"
+						);
+
+					});
+				} else {
+					$("#myPageContent2").append("<img alt='오픈된 클래스가 없습니다.' src=''><br>");
+				}
+
+			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert('There is an error : method(group)에 에러가 있습니다.');
+			}
+		})
+	} catch (e) {
+
+	}
+}
+
 function myClassQna() {
 	try {
 		$.ajax({
@@ -416,12 +424,13 @@ function myClassQna() {
 			data: {},
 			success: function(result) {
 				$("#myPageFormTitle").empty();
-				$("#myPageContent").empty();
+				$("#myPageContent1").empty();
+				$("#myPageContent2").empty();
 				$("#myPageBtns").empty();
 				
 				$("#myPageFormTitle").append("받은 질문 내역");
 				if (result.length != 0) {
-					$("#myPageContent").append("<table>"
+					$("#myPageContent1").append("<table>"
 					+ " <thead> <tr> <th>클래스 이름</th> <th>제목</th> <th>날짜</th> <th>ID</th> </tr> </thead>"
 					+ "<tbody class='qna-qbox'></tbody></table>");
 					$.each(result, function(inx, obj) {

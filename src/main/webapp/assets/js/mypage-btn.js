@@ -152,6 +152,29 @@
 			}
 		})
 	}
+	function saveQnaAnswerBtn(i) {//
+	var params = {
+		qnaTitle: qnaTitleArr[i]
+		, userId: userIdArr[i]
+		, answer: $("#answerarea").val()
+	}
+	console.log(params);
+	$.ajax({
+		type: 'POST',
+		url: 'qna-update',
+		dataType: 'json',
+		data:
+			params
+		,
+		success: function(res) {
+			alert(res.code);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("클래스 생성 실패");
+		}
+	})
+
+}
 
 	function qnaBox(i) {
 		if ($("#qna-abox[" + i + "]").css('visibility', 'hidden')) {

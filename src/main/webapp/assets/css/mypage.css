@@ -82,3 +82,38 @@ table{
 	height: 30px;
 	
 }
+.userinfo-box {
+	text-align: center;
+}
+#myPageBtns {
+	text-align: center;
+}
+.myInfoLabel {
+	text-align: right;
+	width: 50%;
+	min-width: 400px;
+	margin-bottom: 8px;
+}
+.myInfoLabel input{
+	width:50%;
+	min-width:400px;
+}
+.myInfoLabel div {
+	float:left;
+	width:70px;
+}
+#introduce{
+	height: 100px;
+}
+.myPageBtns{
+	width: 500px;
+	height: 30px;
+}
+
+
+
+
+
+
+
+

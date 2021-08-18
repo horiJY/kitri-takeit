@@ -23,15 +23,14 @@ public class QnaUpdateController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("takeit-userid");
 		
-//		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 
 		String qnaTitle = request.getParameter("qnaTitle");
 		String userId = request.getParameter("userId");
 		String answer = request.getParameter("answer");
-		
-		System.out.println("params: "+qnaTitle+","+userId+","+answer);
 		
 		QnaDAO qdao = new QnaDAO();
 		int result = qdao.updateQna(qnaTitle,userId,answer);
