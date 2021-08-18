@@ -96,6 +96,17 @@ document.querySelectorAll("[name='repeat-method']").forEach(function(element) {
 	});
 });
 
+//스케쥴 클래스
+var schedule = function(stime, etime){
+	var sStr = stime.toISOString();
+	var eStr = etime.toISOString();
+	return {
+		'startTime' : sStr.slice(0,10)+" "+sStr.slice(11,16),
+		'endTime' : eStr.slice(0,10)+" "+eStr.slice(11,16)
+	}
+};
+
+
 //달력 표시
 var fullcalendar = new FullCalendar.Calendar(calendar, {
 	initialView: 'dayGridMonth',
@@ -119,16 +130,18 @@ scheduleAddBtn.onclick = function(){
 	
 	var stime = new Date(startDate.value+" "+startTime.value);
 	var etime = new Date(startDate.value+" "+endTime.value);;
-	classSchedule.push({startTime:stime,endTime:etime});
+	classSchedule.push(schedule(stime,etime));
 	
 	//스케쥴 반복 입력
 	if(repeatMethod=="repeat"){
 		//반복수 지정 방식
 		var repeatNum = document.getElementById("repeat").value;
 		for(var i=1;i<repeatNum;i++){
-			var start = setDate(stime.getDate()+7);
+			stime.setDate(stime.getDate()+7);
 			etime.setDate(etime.getDate()+7);
-			classSchedule.push({startTime:stime,endTime:etime}); 
+			console.log(stime+" "+etime);
+			console.log(schedule(stime,etime));
+			classSchedule.push(schedule(stime,etime)); 
 		}
 	}else if(repeatMethod=="enddate"){
 		//종료일 지정 방식
@@ -148,7 +161,7 @@ scheduleAddBtn.onclick = function(){
 		while(stime <= edate){
 			stime.setDate(stime.getDate()+7);
 			etime.setDate(etime.getDate()+7);
-			classSchedule.push({startTime:stime,endTime:etime});
+			classSchedule.push(schedule(stime,etime));
 		}
 	}
 	fullcalendar.removeAllEvents();
@@ -162,7 +175,7 @@ scheduleAddBtn.onclick = function(){
 //		calendar.innerHTML += "<br>";
 		fullcalendar.addEvent({	
 			title : startTime.value+"~"+endTime.value,
-			start : schd.startTime.toISOString().slice(0,10)
+			start : schd.startTime.slice(0,10)
 		});
 	});
 };
@@ -255,25 +268,26 @@ var send = function(){
 	xhr.send("class="+classJson+"&schedule="+scheduleJson);
 	
 	xhr.onreadystatechange = function(){
-		console.log(xhr.status);
-		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
-			var code = xhr.responseText;
-			if(code=="SUCCESS"){
-				alert("강의 개설을 완료했습니다.");
-				//강의 정보창으로 이동
-				//window.location.href="";
-			}else if(code==="OVERLAP"){
-				//중복 일정 존재
-				alert("중복 일정이 존재합니다.");
-			}else if(code==="FAIL"){
+		if(xhr.readyState == XMLHttpRequest.DONE){
+			if(xhr.status == 200){
+				var code = xhr.responseText;
+				if(code=="SUCCESS"){
+					alert("강의 개설을 완료했습니다.");
+					//강의 정보창으로 이동
+					//window.location.href="";
+				}else if(code==="OVERLAP"){
+					//중복 일정 존재
+					alert("중복 일정이 존재합니다.");
+				}else if(code==="FAIL"){
+					//강의 개설 실패
+					alert("강의 개설을 완료하지 못 했습니다. 다시 시도해 주세요.\n"
+						+ "문제가 지속되면 고객센터로 문의바랍니다.");
+				}	
+			}else{
 				//강의 개설 실패
-				alert("강의 개설을 완료하지 못 했습니다. 다시 시도해 주세요.\n"
+				alert("서버에 문제가 발생했습니다.\n"
 					+ "문제가 지속되면 고객센터로 문의바랍니다.");
 			}
-		}else{
-			//강의 개설 실패
-			alert("강의 개설을 완료하지 못 했습니다. 다시 시도해 주세요.\n"
-				+ "문제가 지속되면 고객센터로 문의바랍니다.");
 		}
 	}
 }

@@ -183,8 +183,9 @@ public class ClassDAO {
 	public int insertClass(ClassVO cvo){
 		Connection conn = DBConnect.getInstance();
 		StringBuilder sb = new StringBuilder();
+		//'부적합한 식별자'오류 발생
 		sb.append(" INSERT INTO CLASS ( CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, " );
-		sb.append(" DETAIL, PRICE, CAPACITY, TYPE, CATEGORY, OPENDATE, INTRODUCE ) ");
+		sb.append(" DETAIL, PRICE, CAPACITY, TYPE, CATEGORY, INTRODUCE ) ");
 		sb.append(" VALUES ( ( SELECT COUNT(*)+1 FROM CLASS ), '");
 		sb.append(cvo.getClassName());
 		sb.append("', '");
@@ -203,8 +204,6 @@ public class ClassDAO {
 		sb.append(cvo.getType());
 		sb.append("', '");
 		sb.append(cvo.getCategory());
-		sb.append("', '");
-		sb.append(cvo.getOpenDate());
 		sb.append("', '");
 		sb.append(cvo.getIntroduce());
 		sb.append("') ");

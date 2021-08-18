@@ -50,8 +50,8 @@ public class OpenClassController extends HttpServlet {
 		ScheduleDAO sdao = new ScheduleDAO();
 		int result = 0;
 		for(int i=0;i<slist.size();i++){
-			Date stime = slist.get(i).getStartTime();
-			Date etime = slist.get(i).getEndTime();
+			String stime = slist.get(i).getStartTime();
+			String etime = slist.get(i).getEndTime();
 			result = sdao.selectScheduleOverlap(userId,stime,etime);
 			if(result>0){
 				//중복 일정 존재

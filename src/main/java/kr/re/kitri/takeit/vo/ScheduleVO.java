@@ -1,11 +1,9 @@
 package vo;
 
-import java.util.Date;
-
 public class ScheduleVO {
 	private int classId;
-	private Date startTime;
-	private Date endTime;
+	private String startTime;
+	private String endTime;
 	
 	public int getClassId() {
 		return classId;
@@ -13,16 +11,16 @@ public class ScheduleVO {
 	public void setClassId(int classId) {
 		this.classId = classId;
 	}
-	public Date getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Date startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-	public Date getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	

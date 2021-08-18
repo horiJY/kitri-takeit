@@ -71,15 +71,15 @@ public class ScheduleDAO {
 	}
 	
 	//해당 클래스 id에서 겹치는 일정 조회
-	public int selectScheduleOverlap(String userId, Date stime, Date etime) {
+	public int selectScheduleOverlap(String userId, String stime, String etime) {
 		//db 접속
 		Connection conn = DBConnect.getInstance();
 		//sql 작성
 		String sql = " SELECT COUNT(*) FROM SCHEDULE WHERE "
 				+ " CLASSID IN ( SELECT CLASSID FROM ASSIGNMENT WHERE USERID = ? ) "
 				+ " OR CLASSID IN ( SELECT CLASSID FROM CLASS WHERE CREATER = ? ) "
-				+ " AND TO_CHAR( ENDTIME, 'YYYY-MM-DD HH24:MI ) > ? "
-				+ " AND TO_CHAR( STARTTIME, 'YYYY-MM-DD HH24:MI ) < ? ";
+				+ " AND ENDTIME > TO_DATE( ?, 'YYYY-MM-DD HH24:MI' ) "
+				+ " AND STARTTIME < TO_DATE( ?, 'YYYY-MM-DD HH24:MI' ) ";
 		PreparedStatement pstmt= null;
 		int result = 0;
 		try {
@@ -87,9 +87,8 @@ public class ScheduleDAO {
 			pstmt= conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userId);
-			SimpleDateFormat dateform = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			pstmt.setString(3, dateform.format(stime));
-			pstmt.setString(4, dateform.format(etime));
+			pstmt.setString(3, stime);
+			pstmt.setString(4, etime);
 			//쿼리 실행
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
