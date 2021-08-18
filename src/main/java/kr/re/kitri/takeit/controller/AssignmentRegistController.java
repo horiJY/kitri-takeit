@@ -47,8 +47,8 @@ public class AssignmentRegistController extends HttpServlet {
 		int result = 0;
 		ScheduleDAO sdao = new ScheduleDAO();
 		for(int i=0;i<slist.size();i++){
-			Date stime = slist.get(i).getStartTime();
-			Date etime = slist.get(i).getEndTime();
+			String stime = slist.get(i).getStartTime();
+			String etime = slist.get(i).getEndTime();
 			result = sdao.selectScheduleOverlap(userId,stime,etime);
 			if(result>0){
 				//중복 시 해당 마이페이지>수강/강의 내역으로 이동
