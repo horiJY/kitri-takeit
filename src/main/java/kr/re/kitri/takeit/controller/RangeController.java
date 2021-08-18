@@ -17,7 +17,7 @@ import dao.ClassDAO;
 import vo.ClassVO;
 
 @WebServlet("/range")
-public class MainRangeController extends HttpServlet {
+public class RangeController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -27,9 +27,10 @@ public class MainRangeController extends HttpServlet {
 		
 		String category = request.getParameter("category");
 		String range = request.getParameter("range");
+		String type = request.getParameter("type");
 		
 		ClassDAO cdao = new ClassDAO();
-		List<ClassVO> clist = cdao.selectClassList(category, range);
+		List<ClassVO> clist = cdao.selectClassList(category, range, type);
 		
 		Gson gson = new Gson();
 		String result = gson.toJson(clist);

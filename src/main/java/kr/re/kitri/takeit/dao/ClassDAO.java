@@ -102,20 +102,22 @@ public class ClassDAO {
 	}
 	
 	
-	public List<ClassVO> selectClassList(String category, String range){
+	public List<ClassVO> selectClassList(String category, String range, String type){
 		Connection conn = DBConnect.getInstance();
 		
 		if(range == null || range.equals("null")) {
 			range = "RECOMMEND";
 		}
 		
-		String sql = "SELECT * FROM CLASS "
+		String sql = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
+				+ "	  FROM CLASS "
 				+ "	  WHERE TYPE = ? "
 				+ "	  AND CATEGORY = ? "
 				+ "	  ORDER BY "+range+" DESC";
 		
-		String sql2 = "SELECT * FROM CLASS"
-				+ "	   WHERE TYPE = ?"
+		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
+				+ "	   FROM CLASS "
+				+ "	   WHERE TYPE = ? "
 				+ "	   ORDER BY "+range+" DESC";
 		
 		PreparedStatement pstmt = null;
@@ -126,11 +128,11 @@ public class ClassDAO {
 			
 			if(category==null || category.equals("null")) {
 				pstmt = conn.prepareStatement(sql2);
-				pstmt.setString(1, "O");
+				pstmt.setString(1, type);
 			}else{
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(2, category);
-				pstmt.setString(1, "O");
+				pstmt.setString(1, type);
 			}
 			rs = pstmt.executeQuery();
 			
@@ -151,6 +153,7 @@ public class ClassDAO {
 				cvo.setFavorite(rs.getInt("FAVORITE"));
 				cvo.setCategory(rs.getString("CATEGORY"));
 				cvo.setOpenDate(rs.getDate("OPENDATE"));
+				cvo.setCountdown(rs.getInt("COUNTDOWN"));
 				clist.add(cvo);
 			}
 		} catch (SQLException e) {
@@ -165,14 +168,18 @@ public class ClassDAO {
 	//select
 	public List<ClassVO> selectClassPage(String category, String range, String type, int start, int end){
 		if(range == null || range.equals("null")) {
-			range = "RECOMMEND";
+			if(type.equals("O")) {
+				range = "RECOMMEND";				
+			}else if(type.equals("P")) {
+				range = "FAVORITE";
+			}
 		}
 		
 		//conn
 		Connection conn = DBConnect.getInstance();
 		
 		//sql
-		String sql1 = "SELECT * "
+		String sql1 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
 				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
 				+ "      FROM (SELECT * "
 				+ "            FROM CLASS"
@@ -180,16 +187,16 @@ public class ClassDAO {
 				+ "			   AND TYPE = ? "
 				+ "			   ORDER BY "+range+" DESC ) A "
 				+ "      ) "
-				+ "WHERE RNUM BETWEEN ? AND ?";
+				+ "WHERE RNUM BETWEEN ? AND ? ";
 		
-		String sql2 = "SELECT * "
+		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
 				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
 				+ "      FROM (SELECT * "
 				+ "            FROM CLASS"
 				+ "			   WHERE TYPE = ? "
 				+ "			   ORDER BY "+range+" DESC ) A "
 				+ "      ) "
-				+ "WHERE RNUM BETWEEN ? AND ?";
+				+ "WHERE RNUM BETWEEN ? AND ? ";
 		
 		//prepared
 		PreparedStatement pstmt = null;
@@ -220,8 +227,11 @@ public class ClassDAO {
 				cvo.setCreater(rs.getString("CREATER"));
 				cvo.setClassType(rs.getString("CLASSTYPE"));
 				cvo.setRecommend(rs.getInt("RECOMMEND"));
+				cvo.setFavorite(rs.getInt("FAVORITE"));
 				cvo.setPrice(rs.getInt("PRICE"));
 				cvo.setSale(rs.getInt("SALE"));
+				cvo.setOpenDate(rs.getDate("OPENDATE"));
+				cvo.setCountdown(rs.getInt("COUNTDOWN"));
 				//result
 				clist.add(cvo);
 			}
@@ -233,84 +243,6 @@ public class ClassDAO {
 			closeAll(conn, pstmt, null, rs);
 		}
 		return clist;
-	}
-
-	//count:pre-class
-	public int selectPreClassCnt(String range, String category) {
-		Connection conn = DBConnect.getInstance();
-		
-		String sql = "SELECT COUNT(*) FROM CLASS "
-				+ "	  WHERE TYPE = ? "
-				+ "	  AND CATEGORY = ?";
-		
-		String sql2 = "SELECT COUNT(*) FROM CLASS"
-				+ "	   WHERE TYPE = ?";
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int result = 0;
-		
-		try {
-			
-			if(category==null || category.equals("null")) {
-				pstmt = conn.prepareStatement(sql2);
-				pstmt.setString(1, "P");
-			}else{
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(2, category);
-				pstmt.setString(1, "P");
-			}
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				result = rs.getInt(1);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeAll(conn, pstmt, null, rs);
-		}
-		return result;
-	}
-	
-	//count:main
-	public int selectClassCnt(String category) {
-		Connection conn = DBConnect.getInstance();
-		
-		String sql = "SELECT COUNT(*) FROM CLASS "
-				+ "	  WHERE TYPE = ? "
-				+ "	  AND CATEGORY = ?";
-		
-		String sql2 = "SELECT COUNT(*) FROM CLASS"
-				+ "	   WHERE TYPE = ?";
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int result = 0;
-		
-		try {
-			
-			if(category==null || category.equals("null")) {
-				pstmt = conn.prepareStatement(sql2);
-				pstmt.setString(1, "O");
-			}else{
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(2, category);
-				pstmt.setString(1, "O");
-			}
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				result = rs.getInt(1);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeAll(conn, pstmt, null, rs);
-		}
-		return result;
 	}
 	
 	//pre-class page : favorite update 
@@ -390,24 +322,37 @@ public class ClassDAO {
 		return result;
 	}
 	
-	public Date selectDate() {
-		
+	public int classUpdate(int favorite) {
 		Connection conn = DBConnect.getInstance();
+		//favorite >= 10
+		String sql1 = "UPDATE CLASS SET TYPE = 'O' "
+					+ "WHERE TYPE = 'P'"
+					+ "AND FAVORITE >= 10"
+					+ "AND OPENDATE <= SYSDATE";
 		
-		String sql = "SELECT OPENDATE FROM CLASS";
+		//favorite < 10
+		String sql2 = "UPDATE CLASS SET TYPE = NULL "
+					+ "WHERE TYPE = 'P'"
+					+ "AND FAVORITE < 10"
+					+ "AND OPENDATE <= SYSDATE";
 		
 		Statement stmt = null;
-		ResultSet rs = null;
-		Date openDate = null;
+		int result = 0;
 		
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			
+			if(favorite >= 10) {
+				result = stmt.executeUpdate(sql1);
+			}else{
+				result = stmt.executeUpdate(sql2);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			closeAll(conn, null, stmt, null);
 		}
-		return openDate;
+		return result;
 	}
+	
 }

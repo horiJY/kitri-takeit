@@ -38,6 +38,8 @@
 	var currentPage = 1; //현재 페이지
 	var totalData;
 	
+	var type = 'O';
+	
 	if (userId == null) {
 		loginBtn.onclick = function() {
 			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/login';
@@ -54,12 +56,12 @@
 
 	//할 일 : mypage에 userId, logout, 페이징 
 
-	function list(c_val, r_val) {
+	function list(c_val, r_val, type) {
 		$.ajax({
 			type: 'POST',
 			url: 'range',
 			async: false,
-			data: { category: c_val, range: r_val },
+			data: { category: c_val, range: r_val, type: type },
 			success: function(result) {
 				totalData = result.length;		
 				paging(c_val, r_val, totalData, dataPerPage, pageCount, currentPage);		

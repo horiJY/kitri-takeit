@@ -18,6 +18,7 @@ public class ClassVO {
 	private int favorite;
 	private String category;
 	private Date openDate;
+	private int countdown;
 	
 	public int getClassId() {
 		return classId;
@@ -108,6 +109,12 @@ public class ClassVO {
 	}
 	public void setOpenDate(Date openDate) {
 		this.openDate = openDate;
+	}
+	public int getCountdown() {
+		return countdown;
+	}
+	public void setCountdown(int countdown) {
+		this.countdown = countdown;
 	}
 	
 }
