@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 import dao.ClassDAO;
 import dao.FavoriteDAO;
 
@@ -18,8 +20,8 @@ public class FavoriteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		String userId = (String)session.getAttribute("useId");
-		
+		//String userId = (String)session.getAttribute("useId");
+		String userId = "testCreater0";
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
@@ -30,8 +32,12 @@ public class FavoriteController extends HttpServlet {
 		
 		int favoriteResult = fdao.selectFavorite(userId, classId);
 		
+		Gson gson = new Gson();
+		
+		String result = gson.toJson(favoriteResult);
+		
 		response.setContentType("application/json; charset=utf8");
-		response.getWriter().write(favoriteResult);
+		response.getWriter().write(result);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

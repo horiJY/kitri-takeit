@@ -1,7 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,9 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/detail")
-public class DetailController extends HttpServlet {
-//클래스 상세정보 받아오기
+import com.google.gson.Gson;
+
+import dao.ClassDAO;
+import dao.FavoriteDAO;
+import vo.ClassVO;
+
+
+@WebServlet("/select-class")
+public class SelectClassController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -19,11 +26,17 @@ public class DetailController extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		String classId = request.getParameter("classId");
-		System.out.println(classId);
+		ClassDAO cdao = new ClassDAO();
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/class-detail.jsp");
-		rd.forward(request, response);
+		int classId = Integer.parseInt(request.getParameter("classId"));
+		
+		List<ClassVO> clist = cdao.selectDetail(classId);
+		
+		Gson gson = new Gson();
+		String result = gson.toJson(clist);
+		
+		response.setContentType("application/json; charset=utf8");
+		response.getWriter().write(result);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

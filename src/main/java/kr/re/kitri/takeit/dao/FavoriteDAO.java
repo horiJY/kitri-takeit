@@ -53,6 +53,7 @@ public class FavoriteDAO {
 		}finally {
 			closeAll(conn, pstmt, null, null);
 		}
+		System.out.println(result);
 		return result;
 	}
 	
@@ -84,17 +85,20 @@ public class FavoriteDAO {
 	public int selectFavorite(String userId, int classId) {
 		Connection conn = DBConnect.getInstance();
 		
-		String sql = "SELECT COUNT(*) FROM FAVORITE WHERE USERID = ? AND CLASSID = "+ classId + "";
+		String sql = "SELECT COUNT(*) FROM FAVORITE WHERE USERID = ? AND CLASSID = ?";
 		
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		int result = 0;
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
+			pstmt.setInt(2, classId);
 			
-			result = pstmt.executeUpdate();
-			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

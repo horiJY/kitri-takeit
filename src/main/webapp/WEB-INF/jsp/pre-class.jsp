@@ -81,9 +81,9 @@
 				<ul id="class">	
 				</ul>
 			</div>
-			<div id="swiper">
-				<div id="favorite-btn">
-				</div>
+			<div id="swiper" style="display:none;">
+			</div>
+			<div id="favorite-btn" style="display:none;">
 			</div>
 			<div id="pagnation">
 				<ul id="paging">

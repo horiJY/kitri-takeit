@@ -52,12 +52,13 @@ public class ClassDAO {
 			while (rs.next()) {
 				ClassVO cvo = new ClassVO();
 
-				cvo.setClassName(rs.getString(1));
-				cvo.setCreater(rs.getString(2));
-				cvo.setRecommend(rs.getInt(3));
-				cvo.setPrice(rs.getInt(4));
-				cvo.setSale(rs.getInt(5));
-				cvo.setClassType(rs.getString(6));
+				cvo.setClassName(rs.getString("CLASSNAME"));
+				cvo.setCreater(rs.getString("CREATER"));
+				cvo.setRecommend(rs.getInt("RECOMMEND"));
+				cvo.setFavorite(rs.getInt("FAVORITE"));
+				cvo.setPrice(rs.getInt("PRICE"));
+				cvo.setSale(rs.getInt("SALE"));
+				cvo.setClassType(rs.getString("CLASSTYPE"));
 				clist.add(cvo);
 			}
 		} catch (Exception e) {
@@ -255,12 +256,16 @@ public class ClassDAO {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, classId);
 			
-			result = pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

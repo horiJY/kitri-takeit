@@ -43,6 +43,11 @@
 	
 	var favoriteCnt;
 	
+	var swiper = document.getElementById("swiper");
+	
+	var creater;
+	var className;
+	
 	if (userId == null) {
 		loginBtn.onclick = function() {
 			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/login';
@@ -123,9 +128,8 @@
 				$('#class').empty();
 				
 				for (var i = 0; i < result.length; i++) {
-				
 					$('#class').append(
-						'<li><label onclick="classDetail(' + result[i].classId + ')" >'
+						'<li><label onclick="classDetail('+result[i].classId +')">'
 						+ '<div><img></div>'
 						+ '<div><div>' + result[i].creater + '</div>'
 						+ '<div>' + result[i].className + '</div>'
@@ -133,28 +137,100 @@
 						+ '<div><div>' + result[i].price + '</div>'
 						+ '<div>' + result[i].sale + '</div></div>'
 						+ '<div><div>' + result[i].classType + '</div></div>'
-						+ '<div><div><span>응원 마감까지 ' + result[i].countdown + '일</span></div></div>'
-						+ '<div><button onclick="favoriteClick("'+ result[i].classId +','+result[i].favorite+')">응원하기</button></div>'
-						+ '</label></li>'
-					);
+						+ '<div><div><span>응원 마감까지 ' + result[i].countdown + '일</span></div></div></label>'
+						+ '<div><button onclick="favoriteClick('+result[i].classId+')">응원하기</button></div>'
+						+ '</li>'
+					);	
 				}
 			}
 		})	
 	}
 
-	function update(favoriteCnt){
-		$.ajax({
-			type: 'POST',
-			url: 'pre-class-update',
-			async: false,
-			data: {favorite: favoriteCnt },
-			success: function(result) {
-				
+function update(favoriteCnt) {
+	$.ajax({
+		type: 'POST',
+		url: 'pre-class-update',
+		async: false,
+		data: { favorite: favoriteCnt },
+		success: function(result) {
+
+		}
+	})
+}
+var favoriteBtn = document.getElementById("favorite-btn");
+
+function classDetail(classId) {
+	$.ajax({
+		type: 'POST',
+		url: 'select-class',
+		data: { classId: classId },
+		success: function(result) {
+			$('#favorite-btn').empty();
+			$('#swiper').empty();
+			$('#swiper').append(
+				'<div><button onclick="share()">공유하기</button>'
+				+ '<button onclick="close()">닫기</button></div>'
+				+ '<div id="slide"><img>'
+				+ '<div>' + result[0].creater + '</div>'
+				+ '<div>' + result[0].className + '</div></div>'
+				+ '<div></div>'
+				+ '<div></div>'
+				+ '<button>left</button><button>right</button></div>'
+				+ '<div><span id="bar"></span></div>'
+				+ '<div><div id="favoriteF">'
+				+ '<div><span>현재 응원 수 </span>'
+				+ '<span>' + result[0].favorite + '</span>'
+				+ '<span> / 10 명</span></div></div></div>'
+			);
+		selectFavorite(classId);
+		}
+	})
+	swiper.style.display = "block";
+}
+
+//selectFavorite 두 개 뜨는거, result에 따라 appned 다르게 하는거 
+
+function selectFavorite(classId){
+	$.ajax({
+		type: 'POST',
+		url: 'favorite',
+		data: { classId: classId },
+		success: function(result) {
+			console.log(result);
+			
+			if(result[0] = 0){
+				$('#favorite-btn').append(
+					'<div><button onclick="favoriteClick('+classId+')">응원하기</button></div>'
+				);
+			}else if(result[0] = 1){
+				$('#favorite-btn').append(
+					'<div><button>응원완료</button></div>'
+				);
 			}
-		})
-	}
+		}
+	})
+	favoriteBtn.style.display = "block";
+}
+
+function favoriteClick(classId){
+	console.log(classId);
+	$.ajax({
+		type: 'POST',
+		url: 'favorite-regist',
+		data: { classId: classId },
+		success: function(result) {
+			console.log(result);
+			list(c_val, r_val, type);
+		}
+	})
+}
+
+function pageClick(i){
+	currentPage = i;
+	list(c_val, r_val, type);
+}
+
 	
-//	paging(c_val, r_val, totalData, dataPerPage, pageCount, currentPage);
 
 	list(c_val, r_val, type);
 	
@@ -246,78 +322,4 @@
 		}
 	}
 
-function classDetail(classId,favoriteCnt) {
-	selectFavorite(classId, favoriteCnt);
-}
 
-var favoriteBtn = document.getElementById("favorite-btn");
-
-function pageClick(i){
-	currentPage = i;
-	list(c_val, r_val, type);
-}
-
-function selectFavorite(classId, favoriteCnt) {
-	$.ajax({
-		type: 'POST',
-		url: 'favorite',
-		async: false,
-		data: { classId: classId },
-		success: function(result) {
-			if(result = 0){
-				favoriteBtn.append(
-				'		<div>'
-				+'			<button onclick="favoriteClick("'+ classId +')">응원하기</button>'
-				+'		</div>'
-				);
-				
-			}else{
-				favoriteBtn.append(
-				'		<div>'
-				+'			<span>응원완료</span>'
-				+'		</div>'
-				);
-			}
-			$('#swiper').append(
-				'<div>'
-				+'	<button onclick="share()">공유하기</button>'
-				+'	<button onclick="close()">닫기</button>'
-				+'</div>'
-				+'<div id="slide">'
-				+'	<img src="">'
-				+'	<div>'
-				+'		<div>creater</div>'
-				+'		<div>className</div>'
-				+'	</div>'
-				+'	<div></div>'
-				+'	<div></div>'
-				+'	<button>left</button>'
-				+'	<button>right</button>'
-				+'</div>'
-				+'<div>'
-				+'	<span id="bar"></span>'
-				+'</div>'
-				+'<div>'
-				+'	<div id="favoriteF">'
-				+'		<div>'
-				+'			<span>현재 응원 수</span> '
-				+'			<span>'+favorite+'</span> '
-				+'			<span>/ 50명</span>'
-				+'		</div>'
-				+'	</div>'
-				+'</div>');
-				$('swiper').append(favoritBtn);
-		}
-	})
-}
-
-function favoriteClick(i) {
-	$.ajax({
-		type: 'POST',
-		url: 'favorite-regist',
-		data: { classId: i },
-		success: function(result) {
-			list(c_val, r_val, type);
-		}
-	})
-}
