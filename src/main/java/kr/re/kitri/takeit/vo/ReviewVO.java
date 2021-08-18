@@ -8,7 +8,14 @@ public class ReviewVO {
 	private String content;
 	private Date reviewDate;
 	private int recommend;
+	private String className;
 	
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
 	public String getUserId() {
 		return userId;
 	}

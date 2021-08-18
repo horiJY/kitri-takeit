@@ -8,6 +8,21 @@ public class ClassQnaVO {
 	private Date qnaDate;
 	private String question;
 	private String answer;
+	private String qnaTitle;
+	
+	public String getQnaTitle() {
+		return qnaTitle;
+	}
+	public void setQnaTitle(String qnaTitle) {
+		this.qnaTitle = qnaTitle;
+	}
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
+	private String className;
 	
 	public String getUserId() {
 		return userId;

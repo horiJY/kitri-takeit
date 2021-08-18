@@ -2,7 +2,7 @@ package vo;
 
 public class UserVO {
 	private String userId;
-	private String pw;
+	private String userThumnail;
 	private String userName;
 	private String userType;
 	private String phone;
@@ -14,11 +14,11 @@ public class UserVO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getPw() {
-		return pw;
+	public String getUserThumnail() {
+		return userThumnail;
 	}
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setUserThumnail(String userThumnail) {
+		this.userThumnail = userThumnail;
 	}
 	public String getUserName() {
 		return userName;
@@ -44,4 +44,6 @@ public class UserVO {
 	public void setPoint(int point) {
 		this.point = point;
 	}
+	
+	
 }
