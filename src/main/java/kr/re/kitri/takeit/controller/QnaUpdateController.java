@@ -26,7 +26,6 @@ public class QnaUpdateController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
 		
-		response.setCharacterEncoding("utf-8");
 
 		String qnaTitle = request.getParameter("qnaTitle");
 		String userId = request.getParameter("userId");
@@ -38,6 +37,7 @@ public class QnaUpdateController extends HttpServlet {
 		JsonObject json = new JsonObject();
 		if(result!=0) {
 			json.addProperty("code", "성공적으로 업데이트 되었습니다.");
+			
 		} else {
 			json.addProperty("code", "업데이트를 실패했습니다. 다시 시도해주세요.");
 		}
@@ -45,6 +45,7 @@ public class QnaUpdateController extends HttpServlet {
 		Gson gson = new Gson();
 		String jsonResponse = gson.toJson(json);
 		
+		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(jsonResponse);

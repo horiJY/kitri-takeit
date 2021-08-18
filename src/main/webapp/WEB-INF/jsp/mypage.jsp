@@ -105,8 +105,8 @@
 			<form class="myPageForm" action="form">
 				<div id="myPageForm" id="Container">
 					<h3 id="myPageFormTitle"></h3>
-					<div id="myPageContent1">가갸</div>
-					<div id="myPageContent2">거겨</div>
+					<div id="myPageContent1"></div>
+					<div id="myPageContent2"></div>
 					<div id="myPageBtns">
 					</div>
 				</div>

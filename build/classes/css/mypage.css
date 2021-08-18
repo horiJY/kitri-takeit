@@ -26,13 +26,13 @@ aside {
 	border:1px solid black;
 	float:left;
 	width:180px;
-	height: 500px;
+	height: 800px;
 /* 	padding: 8px; */
     margin-right:16px;
 }
 .myPageForm {
 	border:1px solid black;
-	height: 500px;
+	height: 800px;
 /* 	padding: 8px 8px; */
 }
 footer {
@@ -41,6 +41,10 @@ footer {
 	margin-bottom:50px;
 	clear:both;
 
+}
+#myPageContent1, #myPageContent2{
+	width: 100%;
+	min-width: 500px;
 }
 #userThumnail{
 	border-radius: 50%;
@@ -56,7 +60,7 @@ table{
  	border-collapse: collapse;
 	
 }
-
+/*admin*/
 #allQnaTable {
 	width:70%;
  	border:1px solid black;
@@ -82,31 +86,33 @@ table{
 	height: 30px;
 	
 }
+/*user*/
 .userinfo-box {
 	text-align: center;
 }
+
 #myPageBtns {
 	text-align: center;
 }
-.myInfoLabel {
-	text-align: right;
-	width: 50%;
-	min-width: 400px;
-	margin-bottom: 8px;
+.myInfoLabel, .myInfoLabel input {
+/*	text-align: right;*/
+ 	width: 100%; 
+ 	min-width: 400px; 
 }
 .myInfoLabel input{
-	width:50%;
-	min-width:400px;
+
+ 	width:50%; 
+ 	min-width:400px; 
 }
 .myInfoLabel div {
-	float:left;
-	width:70px;
+	text-align: left;
+/* 	float:left; */
+/* 	width:70px; */
 }
-#introduce{
-	height: 100px;
-}
-.myPageBtns{
-	width: 500px;
+
+#myPageBtns button{
+ 	width: 50%; 
+ 	min-width: 400px; 
 	height: 30px;
 }
 

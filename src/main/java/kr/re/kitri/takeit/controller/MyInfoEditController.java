@@ -31,7 +31,7 @@ public class MyInfoEditController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
 		
-//		System.out.println("id="+id);
+		System.out.println("id="+id);
 		UserDAO udao = new UserDAO();
 		UserVO uvo = udao.selectUserInfo(id);
 		

@@ -1,4 +1,5 @@
 function test(userType) {
+//	네비
 	const myInfoNav = document.getElementById("myInfoNav");
 	const myFavoriteNav = document.getElementById("myFavoriteNav");
 	const myAssignmentNav = document.getElementById("myAssignmentNav");
@@ -8,6 +9,7 @@ function test(userType) {
 	const myClassQnANav = document.getElementById("myClassQnANav");
 	const myClassRegNav = document.getElementById("myClassRegNav");
 
+//	폼
 	const Container = document.getElementById("Container");
 	const myPageFormTitle = document.getElementById("myPageFormTitle");
 	const myPageContent1 = document.getElementById("myPageContent1");
@@ -39,6 +41,7 @@ function test(userType) {
 }
 var qnaTitleArr = [];
 var userIdArr = [];
+var answerArr = [];
 
 function allQNA() {
 	
@@ -70,7 +73,7 @@ function allQNA() {
 						$(".qnaBody").append("<tr id='qna_abox' class='qna_abox'>"
 							+ "<td colspan='3'>"
 							+ "<div><span id='question'>" + obj.question + "</span></div>"
-							+ "<textarea id='answerarea' class='answerarea' row='5' col='5' id='qnaAarea'>" + obj.answer + "</textarea><br>"
+							+ "<textarea id='answer" +inx + "' class='answer' row='5' col='5'>" + obj.answer + "</textarea><br>"
 							+ "<div class='qnaAboxBtns'>"
 							+ "<input type='button' onclick='saveQnaAnswerBtn(" + inx + ")' id='Save' class='qnabtns' value='SAVE'>"
 							+ "</div>"
@@ -79,6 +82,7 @@ function allQNA() {
 						);
 						qnaTitleArr.push($(this).attr("qnaTitle"));
 						userIdArr.push($(this).attr("userId"));
+						answerArr.push($(this).attr("answerarea"));
 
 					});
 					
@@ -114,14 +118,13 @@ function myInfo() {
 				if (result.length != 0) {
 					$("#myPageContent1").append("<div class='userinfo-box'></div>");
 					$(".userinfo-box").append("<img id='userThumnail' alt='유저아이콘' src='" + result.thumnail + "'><br>"
-									+ "<label class='myInfoLabel'><div>ID</div><br><input type='text' value='" + result.id + "' id='userId' name='userId' disabled></label><br>"
-									+ "<label class='myInfoLabel'><div>TYPE</div><br> <input type='text' value='" + usertype + "' id='userType' name='userType' disabled></label><br>"
-									+ "<label class='myInfoLabel'><div>이름</div><br> <input type='text' value='" + result.name + "' id='userName' name='userName' required></label><br>"
-									+ "<label class='myInfoLabel'><div>번호</div><br> <input type='text' value='" + result.phone + "' id='phone' name='phone' required></label><br>"
-									+ "<label class='myInfoLabel'><div>자기소개</div><br> <input type='text' value='" + result.introduce + "' id='introduce' name='introduce' required></label><br>"
+									+ "<div class='myInfoLabel'><div>ID</div><br><input type='text' value='" + result.id + "' id='userId' name='userId' disabled></div><br>"
+									+ "<div class='myInfoLabel'><div>TYPE</div><br> <input type='text' value='" + usertype + "' id='userType' name='userType' disabled></div><br>"
+									+ "<div class='myInfoLabel'><div>이름</div><br> <input type='text' value='" + result.name + "' id='userName' name='userName' required></div><br>"
+									+ "<div class='myInfoLabel'><div>번호</div><br> <input type='text' value='" + result.phone + "' id='phone' name='phone' required></div><br>"
 					);
-					$("#myPageBtns").append("<button type='button' onclick='myInfoUpdateBtn() id='myInfoUpdateBtn' value='정보 수정하기'></button><br>"
-					+ "<button type='button' onclick='myInfoDeleteBtn() 'value id='myInfoDeleteBtn'value='회원탈퇴' ></button>");
+					$("#myPageBtns").append("<button type='button' onclick='clickMIUB()' id='myInfoUpdateBtn' value='정보 수정하기'></button><br>"
+										  + "<button type='button' onclick='clickMIDB()' id='myInfoDeleteBtn' value='회원탈퇴' ></button>");
 				}
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 				alert('There is an error : method(group)에 에러가 있습니다.');
@@ -132,6 +135,7 @@ function myInfo() {
 	}
 
 }
+
 function myFavorite() {
 	try {
 		$.ajax({

@@ -33,7 +33,7 @@ public class UserDAO {
 	}
 	//login page -> Select
 	
-	//select User Information
+	//mypage -> select User Information
 	public UserVO selectUserInfo(String id) {
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT * FROM WEBUSER WHERE USERID = ?";
@@ -68,10 +68,10 @@ public class UserDAO {
 	public int updateUser(UserVO uvo) {
 		Connection conn = DBConnect.getInstance();
 		PreparedStatement pstmt = null;
-		int result =0;
+		int result=0;
 		
-		String sql = "UPDATE WEBUSER SET USERNAME =?, USERPHONE =?"
-				+ " WHERE USERID =?";
+		String sql = "UPDATE WEBUSER SET USERNAME=?, USERPHONE=?"
+				+ " WHERE USERID=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
