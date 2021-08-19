@@ -240,7 +240,8 @@
 						end : schd.endTime
 					});
 				};				
-			}
+			},
+			height: 400
 		});
 	
 		//스케쥴 추가

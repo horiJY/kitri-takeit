@@ -12,9 +12,7 @@
 	display:none;	
 }
 
-
-#confirm-box{
-	clear: left;
-	display: none;
+#calendar{
+	width: 500px;
 }
 
