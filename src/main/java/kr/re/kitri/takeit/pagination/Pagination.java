@@ -4,7 +4,11 @@ public class Pagination {
 	private int curPage;		
 	private int totalPage; 		
 	private int totalContent;	
+<<<<<<< HEAD
 	private int contentCnt = 5;		
+=======
+	private int contentCnt = 8;		
+>>>>>>> refs/remotes/origin/지현
 	private int pageCnt = 5;		
 	private int curBlock;		
 	private int startBlock;	

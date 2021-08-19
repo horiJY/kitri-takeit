@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,9 +39,9 @@ public class ClassDAO {
 	// class-detail page -> SelectAll
 	public List<ClassVO> selectDetail(int classId) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSID, CLASSNAME, CREATER, FAVORITE, OPENDATE FROM CLASS "
-				+ "WHERE CLASSID = (SELECT CLASSID FROM FAVORITE WHERE USERID = '"
-				+ classId + "')" + "AND TYPE='P'";
+
+		String sql = "SELECT * FROM CLASS WHERE CLASSID = '" + classId + "'";
+
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
@@ -51,12 +52,14 @@ public class ClassDAO {
 
 			while (rs.next()) {
 				ClassVO cvo = new ClassVO();
-				cvo.setClassId(rs.getInt(1));
-				cvo.setClassName(rs.getString(2));
-				cvo.setCreater(rs.getString(3));
-				cvo.setFavorite(rs.getInt(4));
-				cvo.setOpenDate(rs.getDate(5));
 
+				cvo.setClassName(rs.getString("CLASSNAME"));
+				cvo.setCreater(rs.getString("CREATER"));
+				cvo.setRecommend(rs.getInt("RECOMMEND"));
+				cvo.setFavorite(rs.getInt("FAVORITE"));
+				cvo.setPrice(rs.getInt("PRICE"));
+				cvo.setSale(rs.getInt("SALE"));
+				cvo.setClassType(rs.getString("CLASSTYPE"));
 				clist.add(cvo);
 
 			}
@@ -100,6 +103,149 @@ public class ClassDAO {
 			e.printStackTrace();
 		} finally {
 			closeAll(conn, null, stmt, rs);
+		}
+		return clist;
+	}
+
+public List<ClassVO> selectClassList(String category, String range, String type){
+		Connection conn = DBConnect.getInstance();
+		
+		if(range == null || range.equals("null")) {
+			range = "RECOMMEND";
+		}
+		
+		String sql = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
+				+ "	  FROM CLASS "
+				+ "	  WHERE TYPE = ? "
+				+ "	  AND CATEGORY = ? "
+				+ "	  ORDER BY "+range+" DESC";
+		
+		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
+				+ "	   FROM CLASS "
+				+ "	   WHERE TYPE = ? "
+				+ "	   ORDER BY "+range+" DESC";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ClassVO> clist = new ArrayList<ClassVO>();
+		
+		try {
+			
+			if(category==null || category.equals("null")) {
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setString(1, type);
+			}else{
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(2, category);
+				pstmt.setString(1, type);
+			}
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ClassVO cvo = new ClassVO();
+				
+				cvo.setClassId(rs.getInt("CLASSID"));
+				cvo.setClassName(rs.getString("CLASSNAME"));
+				cvo.setCreater(rs.getString("CREATER"));
+				cvo.setClassType(rs.getString("CLASSTYPE"));
+				cvo.setPeriod(rs.getInt("PERIOD"));
+				cvo.setRecommend(rs.getInt("RECOMMEND"));
+				cvo.setDetail(rs.getString("DETAIL"));
+				cvo.setPrice(rs.getInt("PRICE"));
+				cvo.setSale(rs.getInt("SALE"));
+				cvo.setCapacity(rs.getInt("CAPACITY"));
+				cvo.setType(rs.getString("TYPE"));
+				cvo.setFavorite(rs.getInt("FAVORITE"));
+				cvo.setCategory(rs.getString("CATEGORY"));
+				cvo.setOpenDate(rs.getDate("OPENDATE"));
+				cvo.setCountdown(rs.getInt("COUNTDOWN"));
+				clist.add(cvo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeAll(conn, pstmt, null, rs);
+		}
+		return clist;
+	}
+
+//select
+	public List<ClassVO> selectClassPage(String category, String range, String type, int start, int end){
+		if(range == null || range.equals("null")) {
+			if(type.equals("O")) {
+				range = "RECOMMEND";				
+			}else if(type.equals("P")) {
+				range = "FAVORITE";
+			}
+		}
+		
+		//conn
+		Connection conn = DBConnect.getInstance();
+		
+		//sql
+		String sql1 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
+				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
+				+ "      FROM (SELECT * "
+				+ "            FROM CLASS"
+				+ "			   WHERE CATEGORY = ? "
+				+ "			   AND TYPE = ? "
+				+ "			   ORDER BY "+range+" DESC ) A "
+				+ "      ) "
+				+ "WHERE RNUM BETWEEN ? AND ? ";
+		
+		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
+				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
+				+ "      FROM (SELECT * "
+				+ "            FROM CLASS"
+				+ "			   WHERE TYPE = ? "
+				+ "			   ORDER BY "+range+" DESC ) A "
+				+ "      ) "
+				+ "WHERE RNUM BETWEEN ? AND ? ";
+		
+		//prepared
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ClassVO> clist = new ArrayList<ClassVO>();
+		try {
+			
+			if(category==null || category.equals("null")) {
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setString(1, type);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+			}else{
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setString(1, category);
+				pstmt.setString(2, type);
+				pstmt.setInt(3, start);
+				pstmt.setInt(4, end);
+			}
+			
+			//resultset
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ClassVO cvo = new ClassVO();
+				cvo.setClassId(rs.getInt("CLASSID"));
+				cvo.setClassName(rs.getString("CLASSNAME"));
+				cvo.setCreater(rs.getString("CREATER"));
+				cvo.setClassType(rs.getString("CLASSTYPE"));
+				cvo.setRecommend(rs.getInt("RECOMMEND"));
+				cvo.setFavorite(rs.getInt("FAVORITE"));
+				cvo.setPrice(rs.getInt("PRICE"));
+				cvo.setSale(rs.getInt("SALE"));
+				cvo.setOpenDate(rs.getDate("OPENDATE"));
+				cvo.setCountdown(rs.getInt("COUNTDOWN"));
+				//result
+				clist.add(cvo);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeAll(conn, pstmt, null, rs);
 		}
 		return clist;
 	}

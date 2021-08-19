@@ -6,11 +6,42 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+
+import dao.ClassDAO;
+import dao.FavoriteDAO;
 
 @WebServlet("/favorite-regist")
 public class FavoriteRegistController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+//		String userId = (String)session.getAttribute("useId");
+		String userId = "testCreater0";
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		ClassDAO cdao = new ClassDAO();
+		FavoriteDAO fdao = new FavoriteDAO();
+
+		int classId = Integer.parseInt(request.getParameter("classId"));
+		System.out.println(classId);
+		
+		int favoriteResult = fdao.insertFavorite(userId, classId);
+		int classResult;
+		System.out.println(favoriteResult);
+		if(favoriteResult == 1) {			
+			classResult = cdao.updateFavorite(classId);
+			Gson gson = new Gson();
+			
+			String result = gson.toJson(classResult);
+			
+			response.setContentType("application/json; charset=utf8");
+			response.getWriter().write(result);
+		}
 		
 	}
 

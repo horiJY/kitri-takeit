@@ -18,6 +18,7 @@ public class ClassVO {
     private int favorite;
     private String category;
     private Date openDate;
+    private int countdown;
 
     private String introduce;
     private int content_num;
@@ -35,6 +36,14 @@ public class ClassVO {
 		+ getType() + ", getFavorite()=" + getFavorite() + ", getCategory()=" + getCategory()
 		+ ", getOpenDate()=" + getOpenDate() + "]";
     }
+    
+    public int getCountdown() {
+		return countdown;
+	}
+	
+	public void setCountdown(int countdown) {
+		this.countdown = countdown;
+	}
 
     public String getIntroduce() {
 	return introduce;

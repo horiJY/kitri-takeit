@@ -8,6 +8,7 @@ public class ReviewVO {
 	private String content;
 	private Date reviewDate;
 	private int recommend;
+<<<<<<< HEAD
 	private int totalRecommendNum;
     private double avgScore;
     private String userName;
@@ -49,6 +50,9 @@ public class ReviewVO {
 	public void setClassName(String className) {
 		this.className = className;
 	}
+=======
+	
+>>>>>>> refs/remotes/origin/지현
 	public String getUserId() {
 		return userId;
 	}

@@ -8,6 +8,7 @@ public class ClassQnaVO {
 	private Date qnaDate;
 	private String question;
 	private String answer;
+<<<<<<< HEAD
 	private String qnaTitle;
 	
 	public String getQnaTitle() {
@@ -23,6 +24,8 @@ public class ClassQnaVO {
 		this.className = className;
 	}
 	private String className;
+=======
+>>>>>>> refs/remotes/origin/지현
 	
 	public String getUserId() {
 		return userId;

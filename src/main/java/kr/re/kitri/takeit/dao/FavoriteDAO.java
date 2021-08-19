@@ -35,39 +35,30 @@ public class FavoriteDAO {
 		}
 
 	}
-	// mypage - select
-	public List<FavoriteVO> selectFavorite(String id) {
+	public int selectFavorite(String userId, int classId) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT * FROM MEMO WHERE ID ='" + id
-				+ "' ORDER BY CLASSID DESC";
-		Statement stmt = null;
+		
+		String sql = "SELECT COUNT(*) FROM FAVORITE WHERE USERID = ? AND CLASSID = ?";
+		
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<FavoriteVO> flist = new ArrayList<FavoriteVO>();
-
+		int result = 0;
 		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-
-			while (rs.next()) {
-				FavoriteVO fvo = new FavoriteVO();
-				fvo.setUserId(rs.getString(1));
-				fvo.setClassId(rs.getInt(2));
-
-				flist.add(fvo);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, classId);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			closeAll(conn, null, stmt, rs);
+		}finally {
+			closeAll(conn, pstmt, null, null);
 		}
-
-		return flist;
-	}
-	// pre-class page - insert
-	public int deleteFavorite(String id, int classId) {
-
-		return 0;
+		return result;
 	}
 
 	// mypage -> select favorite class
@@ -103,6 +94,85 @@ public class FavoriteDAO {
 		}
 		return clist;
 	}
+	
+	// pre-class page : insert
+	public int insertFavorite(String userId, int classId) {
+		Connection conn = DBConnect.getInstance();
+		
+		String sql = "INSERT INTO FAVORITE(USERID, CLASSID)"
+				+ " VALUES(?, ?)";
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, classId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeAll(conn, pstmt, null, null);
+		}
+		System.out.println(result);
+		return result;
+	}
+	
+	// pre-class page : delete
+	public int deleteFavorite(String userId, int classId) {
+		Connection conn = DBConnect.getInstance();
+		
+		String sql = "DELETE FROM FAVORITE WHERE USERID = ? CLASSID = ?";
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, classId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeAll(conn, pstmt, null, null);
+		}
+		return result;
+	}
 
-	// pre-class page - delete
+	//pre-class page : favorite update 
+	public int updateFavorite(int classId) {
+		Connection conn = DBConnect.getInstance();
+		
+		String sql = "UPDATE CLASS SET FAVORITE = ("
+				+ "        SELECT COUNT(*) FROM FAVORITE"
+				+ "        WHERE CLASSID = ?)";
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, classId);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeAll(conn, pstmt, null, null);
+		}
+		return result;
+	}
 }
