@@ -15,12 +15,12 @@ import service.GoogleLoginService;
 import service.KakaoLoginService;
 import service.NaverLoginService;
 
-@WebServlet(urlPatterns = { "/login/kakao", "/login/naver", "/login/google" })
+@WebServlet(urlPatterns = {"/login/kakao", "/login/naver", "/login/google"})
 public class LoginTokenController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String requestURI = request.getRequestURI();
 		System.out.println("requestURI : " + requestURI);
 		HashMap<String, String> UserInfo = null; // 로그인유저의 아이디,이름,프로필썸네일 /

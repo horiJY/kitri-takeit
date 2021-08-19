@@ -22,6 +22,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/pre-class.css">
 <script>
 	
 </script>
@@ -80,9 +81,11 @@
 				<ul id="class">	
 				</ul>
 			</div>
-			<div id="swiper" style="display:none;">
-			</div>
-			<div id="favorite-btn" style="display:none;">
+			<div id="floating" class="hide">
+				<div id="swiper">
+				</div>
+				<div id="favorite-btn">
+				</div>
 			</div>
 			<div id="pagnation">
 				<ul id="paging">

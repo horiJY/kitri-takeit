@@ -117,7 +117,7 @@ public class FavoriteDAO {
 		}finally {
 			closeAll(conn, pstmt, null, null);
 		}
-		System.out.println(result);
+		System.out.println("DAO"+result);
 		return result;
 	}
 	
@@ -146,37 +146,6 @@ public class FavoriteDAO {
 		return result;
 	}
 
-<<<<<<< HEAD
-	//pre-class page : favorite update 
-	public int updateFavorite(int classId) {
-		Connection conn = DBConnect.getInstance();
-		
-		String sql = "UPDATE CLASS SET FAVORITE = ("
-				+ "        SELECT COUNT(*) FROM FAVORITE"
-				+ "        WHERE CLASSID = ?)";
-		
-		PreparedStatement pstmt = null;
-		int result = 0;
-		ResultSet rs = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, classId);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				result = rs.getInt(1);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeAll(conn, pstmt, null, null);
-		}
-		return result;
-	}
-=======
 	//mypage -> select favorite class
 		public List<ClassVO> selectFavoriteClass(String id){
 			Connection conn = DBConnect.getInstance();
@@ -212,5 +181,4 @@ public class FavoriteDAO {
 		}
 	
 	//pre-class page - delete
->>>>>>> refs/remotes/takeit/경하
 }
