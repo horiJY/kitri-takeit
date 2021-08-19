@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import dao.ClassDAO;
 import dao.ScheduleDAO;
 import vo.CalendarJson;
 import vo.ScheduleVO;
@@ -22,44 +23,25 @@ import vo.ScheduleVO;
 public class MyScheduleController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//HttpSession session = request.getSession();
-		//String userid = (String)session.getAttribute("takeit-id");
+		HttpSession session = request.getSession();
+		String userid = (String)session.getAttribute("takeit-id");
 		
 		//select schedule
 		ScheduleDAO sdao = new ScheduleDAO();
-		//List<ScheduleVO> slist = sdao.selectSchedule(userid);
-		List<ScheduleVO> slist = new ArrayList<ScheduleVO>();
-		{
-			ScheduleVO svo = new ScheduleVO();
-			svo.setClassId(1);
-			svo.setStartTime("2021-08-26 10:00");
-			svo.setEndTime("2021-08-26 11:00");
-			slist.add(svo);
-		}
-		{
-			ScheduleVO svo = new ScheduleVO();
-			svo.setClassId(1);
-			svo.setStartTime("2021-08-31 10:00");
-			svo.setEndTime("2021-08-31 11:00");
-			slist.add(svo);
-		}
-		{
-			ScheduleVO svo = new ScheduleVO();
-			svo.setClassId(1);
-			svo.setStartTime("2021-09-01 10:00");
-			svo.setEndTime("2021-09-01 11:00");
-			slist.add(svo);
-		}
-		
+		List<ScheduleVO> slist = sdao.selectSchedule(userid);
 		List<CalendarJson> clist = new ArrayList<CalendarJson>();
-		for(ScheduleVO svoo:slist) {
+		ClassDAO cdao = new ClassDAO();
+		for(ScheduleVO svo:slist) {
 			CalendarJson cJson = new CalendarJson();
-			cJson.scheduleToCalendar(svoo);
-			clist.add(cJson);
+			cJson.setGroupId(svo.getClassId());
+			String className = cdao.getClassName(svo.getClassId());
+			cJson.setTitle(className);
+			cJson.setStart(svo.getStartTime());
+			cJson.setEnd(svo.getEndTime());
 		}
 		//조회된 스케쥴 전송
 		Gson gson = new Gson();
-		String json = gson.toJson(clist);
+		String json = gson.toJson(slist);
 		request.setAttribute("cJson", json);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/myschedule.jsp");

@@ -70,7 +70,7 @@ public class OpenClassController extends HttpServlet {
 		result = sdao.insertSchedule(slist);
 		if (result!=sJarr.size()){ 
 			// 앞에서 추가한 클래스 폐지
-			cdao.closeClass(classId);
+			//	->update class' type to closed
 			// 스케쥴 insert 실패 응답
 			response.getWriter().println("FAIL");
 			return;
