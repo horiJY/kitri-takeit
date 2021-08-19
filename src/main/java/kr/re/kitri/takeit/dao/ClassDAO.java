@@ -270,7 +270,7 @@ public class ClassDAO {
 	// open
 	public List<ClassVO> selectMyOpenClass(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CATEGRY, RECOMMEND, CLASSTYPE FROM CLASS"
+		String sql = "SELECT CLASSNAME, CATEGORY, RECOMMEND, CLASSTYPE FROM CLASS"
 				+ " WHERE CREATER = (SELECT USERNAME FROM WEBUSER WHERE USERID='" + id + "')" + " AND TYPE='O'";
 		Statement stmt = null;
 		ResultSet rs = null;

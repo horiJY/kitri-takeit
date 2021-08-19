@@ -63,8 +63,9 @@ public class FavoriteDAO {
 	// mypage -> select favorite class
 	public List<ClassVO> selectFavoriteClass(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSID, CLASSNAME, CREATER, FAVORITE, OPENDATE FROM CLASS "
-				+ "WHERE CLASSID = (SELECT CLASSID FROM FAVORITE WHERE USERID = '" + id + "')" + "AND TYPE='P'";
+		String sql = "SELECT CLASSID, CLASSNAME, CREATER, FAVORITE, OPENDATE FROM CLASS C"
+				+ " WHERE C.CLASSID = (SELECT F.CLASSID FROM FAVORITE F WHERE USERID = '" + id + "')"
+				+ " AND TYPE='P'";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();

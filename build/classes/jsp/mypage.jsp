@@ -8,7 +8,11 @@
 <meta charset="UTF-8">
 <title>마이 페이지</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/mypage.css">
-
+<script type="text/javascript">
+	function clickMPOC(){	//click MyPageOpenClass
+		location.href= "${pageContext.request.contextPath}/mypage/openclass";
+	}
+</script>
 </head>
 <body onload="test('${userType}')">
 	<header>
@@ -114,11 +118,11 @@
 		</div>
 	</main>
 	
-	<hr>
+<!-- 	<hr> -->
 	
-	<footer>
-		<div></div>
-	</footer>
+<!-- 	<footer> -->
+<!-- 		<div></div> -->
+<!-- 	</footer> -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/mypage-nav.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/mypage-btn.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>

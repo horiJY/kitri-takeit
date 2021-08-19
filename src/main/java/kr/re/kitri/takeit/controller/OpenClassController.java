@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ArrayList;
@@ -28,8 +29,9 @@ import dao.ScheduleDAO;
 @WebServlet("/mypage/openclass")
 public class OpenClassController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/openclass/open-class.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/open-class.jsp");
 		rd.forward(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

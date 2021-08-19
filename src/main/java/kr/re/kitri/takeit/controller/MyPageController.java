@@ -25,7 +25,7 @@ public class MyPageController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("takeit-userid");
+		String id = (String) session.getAttribute("takeit_userid");
 		if(id==null) {
 			id="k1234567894";	//'C'
 //			id="jytest0110@gmail.com";	//'U'

@@ -13,19 +13,14 @@ function gotomain(){
 	$.ajax({
 		type: "POST",
 		url: "main",
-		success: function() { },
+		success: function() {
+			location.href="/mypage/openclass";
+		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) { }
 	})
 }
 
-function clickMPOC(){	//click MyPageOpenClass
-	$.ajax({
-		type: "POST",
-		url: "mypage/openclass",
-		success: function(res) {},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {}
-	})
-}
+
 
 //admin- 답변
 function saveQnaAnswerBtn(i) {//

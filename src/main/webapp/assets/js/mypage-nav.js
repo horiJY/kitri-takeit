@@ -28,9 +28,7 @@ function test(userType) {
 		if (userType == 'C') {
 			myClassNav.onclick = function() { myClass(); }
 			myClassQnANav.onclick = function() { myClassQna(); }
-			myClassRegNav.onclick = function() {
-				location.href = "";//${pageContext.request.contextPath }/class-reg
-			}
+			myClassRegNav.onclick = function() { clickMPOC(); }
 		}
 		myInfoNav.onclick = function() { myInfo(); }
 		myFavoriteNav.onclick = function() { myFavorite(); }
