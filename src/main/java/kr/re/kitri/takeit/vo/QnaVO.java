@@ -1,25 +1,47 @@
 package vo;
 
-import java.sql.Date;
+import java.util.Date;
+//import java.sql.Date;
 
 public class QnaVO {
-	
-	private String userid;
-	private Date qnadate;
+	private String userId;
+	private Date qnaDate;
 	private String question;
 	private String answer;
-	private String qnatitle;
-	public String getUserid() {
-		return userid;
+	private String qnaTitle;
+	private String className;
+	private String category;
+
+	public String getCategory() {
+		return category;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setCategory(String category) {
+		this.category = category;
 	}
-	public Date getQnadate() {
-		return qnadate;
+	public String getClassName() {
+		return className;
 	}
-	public void setQnadate(Date qnadate) {
-		this.qnadate = qnadate;
+	public void setClassName(String className) {
+		this.className = className;
+	}
+	public String getQnaTitle() {
+		return qnaTitle;
+	}
+	public void setQnaTitle(String qnaTitle) {
+		this.qnaTitle = qnaTitle;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public Date getQnaDate() {
+		return qnaDate;
+	}
+	public void setQnaDate(Date qnaDate) {
+		this.qnaDate = qnaDate;
 	}
 	public String getQuestion() {
 		return question;
@@ -33,15 +55,4 @@ public class QnaVO {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	public String getQnatitle() {
-		return qnatitle;
-	}
-	public void setQnatitle(String qnatitle) {
-		this.qnatitle = qnatitle;
-	}
-	
-	
-	
-	
-
 }
