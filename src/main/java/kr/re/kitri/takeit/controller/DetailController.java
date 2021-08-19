@@ -34,9 +34,9 @@ public class DetailController extends HttpServlet {
 			ReviewDAO rdao = new ReviewDAO();
 			ReviewVO rvo = rdao.getReviewCountAndScore(classid);
 			List<ReviewVO> rlist = rdao.getRecentReviews(classid);
-			for (ReviewVO c : rlist) {
-				System.out.println(c.toString());
-			}
+//			for (ReviewVO c : rlist) {
+//				System.out.println(c.toString());
+//			}
 
 			ClassDAO cdao = new ClassDAO();
 			ClassVO cvo = cdao.getClassDetail(classid);
@@ -56,6 +56,7 @@ public class DetailController extends HttpServlet {
 			for (ReviewVO c : rlist) {
 				JsonObject reviewJson = new JsonObject();
 				reviewJson.addProperty("username", c.getUserName());
+				System.out.println(c.getUserName());
 				reviewJson.addProperty("reviewdate", String.valueOf(c.getReviewDate()));
 				reviewJson.addProperty("content", c.getContent());
 				reviewJsonArr.add(reviewJson);

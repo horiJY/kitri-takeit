@@ -402,11 +402,15 @@ String review_num = element.getAsJsonObject().get("review_num").getAsString();
 String review_score = element.getAsJsonObject().get("review_score").getAsString(); 
 
 //리뷰리스트 최초2개
+JsonObject jobj = new JsonObject();
 JsonArray reviewJarr = new JsonArray(); 
-reviewJarr.add(element.getAsJsonObject().get("reviewlist").getAsString());
-
-System.out.println(element.getAsJsonObject().get("classinfo").getAsString());//됨..
-
+// reviewJarr.add(element.getAsJsonObject().get("reviewlist").getAsString());
+// System.out.println(reviewJarr.toString());
+String reviewHtml = "";
+for(JsonElement c : reviewJarr){
+	reviewHtml += "<div> <p>"+ c.getAsJsonObject().get("username").getAsString()+" "+c.getAsJsonObject().get("reviewdate").getAsString() +"</p>"
+					+"<p>"+c.getAsJsonObject().get("content").getAsString()+"</p></div>";
+}
 
 //클래스 정보
 JsonElement cdelement = parser.parse(element.getAsJsonObject().get("classinfo").getAsString());
@@ -479,6 +483,7 @@ String recommend_num = classtype.equals("온라인") ?
 							<div class="styledDiv">
 								<section class="PostViewCintroller">
 									<h2>실제 수강생들의 생생한 후기</h2>
+									<%=reviewHtml %>
 									<div class="PostViewCintroller_infoContainer">
 										<div class="PostViewCintroller_infoCard">
 											<a>
