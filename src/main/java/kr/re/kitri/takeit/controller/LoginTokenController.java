@@ -74,7 +74,7 @@ public class LoginTokenController extends HttpServlet {
 		session.setAttribute("takeit-username", UserInfo.get("nickname"));
 		session.setAttribute("takeit-userthumnail",
 				UserInfo.get("thumnailURL"));
-
+		System.out.println(UserInfo.get("id"));
 		response.sendRedirect("http://localhost:8080/takeit_prj/main");
 	}
 

@@ -1,5 +1,3 @@
-
-
 	var hostIndex = location.href.indexOf(location.host) + location.host.length;
 	var classId;
 
@@ -61,9 +59,6 @@
 			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/main';
 		}
 	}
-
-	//할 일 : mypage에 userId, logout, 페이징 
-	
 
 	function list(c_val, r_val, type) {
 		$.ajax({
@@ -138,7 +133,6 @@
 						+ '<div>' + result[i].sale + '</div></div>'
 						+ '<div><div>' + result[i].classType + '</div></div>'
 						+ '<div><div><span>응원 마감까지 ' + result[i].countdown + '일</span></div></div></label>'
-						+ '<div><button onclick="favoriteClick('+result[i].classId+')">응원하기</button></div>'
 						+ '</li>'
 					);	
 				}
@@ -160,6 +154,10 @@ function update(favoriteCnt) {
 var favoriteBtn = document.getElementById("favorite-btn");
 
 function classDetail(classId) {
+	const floating = document.querySelector('#floating');
+  
+	 floating.style.visibility = "visible";
+
 	$.ajax({
 		type: 'POST',
 		url: 'select-class',
@@ -188,21 +186,25 @@ function classDetail(classId) {
 	swiper.style.display = "block";
 }
 
-//selectFavorite 두 개 뜨는거, result에 따라 appned 다르게 하는거 
+function close(){
+	const floating = document.querySelector('#floating');
+	floating.style.visibility = "hidden";
+	swiper.style.display = "none";
+}
+
 
 function selectFavorite(classId){
+	favoriteBtn.style.display = "none";
 	$.ajax({
 		type: 'POST',
 		url: 'favorite',
 		data: { classId: classId },
 		success: function(result) {
-			console.log(result);
-			
-			if(result[0] = 0){
+			if(Number(result) == 0){
 				$('#favorite-btn').append(
 					'<div><button onclick="favoriteClick('+classId+')">응원하기</button></div>'
 				);
-			}else if(result[0] = 1){
+			}else if(Number(result) == 1){
 				$('#favorite-btn').append(
 					'<div><button>응원완료</button></div>'
 				);
@@ -321,5 +323,4 @@ function pageClick(i){
 			}
 		}
 	}
-
 

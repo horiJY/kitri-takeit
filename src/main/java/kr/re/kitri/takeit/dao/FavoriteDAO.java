@@ -117,7 +117,7 @@ public class FavoriteDAO {
 		}finally {
 			closeAll(conn, pstmt, null, null);
 		}
-		System.out.println(result);
+		System.out.println("DAO"+result);
 		return result;
 	}
 	
@@ -173,6 +173,7 @@ public class FavoriteDAO {
 		}finally {
 			closeAll(conn, pstmt, null, null);
 		}
+		System.out.println("CDAO:"+result);
 		return result;
 	}
 }

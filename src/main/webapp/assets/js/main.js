@@ -17,7 +17,7 @@
 	var recommend = document.getElementById("recommend");
 	var newest = document.getElementById("newest");
 
-	sessionStorage.clear();
+	//sessionStorage.clear();
 	var cSession;
 	sessionStorage.setItem('cSession', 'null');
 	var rSession;
@@ -26,7 +26,7 @@
 	var c_val = sessionStorage.getItem('cSession');
 	var r_val = sessionStorage.getItem('rSession');
 
-	var userId = sessionStorage.getItem('userId');
+//	var id = sessionStorage.getItem('takeit-userId');
 	var mypageBtn = document.getElementById("mypage");
 
 	var loginBtn = document.getElementById('login');
@@ -40,21 +40,7 @@
 	
 	var type = 'O';
 	
-	if (userId == null) {
-		loginBtn.onclick = function() {
-			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/login';
-		}
-	} else {
-		mypageBtn.onclick = function() {
-			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/mypage';
-		}
-		logoutBtn.onclick = function() {
-			sessionStorage.setItem('userId', null);
-			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/main';
-		}
-	}
-
-	//할 일 : mypage에 userId, logout, 페이징 
+	console.log(id);
 
 	function list(c_val, r_val, type) {
 		$.ajax({
@@ -69,7 +55,7 @@
 		})
 	}
 	
-
+	
 	function paging(c_val, r_val, totalData, dataPerPage, pageCount, currentPage){
 		var totalPage = Math.ceil(totalData/dataPerPage);
 		var pageGroup = Math.ceil(currentPage/pageCount);
@@ -132,7 +118,7 @@
 		})	
 	}
 
-	list(c_val, r_val);
+	list(c_val, r_val, type);
 
 	category.onclick = function() {
 		if (categoryDrop.style.display == "block") {
@@ -146,7 +132,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			art.onclick = function() {
@@ -155,7 +141,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			cooking.onclick = function() {
@@ -164,7 +150,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			language.onclick = function() {
@@ -173,7 +159,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			programming.onclick = function() {
@@ -182,7 +168,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			sport.onclick = function() {
@@ -191,7 +177,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 		}
 	}
@@ -208,7 +194,7 @@
 				r_val = 'RECOMMEND';
 				sessionStorage.setItem('rSession', r_val);
 				rangeDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			newest.onclick = function() {
@@ -217,7 +203,7 @@
 				r_val = 'OPENDATE';
 				sessionStorage.setItem('rSession', r_val);
 				rangeDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 		}
 	}
@@ -228,16 +214,14 @@ function classDetail(i) {
 	$.ajax({
 		type: 'POST',
 		url: 'detail',
-		data: { classId: i },
+		data: { URL: 'detail/'+i },
 		success: function() {
-			classId = sessionStorage.setItem('classId', i);
-			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/detail';
 		}
 	})
 }
 
 function pageClick(i){
 	currentPage = i;
-	list(c_val, r_val);
+	list(c_val, r_val, type);
 }
 

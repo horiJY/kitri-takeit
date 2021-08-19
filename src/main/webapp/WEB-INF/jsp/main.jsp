@@ -17,28 +17,30 @@
 <head>
 <meta charset="UTF-8">
 <title>main</title>
-<script>
-	
-</script>
+
 </head>
 
 <body>
 	<header>
 		<div>
 			<span>takeit!</span> <input type="search">
-			<c:choose>
-				<c:when test="${!empty sessionScope.userId }">
+			<c:choose> 
+				<c:when test="${id eq null }"> 
+					
 					<a href="${pageContext.request.contextPath}/mypage"> 
 					<input type="button" value="mypage" id="mypage">
 					</a>
 						<input type="button" value="logout" id="logout">
-				</c:when>
-				<c:otherwise>
+					
+				</c:when> 
+				<c:otherwise> 
+					
 					<a href="${pageContext.request.contextPath}/login"> 
 						<input type="button" value="login" id="login">
 					</a>
-				</c:otherwise>
-			</c:choose>
+					
+ 				</c:otherwise> 
+			</c:choose> 
 		</div>
 	</header>
 	<div>
@@ -48,7 +50,7 @@
 		<a href="${pageContext.request.contextPath}/pre-class">
 			<input type="button" value="오픈예정">
 		</a>
-		<a href="">		
+		<a href="${pageContext.request.contextPath}/QnaController">		
 			<input type="button" value="고객센터">
 		</a>
 	</div>
@@ -87,6 +89,12 @@
 	<footer>
 	
 	</footer>
+	<% 
+	String id = (String)session.getAttribute("takeit-userid");
+	%>
+	<script>
+		var id = '<%=id%>';
+	</script>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </body>

@@ -24,7 +24,6 @@ public class DBConnect {
 			}
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println("DB연결완료");
 		} catch (ClassNotFoundException e) {
 			System.out.println("ojdbc.jar 존재 여부 확인)");
 			// e.printStackTrace();

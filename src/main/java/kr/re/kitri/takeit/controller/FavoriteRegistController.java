@@ -28,7 +28,7 @@ public class FavoriteRegistController extends HttpServlet {
 		FavoriteDAO fdao = new FavoriteDAO();
 
 		int classId = Integer.parseInt(request.getParameter("classId"));
-		System.out.println(classId);
+		System.out.println("classId : "+classId);
 
 		int favoriteResult = fdao.insertFavorite(userId, classId);
 		int classResult;
@@ -38,7 +38,7 @@ public class FavoriteRegistController extends HttpServlet {
 			Gson gson = new Gson();
 
 			String result = gson.toJson(classResult);
-
+			System.out.println(result);
 			response.setContentType("application/json; charset=utf8");
 			response.getWriter().write(result);
 		}
