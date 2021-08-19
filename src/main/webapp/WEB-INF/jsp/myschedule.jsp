@@ -7,20 +7,21 @@
 <title>my schedule</title>
 <link href='${pageContext.request.contextPath}/calendar-assets/main.css' rel='stylesheet' />
 <script type="text/javascript">
-var fullcalendar = null;
-document.addEventListener('DOMContentLoaded', function() {
-	var calendar = document.getElementById('calendar');
-	
-	fullcalendar = new FullCalendar.Calendar(calendar, {
-		initialView: 'dayGridMonth',
-		events: ${cJson},
-		eventClick: function(arg){
-			//해당 강의/수강 정보로 이동
-			alert ("event");
-		}
+	var fullcalendar = null;
+	console.log(${cJson});
+	document.addEventListener('DOMContentLoaded', function() {
+		var calendar = document.getElementById('calendar');
+		
+		fullcalendar = new FullCalendar.Calendar(calendar, {
+			initialView: 'dayGridMonth',
+			events: ${cJson},
+			eventClick: function(arg){
+				alert (arg.event.groupId);
+				//해당 강의/수강 정보로 이동
+			}
+		});
+		fullcalendar.render();
 	});
-	fullcalendar.render();
-});
 </script>
 
 </head>

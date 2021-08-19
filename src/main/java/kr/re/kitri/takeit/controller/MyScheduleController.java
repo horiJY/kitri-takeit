@@ -29,17 +29,27 @@ public class MyScheduleController extends HttpServlet {
 		ScheduleDAO sdao = new ScheduleDAO();
 		//List<ScheduleVO> slist = sdao.selectSchedule(userid);
 		List<ScheduleVO> slist = new ArrayList<ScheduleVO>();
-		ScheduleVO svo = new ScheduleVO();
-		svo.setClassId(1);
-		svo.setStartTime("2021-08-26 10:00");
-		svo.setEndTime("2021-08-26 11:00");
-		slist.add(svo);
-		svo.setStartTime("2021-08-31 10:00");
-		svo.setEndTime("2021-08-31 11:00");
-		slist.add(svo);
-		svo.setStartTime("2021-09-01 10:00");
-		svo.setEndTime("2021-09-01 11:00");
-		slist.add(svo);
+		{
+			ScheduleVO svo = new ScheduleVO();
+			svo.setClassId(1);
+			svo.setStartTime("2021-08-26 10:00");
+			svo.setEndTime("2021-08-26 11:00");
+			slist.add(svo);
+		}
+		{
+			ScheduleVO svo = new ScheduleVO();
+			svo.setClassId(1);
+			svo.setStartTime("2021-08-31 10:00");
+			svo.setEndTime("2021-08-31 11:00");
+			slist.add(svo);
+		}
+		{
+			ScheduleVO svo = new ScheduleVO();
+			svo.setClassId(1);
+			svo.setStartTime("2021-09-01 10:00");
+			svo.setEndTime("2021-09-01 11:00");
+			slist.add(svo);
+		}
 		
 		List<CalendarJson> clist = new ArrayList<CalendarJson>();
 		for(ScheduleVO svoo:slist) {
@@ -52,7 +62,7 @@ public class MyScheduleController extends HttpServlet {
 		String json = gson.toJson(clist);
 		request.setAttribute("cJson", json);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/mymyschedule.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/myschedule.jsp");
 		rd.forward(request, response);
 	}
 
