@@ -118,7 +118,7 @@
 	<hr>
 	
 	<footer>
-		<div>footer</div>
+		<div></div>
 	</footer>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/mypage-nav.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/mypage-btn.js"></script>

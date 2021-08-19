@@ -91,6 +91,26 @@ public class QnaDAO {
 		
 		return result;
 	}
+	public int updateUserQna(String qnaTitle, String userId, String question){
+		Connection conn = DBConnect.getInstance();
+		String sql ="UPDATE QNA SET QUESTION='" + question + "'"
+				+ " WHERE QNATITLE='" + qnaTitle + "'"
+				+ " AND USERID='" + userId + "'";
+		Statement stmt = null;
+		int result = 0;
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, null);
+		}
+		
+		return result;
+	}
 	
 	//mypage -> 일반 qna
 	public List<QnaVO> selectMyQna(String id) {

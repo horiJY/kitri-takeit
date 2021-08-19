@@ -162,41 +162,98 @@ function deleteReviewBtn(i) {
 	})
 
 }
-//function reviewBtn() {
-//	$.ajax({
-//		type: 'POST',
-//		url: '',	//리뷰 작성 페이지
-//		success: function() { },
-//		error: function(XMLHttpRequest, textStatus, errorThrown) { }
-//	})
-//}
-//
-////내 QNA
-//function deleteQnaBtn() {	//일반 QnA
-//	$.ajax({
-//		type: 'POST',
-//		url: 'qna-delete',		//오픈예정클래스 페이지 컨트롤러
-//		success: function() {
-//			alert(res.code);
-//		},
-//		error: function(XMLHttpRequest, textStatus, errorThrown) {
-//			alert("QnA 삭제 실패");
-//		}
-//	})
-//}
-//function deleteClassQnaBtn(i) {	//클래스 QnA
-//	$.ajax({
-//		type: 'POST',
-//		url: 'class-qna-delete',
-//		data: { classId: i },
-//		success: function(res) {
-//			alert(res.code);
-//		},
-//		error: function(XMLHttpRequest, textStatus, errorThrown) {
-//			alert("리뷰 삭제 실패");
-//		}
-//	})
-//}
+function reviewBtn() {
+	$.ajax({
+		type: 'POST',
+		url: '',	//리뷰 작성 페이지
+		success: function() { },
+		error: function(XMLHttpRequest, textStatus, errorThrown) { }
+	})
+}
+
+//내 QNA
+function clickSQQB(i) {//click saveQnaQuestionBtn
+	
+	var params = {
+		qnaTitle: $("#qnaTitle"+i).val()
+		, question: $("#question"+i).val()
+	}
+	console.log(params);
+	$.ajax({
+		type: 'POST',
+		url: 'userqna-update',
+		dataType: 'json',
+		data: params,
+		success: function(res) {
+			alert(res.code);
+			window.location.reload();
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("클래스 생성 실패");
+		}
+	})
+
+}
+
+function clickDQQB(i) {//click deleteQnaQuestionBtn
+	var params = {
+		qTitle: $("#qnaTitle"+i).val()
+	}
+	$.ajax({
+		type: 'POST',
+		url: 'userqna-delete',
+		data: params,
+		success: function() {
+			alert(res.code);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("QnA 삭제 실패");
+		}
+	})
+}
+//내 CLASS QNA
+function clickSCQQB(i) {//click saveClassQnaQuestionBtn
+	
+	var params = {
+		qTitle: $("#qnaTitle"+i).val()
+		, question: $("#question"+i).val()
+		, className: $("#className"+i).val()
+	}
+	console.log(params);
+	$.ajax({
+		type: 'POST',
+		url: 'userclassqna-update',
+		dataType: 'json',
+		data: params,
+		success: function(res) {
+			alert(res.code);
+			window.location.reload();
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("클래스 생성 실패");
+		}
+	})
+
+}
+
+function clickDCQQB(i) {//click deleteClassQnaQuestionBtn
+	var params = {
+		qTitle: $("#qnaTitle"+i).val()
+		, className: $("#className"+i).val()
+	}
+	$.ajax({
+		type: 'POST',
+		url: 'userclassqna-delete',
+		data: params,
+		success: function() {
+			alert(res.code);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("QnA 삭제 실패");
+		}
+	})
+}
+
 //function qnaBtn() {
 //	$.ajax({
 //		type: 'POST',

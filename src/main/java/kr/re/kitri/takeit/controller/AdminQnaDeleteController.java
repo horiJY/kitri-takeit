@@ -14,32 +14,31 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import dao.QnaDAO;
-import vo.QnaVO;
 
-@WebServlet("/userqna-update")
-public class QnaUpdateController extends HttpServlet {
+@WebServlet("/qna-delete")
+public class AdminQnaDeleteController extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
+		
 
 		String qnaTitle = request.getParameter("qnaTitle");
-		String question = request.getParameter("question");
-		
-		System.out.println("qnaTitle : " + qnaTitle + " answer: " + question);
+		String userId = request.getParameter("userId");
 		
 		QnaDAO qdao = new QnaDAO();
-		int result = qdao.updateUserQna(qnaTitle, id, question);
+		int result = qdao.deleteQna(userId,qnaTitle);
 		
 		JsonObject json = new JsonObject();
 		if(result!=0) {
-			json.addProperty("code", "성공적으로 업데이트 되었습니다.");
+			json.addProperty("code", "삭제되었습니다.");
 			
 		} else {
-			json.addProperty("code", "업데이트를 실패했습니다. 다시 시도해주세요.");
+			json.addProperty("code", "삭제를 실패했습니다. 다시 시도해주세요.");
 		}
 		
 		Gson gson = new Gson();
@@ -50,4 +49,5 @@ public class QnaUpdateController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.print(jsonResponse);
 	}
+
 }

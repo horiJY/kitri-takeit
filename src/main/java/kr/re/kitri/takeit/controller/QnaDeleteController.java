@@ -15,7 +15,7 @@ import com.google.gson.JsonObject;
 
 import dao.QnaDAO;
 
-@WebServlet("/qna-delete")
+@WebServlet("/userqna-delete")
 public class QnaDeleteController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,13 +25,10 @@ public class QnaDeleteController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
-		
-
 		String qnaTitle = request.getParameter("qnaTitle");
-		String userId = request.getParameter("userId");
 		
 		QnaDAO qdao = new QnaDAO();
-		int result = qdao.deleteQna(userId,qnaTitle);
+		int result = qdao.deleteQna(id,qnaTitle);
 		
 		JsonObject json = new JsonObject();
 		if(result!=0) {

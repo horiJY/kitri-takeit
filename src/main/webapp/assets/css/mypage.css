@@ -37,7 +37,7 @@ main header .usertypeimg{
 	margin:20px 0px;
 }
 main header #userPoint{
-	width:120px;
+	width:220px;
 	text-align:center;
 	margin:20px 0px;
 	margin-bottom:20px;
@@ -54,7 +54,29 @@ aside {
 }
 .myPageForm {
 	border:1px solid black;
+	height:500px;
  	padding: 8px 8px; 
+ 	overflow-y:scroll;
+}
+#myPageFormContainer{
+	margin:auto;
+	width:90%;
+}
+.scroll::-webkit-scrollbar{
+    width: 6px;
+}
+
+/* 스크롤바 막대 설정*/
+.scroll::-webkit-scrollbar-thumb{
+    height: 17%;
+    background-color: rgba(255,255,255,1);
+    /* 스크롤바 둥글게 설정    */
+    border-radius: 10px;    
+}
+
+/* 스크롤바 뒷 배경 설정*/
+.scroll::-webkit-scrollbar-track{
+    background-color: rgba(0,0,0,0);
 }
 footer {
 	border:1px solid black;
@@ -78,13 +100,13 @@ footer {
 	
 }
 table{
+	border:1px solid black;
  	border-collapse: collapse;
-	
+	width: 100%;
 }
 /*admin*/
-#allQnaTable {
-	width:70%;
- 	border:1px solid black;
+#allQnaTable, .myQna{
+	width:100%;
 	background-color: gray;
 }
 
@@ -99,13 +121,17 @@ table{
 /* 	width:200px; */
     text-overflow: ellipsis;
 }
-#allQnaTable textarea {
+textarea {
 	width:99%;
 }
-#Save{
+.qnaAboxBtns{
+	width:240px;
+	margin:auto;
+}
+#Save, #Delete{
 	width: 100px;
 	height: 30px;
-	
+	margin: 4px 8px 4px 8px;
 }
 /*user*/
 .userinfo-box {
@@ -116,7 +142,6 @@ table{
 	text-align: center;
 }
 .myInfoLabel, .myInfoLabel input {
-/*	text-align: right;*/
  	width: 100%; 
  	min-width: 400px; 
 }
@@ -125,7 +150,9 @@ table{
  	min-width:400px; 
 }
 .myInfoLabel div {
+	float:left;
 	text-align: left;
+	width:50px;
 }
 
 #myPageBtns button{
@@ -135,14 +162,20 @@ table{
 }
 
 .emptylist{
-	width:80%; 
-	min-width:400px;
+	margin:0 auto;
+	width:500px; 
 }
 
 .myPageContent1 img, .myPageContent2 img {
 	width:50%;
 }
-
+.myQna thead th:nth-child(2) {
+	width:85px;
+}
+.myQna thead th:nth-child(1) {
+	width:auto;
+	text-overflow: ellipsis;
+}
 
 
 
