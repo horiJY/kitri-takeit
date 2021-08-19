@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnect;
+import vo.ClassVO;
 import vo.FavoriteVO;
 
-
 public class FavoriteDAO {
-	//closeAll
-	public void closeAll(Connection conn, PreparedStatement pstmt, Statement stmt, ResultSet rs) {
+	// closeAll
+	public void closeAll(Connection conn, PreparedStatement pstmt,
+			Statement stmt, ResultSet rs) {
 
 		try {
 			if (rs != null && !rs.isClosed()) {
@@ -34,23 +35,24 @@ public class FavoriteDAO {
 		}
 
 	}
-	//mypage - select
-	public List<FavoriteVO> selectFavorite(String id){
+	// mypage - select
+	public List<FavoriteVO> selectFavorite(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql ="SELECT * FROM MEMO WHERE ID ='"+id+"' ORDER BY CLASSID DESC";
+		String sql = "SELECT * FROM MEMO WHERE ID ='" + id
+				+ "' ORDER BY CLASSID DESC";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<FavoriteVO> flist = new ArrayList<FavoriteVO>();
-		
+
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
-			
+
 			while (rs.next()) {
 				FavoriteVO fvo = new FavoriteVO();
 				fvo.setUserId(rs.getString(1));
 				fvo.setClassId(rs.getInt(2));
-				
+
 				flist.add(fvo);
 			}
 		} catch (SQLException e) {
@@ -59,14 +61,48 @@ public class FavoriteDAO {
 		} finally {
 			closeAll(conn, null, stmt, rs);
 		}
-		
+
 		return flist;
 	}
-	//pre-class page - insert
+	// pre-class page - insert
 	public int deleteFavorite(String id, int classId) {
-		
+
 		return 0;
 	}
 
-	//pre-class page - delete
+	// mypage -> select favorite class
+	public List<ClassVO> selectFavoriteClass(String id) {
+		Connection conn = DBConnect.getInstance();
+		String sql = "SELECT CLASSID, CLASSNAME, CREATER, FAVORITE, OPENDATE FROM CLASS "
+				+ "WHERE CLASSID = (SELECT CLASSID FROM FAVORITE WHERE USERID = '"
+				+ id + "')" + "AND TYPE='P'";
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<ClassVO> clist = new ArrayList<ClassVO>();
+
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				ClassVO cvo = new ClassVO();
+				cvo.setClassId(rs.getInt(1));
+				cvo.setClassName(rs.getString(2));
+				cvo.setCreater(rs.getString(3));
+				cvo.setFavorite(rs.getInt(4));
+				cvo.setOpenDate(rs.getDate(5));
+
+				clist.add(cvo);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, rs);
+		}
+		return clist;
+	}
+
+	// pre-class page - delete
 }
