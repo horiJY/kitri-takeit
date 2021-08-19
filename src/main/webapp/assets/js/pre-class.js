@@ -26,11 +26,6 @@
 	var c_val = sessionStorage.getItem('cSession');
 	var r_val = sessionStorage.getItem('rSession');
 
-	var userId = sessionStorage.getItem('userId');
-	var mypageBtn = document.getElementById("mypage");
-
-	var loginBtn = document.getElementById('login');
-
 	var logoutBtn = document.getElementById('logout');
 
 	var dataPerPage = 8; //한 페이지에 나타낼 글 수
@@ -46,19 +41,17 @@
 	var creater;
 	var className;
 	
-	if (userId == null) {
-		loginBtn.onclick = function() {
-			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/login';
-		}
-	} else {
-		mypageBtn.onclick = function() {
-			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/mypage';
-		}
-		logoutBtn.onclick = function() {
-			sessionStorage.setItem('userId', null);
-			location.href = location.href.substring(hostIndex, location.href.ind('/', hostIndex + 1)) + '/main';
-		}
+	function logout() {
+		$.ajax({
+			type: 'POST',
+			url: 'logout',
+			success: function(data) {
+				document.location.reload();
+				console.log(id);
+			}
+		})
 	}
+
 
 	function list(c_val, r_val, type) {
 		$.ajax({
@@ -124,7 +117,7 @@
 				
 				for (var i = 0; i < result.length; i++) {
 					$('#class').append(
-						'<li><label onclick="classDetail('+result[i].classId +')">'
+						'<li class="detail"><label onclick="classDetail('+result[i].classId +')" class="label">'
 						+ '<div><img></div>'
 						+ '<div><div>' + result[i].creater + '</div>'
 						+ '<div>' + result[i].className + '</div>'
@@ -163,18 +156,21 @@ function classDetail(classId) {
 		url: 'select-class',
 		data: { classId: classId },
 		success: function(result) {
+			var classType = "";
+			if(result[0].classType = "ON"){
+				classType = "온라인";
+			}else{
+				classType ="오프라인";
+			}
+			
 			$('#favorite-btn').empty();
 			$('#swiper').empty();
 			$('#swiper').append(
-				
 				'<button onclick="close()">닫기</button></div>'
 				+ '<div id="slide"><img>'
-				+ '<div>' + result[0].creater + '</div>'
-				+ '<div>' + result[0].className + '</div></div>'
-				+ '<div></div>'
-				+ '<div></div>'
-				+ '<button>left</button><button>right</button></div>'
-				+ '<div><span id="bar"></span></div>'
+				+ '<div>' + result[0].creater + ' 의 </div>'
+				+ '<div>' + result[0].className + ' 수업 </div></div>'
+				+ '<div> 이 강의는 ' + classType + '강의예요!</div>'
 				+ '<div><div id="favoriteF">'
 				+ '<div><span>현재 응원 수 </span>'
 				+ '<span>' + result[0].favorite + '</span>'
@@ -214,7 +210,10 @@ function selectFavorite(classId){
 	favoriteBtn.style.display = "block";
 }
 
-function favoriteClick(classId){
+function favoriteClick(classId, id){
+	if(id == null){
+		location.href.substring(hostIndex, location.href.indexOf('/', hostIndex + 1)/login);
+	}
 	$.ajax({
 		type: 'POST',
 		url: 'favorite-regist',
