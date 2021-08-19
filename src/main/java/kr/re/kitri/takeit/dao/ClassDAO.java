@@ -14,8 +14,7 @@ import vo.ClassVO;
 public class ClassDAO {
 
 	// closeAll
-	public void closeAll(Connection conn, PreparedStatement pstmt,
-			Statement stmt, ResultSet rs) {
+	public void closeAll(Connection conn, PreparedStatement pstmt, Statement stmt, ResultSet rs) {
 		try {
 			if (rs != null && !rs.isClosed()) {
 				rs.close();
@@ -75,8 +74,7 @@ public class ClassDAO {
 	public List<ClassVO> selectAssignmentClass(String id) {
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, CATEGORY FROM CLASS"
-				+ " WHERE CLASSID IN (SELECT CLASSID FROM ASSIGNMENT WHERE USERID = '"
-				+ id + "')" + " AND TYPE='O'"
+				+ " WHERE CLASSID IN (SELECT CLASSID FROM ASSIGNMENT WHERE USERID = '" + id + "')" + " AND TYPE='O'"
 				+ " ORDER BY CATEGORY, CLASSID DESC";
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -106,8 +104,7 @@ public class ClassDAO {
 		return clist;
 	}
 
-	public List<ClassVO> selectClassList(String category, String range,
-			String type) {
+	public List<ClassVO> selectClassList(String category, String range, String type) {
 		Connection conn = DBConnect.getInstance();
 
 		if (range == null || range.equals("null")) {
@@ -115,12 +112,11 @@ public class ClassDAO {
 		}
 
 		String sql = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
-				+ "	  FROM CLASS " + "	  WHERE TYPE = ? "
-				+ "	  AND CATEGORY = ? " + "	  ORDER BY " + range + " DESC";
+				+ "	  FROM CLASS " + "	  WHERE TYPE = ? " + "	  AND CATEGORY = ? " + "	  ORDER BY " + range
+				+ " DESC";
 
 		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
-				+ "	   FROM CLASS " + "	   WHERE TYPE = ? " + "	   ORDER BY "
-				+ range + " DESC";
+				+ "	   FROM CLASS " + "	   WHERE TYPE = ? " + "	   ORDER BY " + range + " DESC";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -168,8 +164,7 @@ public class ClassDAO {
 	}
 
 	// select
-	public List<ClassVO> selectClassPage(String category, String range,
-			String type, int start, int end) {
+	public List<ClassVO> selectClassPage(String category, String range, String type, int start, int end) {
 		if (range == null || range.equals("null")) {
 			if (type.equals("O")) {
 				range = "RECOMMEND";
@@ -183,16 +178,13 @@ public class ClassDAO {
 
 		// sql
 		String sql1 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
-				+ " FROM (SELECT ROWNUM AS RNUM, A.* " + "      FROM (SELECT * "
-				+ "            FROM CLASS" + "			   WHERE CATEGORY = ? "
-				+ "			   AND TYPE = ? " + "			   ORDER BY "
-				+ range + " DESC ) A " + "      ) "
-				+ "WHERE RNUM BETWEEN ? AND ? ";
+				+ " FROM (SELECT ROWNUM AS RNUM, A.* " + "      FROM (SELECT * " + "            FROM CLASS"
+				+ "			   WHERE CATEGORY = ? " + "			   AND TYPE = ? " + "			   ORDER BY " + range
+				+ " DESC ) A " + "      ) " + "WHERE RNUM BETWEEN ? AND ? ";
 
 		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
-				+ " FROM (SELECT ROWNUM AS RNUM, A.* " + "      FROM (SELECT * "
-				+ "            FROM CLASS" + "			   WHERE TYPE = ? "
-				+ "			   ORDER BY " + range + " DESC ) A " + "      ) "
+				+ " FROM (SELECT ROWNUM AS RNUM, A.* " + "      FROM (SELECT * " + "            FROM CLASS"
+				+ "			   WHERE TYPE = ? " + "			   ORDER BY " + range + " DESC ) A " + "      ) "
 				+ "WHERE RNUM BETWEEN ? AND ? ";
 
 		// prepared
@@ -246,8 +238,8 @@ public class ClassDAO {
 	// pre
 	public List<ClassVO> selectMyPreClass(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CATEGORY, FAVORITE, OPENDATE FROM CLASS"
-				+ " WHERE CREATER = '" + id + "'" + " AND TYPE='P'";
+		String sql = "SELECT CLASSNAME, CATEGORY, FAVORITE, OPENDATE FROM CLASS" + " WHERE CREATER = '" + id + "'"
+				+ " AND TYPE='P'";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
@@ -274,11 +266,12 @@ public class ClassDAO {
 		}
 		return clist;
 	}
+
 	// open
 	public List<ClassVO> selectMyOpenClass(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CATEGRY, RECOMMEND, CLASSTYPE FROM CLASS"
-				+ " WHERE CREATER = '" + id + "'" + " AND TYPE='O'";
+		String sql = "SELECT CLASSNAME, CATEGRY, RECOMMEND, CLASSTYPE FROM CLASS" + " WHERE CREATER = '" + id + "'"
+				+ " AND TYPE='O'";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
@@ -312,8 +305,7 @@ public class ClassDAO {
 		Connection conn = DBConnect.getInstance();
 		StringBuilder sb = new StringBuilder();
 		// '부적합한 식별자'오류 발생
-		sb.append(
-				" INSERT INTO CLASS ( CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, ");
+		sb.append(" INSERT INTO CLASS ( CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, ");
 		sb.append(" DETAIL, PRICE, CAPACITY, TYPE, CATEGORY, INTRODUCE ) ");
 		sb.append(" VALUES ( ( SELECT COUNT(*)+1 FROM CLASS ), '");
 		sb.append(cvo.getClassName());
@@ -384,8 +376,7 @@ public class ClassDAO {
 	public int closeClass(int classid) {
 		Connection conn = DBConnect.getInstance();
 		// 폐지상태로 변경
-		String sql = " UPDATE CLASS SET TYPE = 'C' WHERE CLASSID = '" + classid
-				+ "' ";
+		String sql = " UPDATE CLASS SET TYPE = 'C' WHERE CLASSID = '" + classid + "' ";
 		Statement stmt = null;
 		int result = 0;
 		try {
@@ -406,8 +397,7 @@ public class ClassDAO {
 		Connection conn = DBConnect.getInstance();
 
 		String sql = "select classname, u.username, introduce, period, content_num, detail, chapter, creater_info, address "
-				+ "from class c, webuser u "
-				+ "where c.creater = u.userid and classid = " + classId;
+				+ "from class c, webuser u " + "where c.creater = u.userid and classid = " + classId;
 
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -438,5 +428,34 @@ public class ClassDAO {
 			closeAll(conn, null, stmt, rs);
 		}
 		return cvo;
+	}
+
+	public int classUpdate(int favorite) {
+		Connection conn = DBConnect.getInstance();
+		// favorite >= 10
+		String sql1 = "UPDATE CLASS SET TYPE = 'O' " + "WHERE TYPE = 'P'" + "AND FAVORITE >= 10"
+				+ "AND OPENDATE <= SYSDATE";
+
+		// favorite < 10
+		String sql2 = "UPDATE CLASS SET TYPE = NULL " + "WHERE TYPE = 'P'" + "AND FAVORITE < 10"
+				+ "AND OPENDATE <= SYSDATE";
+
+		Statement stmt = null;
+		int result = 0;
+
+		try {
+			stmt = conn.createStatement();
+			if (favorite >= 10) {
+				result = stmt.executeUpdate(sql1);
+			} else {
+				result = stmt.executeUpdate(sql2);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, null);
+		}
+		return result;
 	}
 }

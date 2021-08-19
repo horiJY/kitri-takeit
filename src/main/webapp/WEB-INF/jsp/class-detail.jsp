@@ -395,21 +395,26 @@ dt {
 </head>
 <%
 JsonParser parser = new JsonParser();
-System.out.println(session.getAttribute("classdetailproperties")); 
+JsonElement element = parser.parse(String.valueOf(session.getAttribute("classdetailproperties")));
 
-// JsonElement element = parser.parse(String.valueOf(request.getAttribute("classdetailproperties"))); 
-// String recommend_num = element.getAsJsonObject().get("recommend_num").getAsString(); 
-// String recommend_score = element.getAsJsonObject().get("recommend_score").getAsString(); 
-// JsonArray jarr = new JsonArray(); // jarr.add(element.getAsJsonObject().getAsJsonArray("reviewlist")); 
-// String classname = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("classname").getAsString();
-// String creatername = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("creatername").getAsString();
-// String introduce = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("introduce").getAsString();
-// String period = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("period").getAsString();
-// String content_num = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("content_num").getAsString();
-// String detail = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("detail").getAsString();
-// String chapter = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("chapter").getAsString();
-// String creater_info = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("creater_info").getAsString();
-// String address = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("address").getAsString();
+//수강 후기가져오기
+String recommend_num = element.getAsJsonObject().get("recommend_num").getAsString(); 
+String recommend_score = element.getAsJsonObject().get("recommend_score").getAsString(); 
+
+//리뷰리스트 최초2개
+JsonArray jarr = new JsonArray(); 
+jarr.add(element.getAsJsonObject().getAsJsonArray("reviewlist")); 
+
+//클래스 정보
+String classname = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("classname").getAsString();
+String creatername = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("creatername").getAsString();
+String introduce = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("introduce").getAsString();
+String period = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("period").getAsString();
+String content_num = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("content_num").getAsString();
+String detail = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("detail").getAsString();
+String chapter = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("chapter").getAsString();
+String creater_info = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("creater_info").getAsString();
+String address = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("address").getAsString();
 %>
 
 <body>
