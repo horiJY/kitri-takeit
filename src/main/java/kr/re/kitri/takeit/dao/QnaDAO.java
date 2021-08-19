@@ -91,33 +91,8 @@ public class QnaDAO {
 
 		return result;
 	}
-<<<<<<< HEAD
 
 	// mypage -> 일반 qna
-=======
-	public int updateUserQna(String qnaTitle, String userId, String question){
-		Connection conn = DBConnect.getInstance();
-		String sql ="UPDATE QNA SET QUESTION='" + question + "'"
-				+ " WHERE QNATITLE='" + qnaTitle + "'"
-				+ " AND USERID='" + userId + "'";
-		Statement stmt = null;
-		int result = 0;
-		try {
-			stmt = conn.createStatement();
-			
-			result = stmt.executeUpdate(sql);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll(conn, null, stmt, null);
-		}
-		
-		return result;
-	}
-	
-	//mypage -> 일반 qna
->>>>>>> refs/remotes/takeit/경하
 	public List<QnaVO> selectMyQna(String id) {
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE"
@@ -151,34 +126,17 @@ public class QnaDAO {
 
 		return qlist;
 	}
-<<<<<<< HEAD
 
 	// mypage -> Delete
 	public int deletQna(String userId) {
-=======
-	
-	//mypage -> Delete
-	public int deleteQna(String userId, String qnaTitle) {
->>>>>>> refs/remotes/takeit/경하
 		Connection conn = DBConnect.getInstance();
-<<<<<<< HEAD
 		String sql = "DELETE FROM CLASSQNA" + " WHERE USERID = ?";
-=======
-		String sql = "DELETE FROM CLASSQNA"
-				+ " WHERE USERID = ?"
-				+ " AND QNATITLE = ?";
->>>>>>> refs/remotes/takeit/경하
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-<<<<<<< HEAD
 
-=======
-			pstmt.setString(2, qnaTitle);
-			
->>>>>>> refs/remotes/takeit/경하
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

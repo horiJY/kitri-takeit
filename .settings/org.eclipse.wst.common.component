@@ -5,14 +5,8 @@
                         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                        
-        
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java/kr/re/kitri/takeit"/>
-                        
-        
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/assets"/>
-                        
-        
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/WEB-INF"/>
                         
         

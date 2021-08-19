@@ -396,7 +396,6 @@ dt {
 <%
 JsonParser parser = new JsonParser();
 JsonElement element = parser.parse(String.valueOf(session.getAttribute("classdetailproperties")));
-System.out.println(element.toString());
 
 //수강 후기가져오기
 String review_num = element.getAsJsonObject().get("review_num").getAsString(); 
