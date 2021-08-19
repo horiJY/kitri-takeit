@@ -395,7 +395,8 @@ dt {
 </head>
 <%
 JsonParser parser = new JsonParser();
-System.out.println(request.getAttribute("classdetailproperties")); 
+System.out.println(session.getAttribute("classdetailproperties")); 
+
 // JsonElement element = parser.parse(String.valueOf(request.getAttribute("classdetailproperties"))); 
 // String recommend_num = element.getAsJsonObject().get("recommend_num").getAsString(); 
 // String recommend_score = element.getAsJsonObject().get("recommend_score").getAsString(); 
