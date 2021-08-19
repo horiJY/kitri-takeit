@@ -65,7 +65,7 @@ function allQNA() {
 				if (result.length != 0) {
 					$("#myPageContent1").append("<table border='1' id='allQnaTable'>"
 						+ "<thead>"
-						+ "<tr> <th>제목</th> <th>날짜</th> <th>ID</th> </tr> </thead>"
+						+ "<tr> <th class='qnaTitle'>제목</th> <th class='qnaDate'>날짜</th> <thclass='userId'>ID</th> </tr> </thead>"
 						+ "<tbody class='qnaBody'></tbody>"
 						+ "</table>");
 //					console.log(result + " 총 " + result.length + "개 데이터");
@@ -289,7 +289,7 @@ function myqna(){
 				if (result.length != 0) {
 					$("#myPageContent1").append("<h4>질문 내역</h4>");
 					$("#myPageContent1").append("<table border='1' class='myQna'>"
-					+ "<thead> <tr> <th>제목</th> <th>날짜</th> </tr> </thead>"
+					+ "<thead> <tr> <th class='qnaTitle'>제목</th> <th class='qnaDate'>날짜</th> </tr> </thead>"
 					+ "<tbody id='myqnalist' class='qna_list'></tbody></table>");
 					$.each(result, function(inx, obj) {
 						$("#myqnalist").append("<tr id='qnaBoxList" + inx + "'>"
@@ -337,7 +337,7 @@ function myclassqna(){
 				$("#myPageContent2").append("<h4>클래스 질문 내역</h4>");
 				if (result.length != 0) {
 					$("#myPageContent2").append("<table border='1' class='classQna'>"
-						+ "<thead> <tr> <th>클래스 이름</th> <th>제목</th> <th>날짜</th></tr> </thead>"
+						+ "<thead> <tr> <th class='className'>클래스 이름</th> <th class='qnaTitle'>제목</th> <th class='qnaDate'>날짜</th></tr> </thead>"
 					+ "<tbody id='myclassqnalist' class='qna_list'></tbody></table>");
 					$.each(result, function(inx, obj) {
 						$("#myclassqnalist").append("<tr id='classQnaBoxList"+inx+"'>"
@@ -386,7 +386,6 @@ function mypreclass(){
 				$("#myPageFormTitle").empty();
 				$("#myPageContent1").empty();
 				$("#myPageBtns").empty();
-				
 				$("#myPageFormTitle").append("내 클래스");
 				$("#myPageContent1").append("<h4>오픈 예정 클래스</h4>");
 				if (result.length != 0) {
@@ -401,6 +400,16 @@ function mypreclass(){
 						+ "	</a>"
 						);
 
+
+					$(".class-box").append("<div class='creater'> " + obj.creater + "</div>"
+						+ "	<div class='className'> " + obj.className + "</div>"
+						+ "	<div class='favorite'> ❤ " + obj.favorite + "</div>"
+						+ "	<div class='price'> 💳 " + obj.price + "</div>"
+						+ "	<div class='openDate'> 응원 마감일: " + obj.openDate + "</div>"
+						+ "	<div class='classType'> " + obj.classType + "LINE CLASS</div>"
+						+ "	<div class='classBoxBtns'><button type='button' onclick='clickDFB(" + obj.classId + ")' id='deleteFavoriteBtn'></button> </div>"
+						);
+						$("#deleteFavoriteBtn").html('그만 응원 할래요');
 					});
 				} else {
 					$("#myPageContent1").append("<img class='emptylist' alt='오픈 예정 클래스가 없습니다.' src=" + emptyImgs[5] + "><br>");
@@ -469,7 +478,7 @@ function myClassQna() {
 				$("#myPageFormTitle").append("받은 질문 내역");
 				if (result.length != 0) {
 					$("#myPageContent1").append("<table border='1' class='myClassQna'>"
-					+ " <thead> <tr> <th>클래스 이름</th> <th>제목</th> <th>날짜</th> <th>ID</th> </tr> </thead>"
+					+ " <thead> <tr> <th class='className'>클래스 이름</th> <th class='qnaTitle'>제목</th> <th class='qnaDate'>날짜</th> <th class='userId'>ID</th> </tr> </thead>"
 					+ "<tbody class='qna-qbox'></tbody></table>");
 					$.each(result, function(inx, obj) {
 

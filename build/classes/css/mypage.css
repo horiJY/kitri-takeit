@@ -18,6 +18,7 @@ header{
 }
 header #logo{
 	height: 60px;
+	cursor: pointer;
 }
 header #search{
 	height:40px;
@@ -141,22 +142,23 @@ table{
 	width:100%;
 
 }
-#allQnaTable thead, #allQnaTable tbody td{
+#allQnaTable thead, #allQnaTable tbody{
 	height: 30px;
 }
 
-tbody.qna-qbox .qnaDate{
-	width:90px;
+thead .qnaDate{
+	min-width:90px;
 }
-tbody.qna-qbox .userId {
-	width:200px;
+thead .userId {
+	min-width:100px;
 	text-overflow: ellipsis;
 }
-tbody.qna-qbox .qnaTitle {
-/* 	width:200px; */
+tbody .qnaTitle {
+	min-width:150px;
     text-overflow: ellipsis;
 }
-tbody.qna-qbox .className {
+tbody .className {
+	min-width:150px;
 	text-overflow: ellipsis;
 }
 textarea {
@@ -207,13 +209,7 @@ textarea {
 .myPageContent1 img, .myPageContent2 img {
 	width:50%;
 }
-.myQna thead th:nth-child(2) {
-	width:85px;
-}
-.myQna thead th:nth-child(1) {
-	width:auto;
-	text-overflow: ellipsis;
-}
+
 .class-box{
 	float:left;
 	width:250px;
@@ -226,10 +222,7 @@ textarea {
 	padding: 8px;
 
 }
-.class-box div {
-/* 	border:1px solid #597484; */
-	padding: 4px;
-}
+.class-box div {/* border:1px solid #597484; */padding: 4px;}
 .class-box div.className{
 	height:70px;
 	font-weight: bold;
