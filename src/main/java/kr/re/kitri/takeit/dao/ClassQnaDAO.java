@@ -13,7 +13,7 @@ import vo.ClassQnaVO;
 import vo.QnaVO;
 
 public class ClassQnaDAO {
-	//closeAll
+	// closeAll
 	public void closeAll(Connection conn, PreparedStatement pstmt, Statement stmt, ResultSet rs) {
 
 		try {
@@ -34,30 +34,30 @@ public class ClassQnaDAO {
 		}
 
 	}
-	
-	//mypage -> Insert(qna등록)
-		
-	//mypage -> SelectAll(qna 및 답변 확인)
-	public List<ClassQnaVO> selectMyQna(String id){
+
+	// mypage -> Insert(qna등록)
+
+	// mypage -> SelectAll(qna 및 답변 확인)
+	public List<ClassQnaVO> selectMyQna(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT C.CLASSNAME, Q.QNATITLE, Q.QNADATE"
-				+" FROM CLASS C, (SELECT CLASSID, QNATITLE, QNADATE FROM CLASS_QNA WHERE USERID = '" + id + "')Q"
-				+" WHERE C.CLASSID = Q.CLASSID"
-				+" ORDER BY Q.QNADATE DESC";
+		String sql = "SELECT CLASSNAME, QNATITLE, QNADATE, QUESTION, ANSWER" + " FROM CLASS C, CLASS_QNA Q"
+				+ " WHERE C.CLASSID = Q.CLASSID" + " AND Q.USERID='" + id + "'" + " ORDER BY Q.QNADATE DESC";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassQnaVO> cqlist = new ArrayList<ClassQnaVO>();
-		
+
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
-			
+
 			while (rs.next()) {
 				ClassQnaVO cqvo = new ClassQnaVO();
 				cqvo.setClassName(rs.getString(1));
 				cqvo.setQnaTitle(rs.getString(2));
 				cqvo.setQnaDate(rs.getDate(3));
-				
+				cqvo.setQuestion(rs.getString(4));
+				cqvo.setAnswer(rs.getString(5));
+
 				cqlist.add(cqvo);
 			}
 		} catch (SQLException e) {
@@ -67,60 +67,105 @@ public class ClassQnaDAO {
 		}
 		return cqlist;
 	}
-	
-	//mypage -> selectMyClassQna 내가 개설한 클래스 qna 목록
-		public List<ClassQnaVO> selectMyClassQna(String id){
-			Connection conn = DBConnect.getInstance();
-			String sql = "SELECT C.CLASSNAME, Q.QNATITLE, Q.QNADATE, Q.USERID, C.CLASSID, Q.ANSWER"
-					+" FROM CLASS C, (SELECT CLASSID, USERID, QNATITLE, QNADATE FROM CLASS_QNA) Q"
-					+" WHERE C.CLASSID = Q.CLASSID"
-					+" AND C.CREATER='" + id + "'"
-					+" ORDER BY Q.QNADATE DESC";
-			Statement stmt = null;
-			ResultSet rs = null;
-			List<ClassQnaVO> cqlist = new ArrayList<ClassQnaVO>();
-			
-			try {
-				stmt = conn.createStatement();
-				rs = stmt.executeQuery(sql);
-				
-				while (rs.next()) {
-					ClassQnaVO cqvo = new ClassQnaVO();
-					cqvo.setClassName(rs.getString(1));
-					cqvo.setQnaTitle(rs.getString(2));
-					cqvo.setQnaDate(rs.getDate(3));
-					cqvo.setUserId(rs.getString(4));
-					cqvo.setClassId(rs.getInt(5));
-					cqvo.setAnswer(rs.getString(6));
-					
-					cqlist.add(cqvo);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeAll(conn, null, stmt, rs);
-			}
-			return cqlist;
-		}
-	
-	//mypage -> Delete
-	public int deletClasseQna(String userId, int classId) {
-		Connection conn = DBConnect.getInstance();
-		String sql = "DELETE FROM CLASSQNA" + " WHERE USERID = ?" + " AND CLASSID = ?";
-		PreparedStatement pstmt = null;
-		int result = 0;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setInt(2, classId);
 
-			result = pstmt.executeUpdate();
+	// mypage -> selectMyClassQna 내가 개설한 클래스 qna 목록
+	public List<ClassQnaVO> selectMyClassQna(String id) {
+		Connection conn = DBConnect.getInstance();
+		String sql = "SELECT C.CLASSNAME, Q.QNATITLE, Q.QNADATE, Q.USERID, C.CLASSID, Q.QUESTION, Q.ANSWER"
+				+ " FROM CLASS_QNA Q, CLASS C" + " WHERE C.CLASSID = Q.CLASSID" + " AND C.CREATER ='" + id + "'"
+				+ " ORDER BY Q.QNADATE DESC";
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<ClassQnaVO> cqlist = new ArrayList<ClassQnaVO>();
+
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				ClassQnaVO cqvo = new ClassQnaVO();
+				cqvo.setClassName(rs.getString(1));
+				cqvo.setQnaTitle(rs.getString(2));
+				cqvo.setQnaDate(rs.getDate(3));
+				cqvo.setUserId(rs.getString(4));
+				cqvo.setClassId(rs.getInt(5));
+				cqvo.setQuestion(rs.getString(6));
+				cqvo.setAnswer(rs.getString(7));
+
+				cqlist.add(cqvo);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			closeAll(conn, pstmt, null, null);
+			closeAll(conn, null, stmt, rs);
+		}
+		return cqlist;
+	}
+
+	// mypage -> question Update
+	public int updateUserQna(String qnaTitle, String userId, String question, String className) {
+		Connection conn = DBConnect.getInstance();
+		String sql = "UPDATE CLASS_QNA SET QUESTION='" + question + "'" 
+				+ " WHERE QNATITLE='" + qnaTitle + "'"
+				+ " AND USERID='" + userId + "'"
+				+ " AND CLASSID = (SELECT CLASSID FROM CLASS WHERE CLASSNAME='" + className + "')";
+		Statement stmt = null;
+		int result = 0;
+		try {
+			stmt = conn.createStatement();
+
+			result = stmt.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, null);
+		}
+
+		return result;
+	}
+	// mypage -> answer Update
+	public int updateClassQna(String qnaTitle, String userId, String answer, String className) {
+		Connection conn = DBConnect.getInstance();
+		String sql = "UPDATE CLASS_QNA SET ANSWER='" + answer + "'" 
+				+ " WHERE QNATITLE='" + qnaTitle + "'"
+				+ " AND USERID='" + userId + "'"
+				+ " AND CLASSID = (SELECT CLASSID FROM CLASS WHERE CLASSNAME='" + className + "')";
+		Statement stmt = null;
+		int result = 0;
+		try {
+			stmt = conn.createStatement();
+
+			result = stmt.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, null);
+		}
+
+		return result;
+	}
+	
+	// mypage -> Delete
+	public int deletClasseQna(String userId, String qnaTitle, String className) {
+		Connection conn = DBConnect.getInstance();
+		String sql = "DELETE FROM CLASS_QNA" 
+				+ " WHERE USERID = '" + userId + "'" 
+				+ " AND QNATITLE = '" + qnaTitle + "'" 
+				+ " AND CLASSID = (SELECT CLASSID FROM CLASS WHERE CLASSNAME='" + className + "')";
+		Statement stmt = null;
+		int result = 0;
+		try {
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, null);
 		}
 
 		return result;

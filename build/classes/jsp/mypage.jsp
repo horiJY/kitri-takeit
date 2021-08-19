@@ -12,15 +12,24 @@
 	function clickMPOC(){	//click MyPageOpenClass
 		location.href= "${pageContext.request.contextPath}/mypage/openclass";
 	}
+	function gotomain(){
+		location.href= "${pageContext.request.contextPath}/main";
+	}
+	function gotopreclass(){
+		location.href= "${pageContext.request.contextPath}/pre-class";
+	}
+// 	function logoutBtn() {
+// 		location.href= "${pageContext.request.contextPath}/logout";
+// 	}
 </script>
 </head>
 <body onload="test('${userType}')">
 	<header>
 		<form action="header">
 			<div>
-				<img id="logo" alt="tatkit-logo" onclick="gotomain()" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg" height="50px">
+				<img id="logo" alt="tatkit-logo" onclick="gotomain()" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg">
 				<input type="search" id="search" name="search">
-				<a href="#"><img alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png" height="20px"></a>
+<%-- 				<a href="#"><img alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png" height="20px"></a> --%>
 				<input type="button" onclick="logoutBtn()" value="LOGOUT" id="logoutBtn">
 			</div>
 		</form>

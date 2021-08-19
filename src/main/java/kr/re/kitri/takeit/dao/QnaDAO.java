@@ -40,7 +40,9 @@ public class QnaDAO {
 	// select
 	public List<QnaVO> selectAllQna() {
 		Connection conn = DBConnect.getInstance();
-		String sql = " SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE" + " FROM QNA" + " ORDER BY QNADATE DESC";
+		String sql = " SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE"
+						+ " FROM QNA" 
+						+ " ORDER BY QNADATE DESC";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<QnaVO> qlist = new ArrayList<QnaVO>();
@@ -124,27 +126,7 @@ public class QnaDAO {
 		return qlist;
 	}
 
-	// mypage -> Delete
-	public int deleteQna(String userId, String qnaTitle) {
-		Connection conn = DBConnect.getInstance();
-		String sql = "DELETE FROM CLASSQNA" + " WHERE USERID = ?" + " AND QNATITLE = ?";
-		PreparedStatement pstmt = null;
-		int result = 0;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, qnaTitle);
-
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeAll(conn, pstmt, null, null);
-		}
-
-		return result;
-	}
+	
 
 	public int qna(QnaVO qvo) {
 		Connection conn = DBConnect.getInstance();
@@ -189,4 +171,27 @@ public class QnaDAO {
 
 		return result;
 	}
+	// mypage -> Delete
+		public int deleteUserQna(String userId, String qnaTitle) {
+			Connection conn = DBConnect.getInstance();
+			String sql = "DELETE FROM QNA" 
+					+ " WHERE USERID = ?" 
+					+ " AND QNATITLE = ?";
+			PreparedStatement pstmt = null;
+			int result = 0;
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				pstmt.setString(2, qnaTitle);
+
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeAll(conn, pstmt, null, null);
+			}
+
+			return result;
+		}
 }

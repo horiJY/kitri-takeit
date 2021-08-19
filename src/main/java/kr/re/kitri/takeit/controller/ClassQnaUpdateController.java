@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,45 +11,43 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import dao.ClassDAO;
-import vo.ClassVO;
+import dao.ClassQnaDAO;
 
-@WebServlet("/mypreclass")
-public class MyPreClassController extends HttpServlet {
+@WebServlet("/class-qna-update")
+public class ClassQnaUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
+
+		String qnaTitle = request.getParameter("qnaTitle");
+		String question = request.getParameter("question");
+		String className = request.getParameter("className");
 		
-		ClassDAO cdao = new ClassDAO();
-		List<ClassVO> clist = cdao.selectMyPreClass(id);
+		System.out.println("qnaTitle : " + qnaTitle + " answer: " + question);
 		
-		JsonArray jsonArr = new JsonArray();
+		ClassQnaDAO cqdao = new ClassQnaDAO();
+		int result = cqdao.updateUserQna(qnaTitle, id, question, className);
 		
-		for(ClassVO cvo : clist) {
-			JsonObject json = new JsonObject();
-			json.addProperty("className", cvo.getClassName());
-			json.addProperty("price", cvo.getPrice());
-			json.addProperty("openDate", String.valueOf(cvo.getOpenDate()));
-			json.addProperty("classType", cvo.getClassType());
-			json.addProperty("favorite", cvo.getFavorite());
+		JsonObject json = new JsonObject();
+		if(result!=0) {
+			json.addProperty("code", "성공적으로 업데이트 되었습니다.");
 			
-			jsonArr.add(json);
+		} else {
+			json.addProperty("code", "업데이트를 실패했습니다. 다시 시도해주세요.");
 		}
 		
-		System.out.println(jsonArr);
 		Gson gson = new Gson();
-		String jsonResponse = gson.toJson(jsonArr);
+		String jsonResponse = gson.toJson(json);
 		
+		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(jsonResponse);
 	}
-
 }

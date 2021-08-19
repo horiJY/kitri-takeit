@@ -27,7 +27,7 @@ public class MyAssignmentController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+		throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
 
@@ -38,11 +38,12 @@ public class MyAssignmentController extends HttpServlet {
 
 		for (ClassVO cvo : clist) {
 			JsonObject json = new JsonObject();
-			json.addProperty("className", cvo.getClassName());
 			json.addProperty("creater", cvo.getCreater());
-			json.addProperty("classType", cvo.getClassType());
+			json.addProperty("className", cvo.getClassName());
+			json.addProperty("price", cvo.getPrice());
+			json.addProperty("sale", cvo.getSale());
 			json.addProperty("recommend", cvo.getRecommend());
-			json.addProperty("category", cvo.getCategory());
+			json.addProperty("classType", cvo.getClassType());
 
 			jsonArr.add(json);
 		}

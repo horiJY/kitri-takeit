@@ -38,11 +38,13 @@ public class MyFavoriteController extends HttpServlet {
 		for (ClassVO cvo : clist) {
 
 			JsonObject json = new JsonObject();
-			json.addProperty("classId", cvo.getClassId());
-			json.addProperty("className", cvo.getClassName());
 			json.addProperty("creater", cvo.getCreater());
+			json.addProperty("className", cvo.getClassName());
+			json.addProperty("price", cvo.getPrice());
 			json.addProperty("favorite", cvo.getFavorite());
 			json.addProperty("openDate", String.valueOf(cvo.getOpenDate()));
+			json.addProperty("classId", cvo.getClassId());
+			json.addProperty("classType", cvo.getClassType());
 
 			jsonArr.add(json);
 		}

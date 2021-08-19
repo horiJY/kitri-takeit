@@ -28,7 +28,7 @@ public class QnaDeleteController extends HttpServlet {
 		String qnaTitle = request.getParameter("qnaTitle");
 		
 		QnaDAO qdao = new QnaDAO();
-		int result = qdao.deleteQna(id,qnaTitle);
+		int result = qdao.deleteUserQna(id, qnaTitle);
 		
 		JsonObject json = new JsonObject();
 		if(result!=0) {

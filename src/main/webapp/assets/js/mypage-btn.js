@@ -1,25 +1,5 @@
 //$(document).ready(function() {
 
-function logoutBtn() {
-	$.ajax({
-		type: "POST",
-		url: "logout",
-		success: function() { },
-		error: function(XMLHttpRequest, textStatus, errorThrown) { }
-	})
-}
-
-function gotomain(){
-	$.ajax({
-		type: "POST",
-		url: "main",
-		success: function() {
-			location.href="/mypage/openclass";
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) { }
-	})
-}
-
 
 
 //admin- 답변
@@ -123,14 +103,7 @@ function deleteFavoriteBtn(i) {
 		}
 	})
 }
-function showpreClassBtn() {
-	$.ajax({
-		type: 'POST',
-		url: 'pre-class',		//오픈예정클래스 페이지 컨트롤러
-		success: function() { },
-		error: function(XMLHttpRequest, textStatus, errorThrown) { }
-	})
-}
+
 
 //내 결제목록
 function showClassBtn() {
@@ -193,14 +166,17 @@ function clickSQQB(i) {//click saveQnaQuestionBtn
 
 function clickDQQB(i) {//click deleteQnaQuestionBtn
 	var params = {
-		qTitle: $("#qnaTitle"+i).val()
+		qnaTitle: $("#qnaTitle"+i).val()
 	}
 	$.ajax({
 		type: 'POST',
 		url: 'userqna-delete',
+		dataType: 'json',
 		data: params,
-		success: function() {
+		success: function(res) {
+			console.log(res)
 			alert(res.code);
+			window.location.reload();
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
 			alert("QnA 삭제 실패");
@@ -211,14 +187,58 @@ function clickDQQB(i) {//click deleteQnaQuestionBtn
 function clickSCQQB(i) {//click saveClassQnaQuestionBtn
 	
 	var params = {
-		qTitle: $("#qnaTitle"+i).val()
-		, question: $("#question"+i).val()
-		, className: $("#className"+i).val()
+		qnaTitle: $("#qnaTitle0"+i).val()
+		, question: $("#question0"+i).val()
+		, className: $("#className0"+i).val()
 	}
 	console.log(params);
 	$.ajax({
 		type: 'POST',
-		url: 'userclassqna-update',
+		url: 'class-qna-update',
+		dataType: 'json',
+		data: params,
+		success: function(res) {
+			alert(res.code);
+			window.location.reload();
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("Qna 업뎃 실패");
+		}
+	})
+
+}
+
+function clickDCQQB(i) {//click deleteClassQnaQuestionBtn
+	var params = {
+		qnaTitle: $("#qnaTitle0"+i).val()
+		, className: $("#className0"+i).val()
+	}
+	$.ajax({
+		type: 'POST',
+		url: 'class-qna-delete',
+		dataType: 'json',
+		data: params,
+		success: function(res) {
+			alert(res.code);
+			window.location.reload();
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("QnA 삭제 실패");
+		}
+	})
+}
+function clickSCQAB(i) {//click saveClassQnaQuestionBtn
+	
+	var params = {
+		qnaTitle: $("#qnaTitle"+i).val()
+		, answer: $("#answer"+i).val()
+		, className: $("#className"+i).val()
+		, userId: $("#userId"+i).val()
+	}
+	console.log(params);
+	$.ajax({
+		type: 'POST',
+		url: 'myclass-qna-update',
 		dataType: 'json',
 		data: params,
 		success: function(res) {
@@ -231,60 +251,22 @@ function clickSCQQB(i) {//click saveClassQnaQuestionBtn
 	})
 
 }
-
-function clickDCQQB(i) {//click deleteClassQnaQuestionBtn
+function clickDCQAB(i) {//click deleteClassQnaQuestionBtn
 	var params = {
-		qTitle: $("#qnaTitle"+i).val()
+		qnaTitle: $("#qnaTitle"+i).val()
 		, className: $("#className"+i).val()
+		, userId: $("#userId"+i).val()
 	}
 	$.ajax({
 		type: 'POST',
-		url: 'userclassqna-delete',
+		url: 'myclass-qna-delete',
 		data: params,
 		success: function() {
 			alert(res.code);
+			window.location.reload();
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
 			alert("QnA 삭제 실패");
 		}
 	})
 }
-
-//function qnaBtn() {
-//	$.ajax({
-//		type: 'POST',
-//		url: 'qna-regist',
-//		success: function(res) {
-//		},
-//
-//		error: function(XMLHttpRequest, textStatus, errorThrown) {
-//			alert("리뷰 삭제 실패");
-//		}
-//	})
-//}
-//
-////내 클래스
-//function createClassBtn() {	//새 클래스 만들기
-//	$.ajax({
-//		type: 'POST',
-//		url: 'class-regist',
-//		data: { classId: i },
-//		success: function(res) {
-//		},
-//		error: function(XMLHttpRequest, textStatus, errorThrown) {
-//			alert("클래스 생성 실패");
-//		}
-//	})
-//}
-//
-//
-//function qnaBox(i) {
-//	if ($("#qna-abox[" + i + "]").css('visibility', 'hidden')) {
-//		$("#qna-abox[" + i + "]").css('visibility', 'visible');
-//		$("#qnaAarea").attr('disabled', false);
-//	} else {
-//		$("#qna-abox[" + i + "]").css('visibility', 'hidden');
-//		$("#qnaAarea").attr('disabled', true);
-//	}
-//}
-//

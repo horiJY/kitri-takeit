@@ -93,9 +93,14 @@ public class AssignmentDAO {
 	// mypage -> select assignment class
 	public List<ClassVO> selectAssignmentClass(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, CATEGORY FROM CLASS"
-				+ " WHERE CLASSID IN (SELECT CLASSID FROM ASSIGNMENT WHERE USERID = '" + id + "')" + " AND TYPE='O'"
-				+ " ORDER BY CATEGORY, CLASSID DESC";
+		String sql = "SELECT C.CLASSNAME, U.USERNAME AS CREATER, C.CLASSTYPE, C.RECOMMEND, C.PRICE, C.SALE"
+				+" FROM CLASS C, WEBUSER U"
+				+" WHERE C.CREATER = U.USERID"
+				+" AND C.CLASSID IN (SELECT A.CLASSID"
+									+" FROM CLASS_ASSIGNMENT A"
+									+" WHERE A.USERID='" + id +"')"
+				+" AND TYPE='O'"
+				+" ORDER BY C.CLASSID DESC";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
@@ -110,7 +115,8 @@ public class AssignmentDAO {
 				cvo.setCreater(rs.getString(2));
 				cvo.setClassType(rs.getString(3));
 				cvo.setRecommend(rs.getInt(4));
-				cvo.setCategory(rs.getString(5));
+				cvo.setPrice(rs.getInt(5));
+				cvo.setSale(rs.getInt(6));
 
 				clist.add(cvo);
 

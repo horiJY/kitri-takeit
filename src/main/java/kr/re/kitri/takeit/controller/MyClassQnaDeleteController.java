@@ -13,24 +13,28 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import dao.ClassQnaDAO;
 import dao.QnaDAO;
 
-@WebServlet("/qna-delete")
-public class AdminQnaDeleteController extends HttpServlet {
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+@WebServlet("/myclass-qna-delete")
+public class MyClassQnaDeleteController extends HttpServlet {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
-
-		String qnaTitle = request.getParameter("qnaTitle");
-		String userId = request.getParameter("userId");
 		
-		QnaDAO qdao = new QnaDAO();
-		int result = qdao.deleteUserQna(userId,qnaTitle);
+		
+		String userId = request.getParameter("userId");
+		String qnaTitle = request.getParameter("qnaTitle");
+		String className = request.getParameter("className");
+		
+		ClassQnaDAO qdao = new ClassQnaDAO();
+		int result = qdao.deletClasseQna(userId, qnaTitle, className);
 		
 		JsonObject json = new JsonObject();
 		if(result!=0) {
@@ -47,6 +51,6 @@ public class AdminQnaDeleteController extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(jsonResponse);
-	}
 
+	}
 }

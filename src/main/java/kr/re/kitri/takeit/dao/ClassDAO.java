@@ -238,8 +238,10 @@ public class ClassDAO {
 	// pre
 	public List<ClassVO> selectMyPreClass(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CATEGORY, FAVORITE, OPENDATE FROM CLASS" + " WHERE CREATER = '" + id + "'"
-				+ " AND TYPE='P'";
+		String sql = "SELECT CLASSNAME, PRICE, FAVORITE, OPENDATE, CLASSID, CLASSTYPE"
+					+ " FROM CLASS" 
+					+ " WHERE CREATER = '" + id + "'"
+					+ " AND TYPE='P'";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
@@ -251,9 +253,11 @@ public class ClassDAO {
 			while (rs.next()) {
 				ClassVO cvo = new ClassVO();
 				cvo.setClassName(rs.getString(1));
-				cvo.setCategory(rs.getString(2));
+				cvo.setPrice(rs.getInt(2));
 				cvo.setFavorite(rs.getInt(3));
 				cvo.setOpenDate(rs.getDate(4));
+				cvo.setClassId(rs.getInt(5));
+				cvo.setClassType(rs.getString(6));
 
 				clist.add(cvo);
 
@@ -270,8 +274,10 @@ public class ClassDAO {
 	// open
 	public List<ClassVO> selectMyOpenClass(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CATEGORY, RECOMMEND, CLASSTYPE FROM CLASS"
-				+ " WHERE CREATER = (SELECT USERNAME FROM WEBUSER WHERE USERID='" + id + "')" + " AND TYPE='O'";
+		String sql = "SELECT CLASSNAME, PRICE, SALE, RECOMMEND, CLASSTYPE, CLASSID"
+				+ " FROM CLASS" 
+				+ " WHERE CREATER = '" + id + "'"
+				+ " AND TYPE='O'";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
@@ -283,9 +289,11 @@ public class ClassDAO {
 			while (rs.next()) {
 				ClassVO cvo = new ClassVO();
 				cvo.setClassName(rs.getString(1));
-				cvo.setCategory(rs.getString(2));
-				cvo.setRecommend(rs.getInt(3));
-				cvo.setClassType(rs.getString(4));
+				cvo.setPrice(rs.getInt(2));
+				cvo.setSale(rs.getInt(3));
+				cvo.setRecommend(rs.getInt(4));
+				cvo.setClassType(rs.getString(5));
+				cvo.setClassId(rs.getInt(6));
 
 				clist.add(cvo);
 

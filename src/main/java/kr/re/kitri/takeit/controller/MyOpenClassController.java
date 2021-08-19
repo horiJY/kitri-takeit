@@ -37,9 +37,11 @@ public class MyOpenClassController extends HttpServlet {
 		for(ClassVO cvo : clist) {
 			JsonObject json = new JsonObject();
 			json.addProperty("className", cvo.getClassName());
-			json.addProperty("category", cvo.getCategory());
+			json.addProperty("price", cvo.getPrice());
+			json.addProperty("sale", cvo.getSale());
 			json.addProperty("classType", cvo.getClassType());
 			json.addProperty("recommend", cvo.getRecommend());
+			json.addProperty("classId", cvo.getClassId());
 			
 			jsonArr.add(json);
 		}
