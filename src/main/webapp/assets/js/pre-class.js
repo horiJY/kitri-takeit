@@ -156,7 +156,7 @@ var favoriteBtn = document.getElementById("favorite-btn");
 function classDetail(classId) {
 	const floating = document.querySelector('#floating');
   
-	 floating.style.visibility = "visible";
+	 floating.style.display = 'block';
 
 	$.ajax({
 		type: 'POST',
@@ -166,8 +166,8 @@ function classDetail(classId) {
 			$('#favorite-btn').empty();
 			$('#swiper').empty();
 			$('#swiper').append(
-				'<div><button onclick="share()">공유하기</button>'
-				+ '<button onclick="close()">닫기</button></div>'
+				
+				'<button onclick="close()">닫기</button></div>'
 				+ '<div id="slide"><img>'
 				+ '<div>' + result[0].creater + '</div>'
 				+ '<div>' + result[0].className + '</div></div>'
@@ -186,10 +186,10 @@ function classDetail(classId) {
 	swiper.style.display = "block";
 }
 
-function close(){
+function closeDetail(){
 	const floating = document.querySelector('#floating');
-	floating.style.visibility = "hidden";
-	swiper.style.display = "none";
+	floating.style.display = 'none';
+	swiper.style.display = 'none';
 }
 
 
@@ -215,7 +215,6 @@ function selectFavorite(classId){
 }
 
 function favoriteClick(classId){
-	console.log(classId);
 	$.ajax({
 		type: 'POST',
 		url: 'favorite-regist',
