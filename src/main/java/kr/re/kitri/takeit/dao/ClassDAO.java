@@ -33,7 +33,6 @@ public class ClassDAO {
 		}
 
 	}
-<<<<<<< HEAD
 
 	// class-detail page -> SelectAll
 	public List<ClassVO> selectDetail(int classId) {
@@ -106,24 +105,7 @@ public class ClassDAO {
 	}
 
 	public List<ClassVO> selectClassList(String category, String range, String type) {
-=======
-	
-	//main page -> Select(className, creater, recommend, price, sale, classType)
-	
-	//class-detail page -> SelectAll
-	
-	//pre-class page -> Select(className, create, classType, favorite)
-	
-	
-	
-	
-	
-	//mypage -> select my class
-	//pre
-	public List<ClassVO> selectMyPreClass(String id){
->>>>>>> refs/remotes/takeit/경하
 		Connection conn = DBConnect.getInstance();
-<<<<<<< HEAD
 
 		if (range == null || range.equals("null")) {
 			range = "RECOMMEND";
@@ -257,10 +239,6 @@ public class ClassDAO {
 	public List<ClassVO> selectMyPreClass(String id) {
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CATEGORY, FAVORITE, OPENDATE FROM CLASS" + " WHERE CREATER = '" + id + "'"
-=======
-		String sql = "SELECT CLASSNAME, CATEGORY, FAVORITE, OPENDATE FROM CLASS"
-				+ " WHERE CREATER = (SELECT USERNAME FROM WEBUSER WHERE USERID='" + id + "')"
->>>>>>> refs/remotes/takeit/경하
 				+ " AND TYPE='P'";
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -292,13 +270,8 @@ public class ClassDAO {
 	// open
 	public List<ClassVO> selectMyOpenClass(String id) {
 		Connection conn = DBConnect.getInstance();
-<<<<<<< HEAD
-		String sql = "SELECT CLASSNAME, CATEGRY, RECOMMEND, CLASSTYPE FROM CLASS" + " WHERE CREATER = '" + id + "'"
-=======
 		String sql = "SELECT CLASSNAME, CATEGRY, RECOMMEND, CLASSTYPE FROM CLASS"
-				+ " WHERE CREATER = (SELECT USERNAME FROM WEBUSER WHERE USERID='" + id + "')"
->>>>>>> refs/remotes/takeit/경하
-				+ " AND TYPE='O'";
+				+ " WHERE CREATER = (SELECT USERNAME FROM WEBUSER WHERE USERID='" + id + "')" + " AND TYPE='O'";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();

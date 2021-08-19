@@ -21,21 +21,16 @@ import vo.ClassVO;
 @WebServlet("/myfavorite")
 public class MyFavoriteController extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
-<<<<<<< HEAD
-
-=======
-		
->>>>>>> refs/remotes/takeit/경하
 		FavoriteDAO fdao = new FavoriteDAO();
 		List<ClassVO> clist = fdao.selectFavoriteClass(id);
 		JsonArray jsonArr = new JsonArray();

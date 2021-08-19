@@ -13,8 +13,7 @@ import vo.QnaVO;
 
 public class QnaDAO {
 	// closeAll
-	public void closeAll(Connection conn, PreparedStatement pstmt,
-			Statement stmt, ResultSet rs) {
+	public void closeAll(Connection conn, PreparedStatement pstmt, Statement stmt, ResultSet rs) {
 
 		try {
 			if (rs != null && !rs.isClosed()) {
@@ -41,8 +40,7 @@ public class QnaDAO {
 	// select
 	public List<QnaVO> selectAllQna() {
 		Connection conn = DBConnect.getInstance();
-		String sql = " SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE"
-				+ " FROM QNA" + " ORDER BY QNADATE DESC";
+		String sql = " SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE" + " FROM QNA" + " ORDER BY QNADATE DESC";
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<QnaVO> qlist = new ArrayList<QnaVO>();
@@ -70,11 +68,11 @@ public class QnaDAO {
 
 		return qlist;
 	}
+
 	// update
 	public int updateQna(String qnaTitle, String userId, String answer) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "UPDATE QNA SET ANSWER='" + answer + "'"
-				+ " WHERE QNATITLE='" + qnaTitle + "'" + " AND USERID='"
+		String sql = "UPDATE QNA SET ANSWER='" + answer + "'" + " WHERE QNATITLE='" + qnaTitle + "'" + " AND USERID='"
 				+ userId + "'";
 		Statement stmt = null;
 		int result = 0;
@@ -95,8 +93,7 @@ public class QnaDAO {
 	// mypage -> 일반 qna
 	public List<QnaVO> selectMyQna(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE"
-				+ " FROM QNA" + " WHERE USERID ='" + id + "'"
+		String sql = "SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE" + " FROM QNA" + " WHERE USERID ='" + id + "'"
 				+ " ORDER BY QNADATE DESC";
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -128,14 +125,15 @@ public class QnaDAO {
 	}
 
 	// mypage -> Delete
-	public int deletQna(String userId) {
+	public int deleteQna(String userId, String qnaTitle) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "DELETE FROM CLASSQNA" + " WHERE USERID = ?";
+		String sql = "DELETE FROM CLASSQNA" + " WHERE USERID = ?" + " AND QNATITLE = ?";
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
+			pstmt.setString(2, qnaTitle);
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -151,8 +149,7 @@ public class QnaDAO {
 	public int qna(QnaVO qvo) {
 		Connection conn = DBConnect.getInstance();
 
-		String sql = "INSERT INTO QNA (USERID, QNADATE, QUESTION, QNATITLE)"
-				+ "VALUES (?,sysdate,?,?)";
+		String sql = "INSERT INTO QNA (USERID, QNADATE, QUESTION, QNATITLE)" + "VALUES (?,sysdate,?,?)";
 
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -170,6 +167,26 @@ public class QnaDAO {
 		} finally {
 			closeAll(conn, pstmt, null, null);
 		}
+		return result;
+	}
+
+	public int updateUserQna(String qnaTitle, String userId, String question) {
+		Connection conn = DBConnect.getInstance();
+		String sql = "UPDATE QNA SET QUESTION='" + question + "'" + " WHERE QNATITLE='" + qnaTitle + "'"
+				+ " AND USERID='" + userId + "'";
+		Statement stmt = null;
+		int result = 0;
+		try {
+			stmt = conn.createStatement();
+
+			result = stmt.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, null);
+		}
+
 		return result;
 	}
 }
