@@ -52,7 +52,7 @@ public class MyScheduleController extends HttpServlet {
 		String json = gson.toJson(clist);
 		request.setAttribute("cJson", json);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/myschedule.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/mymyschedule.jsp");
 		rd.forward(request, response);
 	}
 

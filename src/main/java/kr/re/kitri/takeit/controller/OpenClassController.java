@@ -28,7 +28,7 @@ import dao.ScheduleDAO;
 @WebServlet("/mypage/openclass")
 public class OpenClassController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/openclass/open-class.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/open-class.jsp");
 		rd.forward(request, response);
 	}
 
