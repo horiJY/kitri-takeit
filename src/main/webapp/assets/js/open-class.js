@@ -111,7 +111,9 @@ var schedule = function(stime, etime){
 var fullcalendar = new FullCalendar.Calendar(calendar, {
 	initialView: 'dayGridMonth',
 	eventClick: function(arg){
+		classSchedule.splice(arg.event.id,1);
 		arg.event.remove();
+		
 	}
 });
 
@@ -165,19 +167,29 @@ scheduleAddBtn.onclick = function(){
 		}
 	}
 	fullcalendar.removeAllEvents();
-	console.log(classSchedule);
-	classSchedule.forEach(function(schd){
+	//console.log(classSchedule);
+	for(var idx=0; idx<classSchedule.length; idx++){
+		var schd = classSchedule[idx];
+		fullcalendar.addEvent({
+			id : idx,
+			title : startTime.value+"~"+endTime.value,
+			start : schd.startTime.slice(0,10)
+		});
+	}
+	
+//	classSchedule.forEach(function(schd){
 //		calendar.innerHTML += schd.day;
 //		calendar.innerHTML += " ";
 //		calendar.innerHTML += schd.stime;
 //		calendar.innerHTML += " ";
 //		calendar.innerHTML += schd.etime;
 //		calendar.innerHTML += "<br>";
-		fullcalendar.addEvent({	
-			title : startTime.value+"~"+endTime.value,
-			start : schd.startTime.slice(0,10)
-		});
-	});
+//		fullcalendar.addEvent({
+//			id : classSchedule.indexOf(schd),
+//			title : startTime.value+"~"+endTime.value,
+//			start : schd.startTime.slice(0,10)
+//		});
+//	});
 };
 
 //스케쥴 리셋: 스케쥴 배열 비우기

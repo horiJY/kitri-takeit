@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -20,12 +21,25 @@ import vo.ScheduleVO;
 public class MyScheduleController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		String userid = (String)session.getAttribute("takeit-id");
+		//HttpSession session = request.getSession();
+		//String userid = (String)session.getAttribute("takeit-id");
 		
 		//select schedule
 		ScheduleDAO sdao = new ScheduleDAO();
-		List<ScheduleVO> slist = sdao.selectSchedule(userid);
+		//List<ScheduleVO> slist = sdao.selectSchedule(userid);
+		List<ScheduleVO> slist = new ArrayList<ScheduleVO>();
+		ScheduleVO svo = new ScheduleVO();
+		svo.setClassId(1);
+		svo.setStartTime("2021-08-26 10:00");
+		svo.setEndTime("2021-08-26 11:00");
+		slist.add(svo);
+		svo.setStartTime("2021-08-31 10:00");
+		svo.setEndTime("2021-08-31 11:00");
+		slist.add(svo);
+		svo.setStartTime("2021-09-01 10:00");
+		svo.setEndTime("2021-09-01 11:00");
+		slist.add(svo);
+		
 		//조회된 스케쥴 전송
 		Gson gson = new Gson();
 		String json = gson.toJson(slist);
