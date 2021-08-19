@@ -42,18 +42,20 @@ main header #userPoint{
 	margin:20px 0px;
 	margin-bottom:20px;
 }
+main aside, main form {
+	display:flex;
+	height:auto;
+}
 aside {
 	border:1px solid black;
 	float:left;
 	width:180px;
-	height: 800px;
 /* 	padding: 8px; */
     margin-right:16px;
 }
 .myPageForm {
 	border:1px solid black;
-	height: 800px;
-/* 	padding: 8px 8px; */
+ 	padding: 8px 8px; 
 }
 footer {
 	border:1px solid black;
@@ -120,14 +122,11 @@ table{
  	min-width: 400px; 
 }
 .myInfoLabel input{
-
  	width:50%; 
  	min-width:400px; 
 }
 .myInfoLabel div {
 	text-align: left;
-/* 	float:left; */
-/* 	width:70px; */
 }
 
 #myPageBtns button{
@@ -137,7 +136,8 @@ table{
 }
 
 .emptylist{
-	width:50px;
+	width:80%; 
+	min-width:400px;
 }
 
 .myPageContent1 img, .myPageContent2 img {
