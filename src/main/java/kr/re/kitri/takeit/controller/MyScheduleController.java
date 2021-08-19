@@ -22,14 +22,13 @@ import vo.ScheduleVO;
 @WebServlet("/mypage/schedule")
 public class MyScheduleController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
 		HttpSession session = request.getSession();
 		String userid = (String)session.getAttribute("takeit-id"); 
 		//select schedule
 		ScheduleDAO sdao = new ScheduleDAO();
 		List<ScheduleVO> slist = sdao.selectSchedule(userid);
-		List<CalendarJson> clist = new ArrayList<CalendarJson>();
 		
+		List<CalendarJson> clist = new ArrayList<CalendarJson>();
 		ClassDAO cdao = new ClassDAO();
 		for(ScheduleVO svo:slist) {
 			CalendarJson cJson = new CalendarJson();
@@ -40,11 +39,11 @@ public class MyScheduleController extends HttpServlet {
 			cJson.setEnd(svo.getEndTime());
 			clist.add(cJson);
 		}
+		
 		//조회된 스케쥴 전송
 		Gson gson = new Gson();
 		String json = gson.toJson(clist);
 		request.setAttribute("cJson", json);
-		*/
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/myschedule.jsp");
 		rd.forward(request, response);
 	}
