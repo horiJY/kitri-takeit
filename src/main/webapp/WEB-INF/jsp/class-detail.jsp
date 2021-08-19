@@ -402,13 +402,11 @@ String review_num = element.getAsJsonObject().get("review_num").getAsString();
 String review_score = element.getAsJsonObject().get("review_score").getAsString(); 
 
 //리뷰리스트 최초2개
-JsonObject jobj = new JsonObject();
-JsonArray reviewJarr = new JsonArray(); 
-// reviewJarr.add(element.getAsJsonObject().get("reviewlist").getAsString());
-// System.out.println(reviewJarr.toString());
+JsonArray reviewJarr = (JsonArray)new JsonParser().parse(element.getAsJsonObject().get("reviewlist").getAsString());
 String reviewHtml = "";
 for(JsonElement c : reviewJarr){
-	reviewHtml += "<div> <p>"+ c.getAsJsonObject().get("username").getAsString()+" "+c.getAsJsonObject().get("reviewdate").getAsString() +"</p>"
+  System.out.println(c);
+	reviewHtml += "<div> <p>"+ c.getAsJsonObject().get("username").getAsString()+"  <span style=\"font-size:0.8em\">"+c.getAsJsonObject().get("reviewdate").getAsString() +"</span></p>"
 					+"<p>"+c.getAsJsonObject().get("content").getAsString()+"</p></div>";
 }
 
@@ -437,7 +435,7 @@ if(sale !=0){
 // classtype이 on이면 주소 x, off면 주소o
 String address = classtype.equals("오프라인") ? 
 					cdelement.getAsJsonObject().get("address").getAsString() 
-					: "온라인 클래스입니다.";
+					: "클래스 입니다";
 // type이 on이면 recommend, pre 면 favorite 사용
 String recommend_num = classtype.equals("온라인") ?
 							cdelement.getAsJsonObject().get("recommend").getAsString() 
@@ -482,8 +480,12 @@ String recommend_num = classtype.equals("온라인") ?
 						<div>
 							<div class="styledDiv">
 								<section class="PostViewCintroller">
-									<h2>실제 수강생들의 생생한 후기</h2>
-									<%=reviewHtml %>
+									<div id="meue1">
+										<h2>후기</h2>
+										<p></p>
+									</div>
+									<h3>실제 수강생들의 생생한 후기</h2>
+									<div><%=reviewHtml %></div>
 									<div class="PostViewCintroller_infoContainer">
 										<div class="PostViewCintroller_infoCard">
 											<a>
@@ -501,7 +503,7 @@ String recommend_num = classtype.equals("온라인") ?
 									</div>
 									<div class="PostReviewCardList">
 										<h2>이런 걸 배울거에요.😊</h2> 
-										<%=introduce %> 
+										<p><%=introduce %></p> 
 											<a class="LinkBlock"> <span> <img>
 											</span>
 											</a> <a class="LinkBlock"> <span> <img>
@@ -527,35 +529,31 @@ String recommend_num = classtype.equals("온라인") ?
 										<hr color="#f8f8f8" id="line">
 									</div>
 
-									<div id="meue1">
-										후기
-										<p></p>
-									</div>
+									
 									<div id="meue2">
-										클래스 소개
+										<h2>클래스 소개</h2>
 										<p> <%=classname %> 강좌입니다.</p>
-										<p><span> <%=period %>주 수강</span> <span> <%=content_num %>개 강의</span> </p>
+										<p style="text-align: center"><%=period %>주<span style="font-size:0.8em">  수강</span> <%=content_num %>개<span style="font-size:0.8em">  강의</span> </p>
 										<div>
 											<%=detail %>
 										</div>
 									</div>
 									<div id="meue3">
-										커리큘럼
+										<h2>커리큘럼</h2>
 										<p> <%=chapter %></p>
 									</div>
 									<div id="meue4">
-										크리에이터
+										<h2>크리에이터</h2>
 										<p> <%=creater_info %></p>
 									</div>
 									<div id="meue5">
-										FAQ
+										<h2>FAQ</h2>
 										<p></p>
 									</div>
 									<div id="meue6">
-										환불 정책
+										<h2>환불 정책</h2>
 										<p></p>
 									</div>
-									<h2>본문 컨텐츠 끝</h2>
 
 								</section>
 							</div>
@@ -565,8 +563,9 @@ String recommend_num = classtype.equals("온라인") ?
 					<div id="floating">
 						<aside id="float"> 
 							<span><%=category %></span>
-							<h2><%=creatername %></h2>
-							<span><%=classtype %></span> <span> 위치 : <%=address %> </span> <span> <%=sale  %> 세일 중 ~ 😍 <%=price %>원</span>
+							<h3>크리에이터 : <%=creatername %></h3>
+							<p><%=classtype %> •  <%=address %> </p>
+							<p><%=sale  %> % sale😍 <%=price %>원<p>
 							<div id="floatOptions"></div>
 							<div class="option_recomm">
 								<button id="recomm_btn">★<%=recommend_num %></button>
