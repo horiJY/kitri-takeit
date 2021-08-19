@@ -103,8 +103,8 @@
 				</ul>
 			</aside>
 			
-			<form class="myPageForm" action="form">
-				<div id="myPageForm" id="Container">
+			<form class="myPageForm scroll" action="form">
+				<div id="myPageFormContainer" class="Container">
 					<h3 id="myPageFormTitle"></h3>
 					<div id="myPageContent1"></div>
 					<div id="myPageContent2"></div>

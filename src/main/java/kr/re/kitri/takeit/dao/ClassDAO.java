@@ -42,40 +42,7 @@ public class ClassDAO {
 	
 	
 	
-	//mypage -> select assignment class
-	public List<ClassVO> selectAssignmentClass(String id){
-		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSNAME, CREATER, CLASSTYPE, RECOMMEND, CATEGORY FROM CLASS"
-					+ " WHERE CLASSID IN (SELECT CLASSID FROM ASSIGNMENT WHERE USERID = '" + id + "')"
-					+ " AND TYPE='O'"
-					+ " ORDER BY CATEGORY, CLASSID DESC";
-		Statement stmt = null;
-		ResultSet rs = null;
-		List<ClassVO> clist = new ArrayList<ClassVO>();
-		
-		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			
-			while (rs.next()) {
-				ClassVO cvo = new ClassVO();
-				cvo.setClassName(rs.getString(1));
-				cvo.setCreater(rs.getString(2));
-				cvo.setClassType(rs.getString(3));
-				cvo.setRecommend(rs.getInt(4));
-				cvo.setCategory(rs.getString(5));
-				
-				clist.add(cvo);
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			closeAll(conn, null, stmt, rs);
-		}
-		return clist;
-	}
+	
 	
 	//mypage -> select my class
 	//pre

@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import dao.AssignmentDAO;
 import dao.ClassDAO;
 import vo.ClassVO;
 
@@ -30,8 +31,8 @@ public class MyAssignmentController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
 		
-		ClassDAO cdao = new ClassDAO();
-		List<ClassVO> clist = cdao.selectFavoriteClass(id);
+		AssignmentDAO adao = new AssignmentDAO();
+		List<ClassVO> clist = adao.selectAssignmentClass(id);
 		
 		JsonArray jsonArr = new JsonArray();
 		
