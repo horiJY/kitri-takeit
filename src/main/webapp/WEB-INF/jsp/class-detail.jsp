@@ -1,3 +1,7 @@
+<%@page import="com.google.gson.JsonObject"%>
+<%@page import="com.google.gson.JsonArray"%>
+<%@page import="com.google.gson.JsonElement"%>
+<%@page import="com.google.gson.JsonParser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- 
@@ -357,8 +361,29 @@ window.onload=function(){
 </script>
 
 </head>
-<body>
+<% 
+JsonParser parser = new JsonParser();
+System.out.println(request.getAttribute("classdetailproperties"));
+// JsonElement element = parser.parse(String.valueOf(request.getAttribute("classdetailproperties")));
+// String recommend_num = element.getAsJsonObject().get("recommend_num").getAsString();
+// String recommend_score = element.getAsJsonObject().get("recommend_score").getAsString();
 
+// JsonArray jarr = new JsonArray();
+// jarr.add(element.getAsJsonObject().getAsJsonArray("reviewlist"));
+
+// String classname =  element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("classname").getAsString();
+// String creatername =  element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("creatername").getAsString();
+// String introduce =  element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("introduce").getAsString();
+// String period =  element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("period").getAsString();
+// String content_num =  element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("content_num").getAsString();
+// String detail =  element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("detail").getAsString();
+// String chapter =  element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("chapter").getAsString();
+// String creater_info =  element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("creater_info").getAsString();
+// String address =  element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("address").getAsString();
+
+
+%>
+<body>
    <header>
       <div>
          <span>takeit!</span> 
@@ -402,18 +427,20 @@ window.onload=function(){
 						            	<div class = "PostViewCintroller_infoCard">
 						            		<a>
 						            			<dt>클래스 후기</dt>
-						            			<dd>45</dd>
+						            			<dd>${recommend_num}</dd>
 						            		</a>
 						            	</div>
 						            	<div class = "PostViewCintroller_veticalDivider" ></div>
 						            	<div class = "PostViewCintroller_infoCard">
 						            		<a>
 						            			<dt>수강생만족도</dt>
-						            			<dd>98<span class="unit">%</span></dd>
+						            			<dd>${recommend_score}</dd>
 						            		</a>
 						            	</div>
 						            </div>
 						            <div class="PostReviewCardList">
+						            <h2>이런 걸 배울거에요.😊h2>
+						            	${introduce }
 						            	<a class ="LinkBlock">
 						            		<span>
 						            			<img>

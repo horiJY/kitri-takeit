@@ -79,7 +79,8 @@ public class DetailController extends HttpServlet {
 					String.valueOf(classdetailJson));
 
 			HttpSession session = request.getSession();
-			session.setAttribute("detailclass", parseDetailJson.toString());
+			session.setAttribute("classdetailproperties",
+					parseDetailJson.toString());
 			RequestDispatcher rd = request
 					.getRequestDispatcher("/WEB-INF/jsp/class-detail.jsp");
 			rd.forward(request, response);
