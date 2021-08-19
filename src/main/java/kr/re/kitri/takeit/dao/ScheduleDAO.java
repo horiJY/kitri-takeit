@@ -159,6 +159,7 @@ public class ScheduleDAO {
 		}
 		return startdate;
 	}
+	
 	public Date selectMaxSchedule(int classId) {
 		//db 접속
 		Connection conn = DBConnect.getInstance();

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import dao.ScheduleDAO;
+import vo.CalendarJson;
 import vo.ScheduleVO;
 
 @WebServlet("/mypage/schedule")
@@ -40,10 +41,16 @@ public class MyScheduleController extends HttpServlet {
 		svo.setEndTime("2021-09-01 11:00");
 		slist.add(svo);
 		
+		List<CalendarJson> clist = new ArrayList<CalendarJson>();
+		for(ScheduleVO svoo:slist) {
+			CalendarJson cJson = new CalendarJson();
+			cJson.scheduleToCalendar(svoo);
+			clist.add(cJson);
+		}
 		//조회된 스케쥴 전송
 		Gson gson = new Gson();
-		String json = gson.toJson(slist);
-		request.setAttribute("sJson", json);
+		String json = gson.toJson(clist);
+		request.setAttribute("cJson", json);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/myschedule.jsp");
 		rd.forward(request, response);

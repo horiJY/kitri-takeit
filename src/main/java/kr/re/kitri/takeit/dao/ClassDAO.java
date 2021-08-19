@@ -270,4 +270,28 @@ public class ClassDAO {
 		}
 		return result;
 	}
+	
+	//강의 이름 조회
+	public String selectClassName(int classid){
+		Connection conn = DBConnect.getInstance();
+		String sql = "SELECT CLASSNAME FROM CLASS "
+				+ " WHERE CLASSID = '" + classid + "' ";
+		Statement stmt = null;
+		ResultSet rs = null;
+		String classname = "";
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			if (rs.next()) {
+				classname = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeAll(conn, null, stmt, rs);
+		}
+		return classname;
+	}
 }
