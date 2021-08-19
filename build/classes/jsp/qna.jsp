@@ -49,7 +49,7 @@ border-radius: 4px;
 </style>
 
 
-<script src="assets/a.js"></script>
+<script src="assets/qna.js"></script>
 </head>
 <body>
 	<h1>자주 묻는 질문</h1>
