@@ -49,7 +49,7 @@ public class ClassDAO {
 	public List<ClassVO> selectMyPreClass(String id){
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CATEGORY, FAVORITE, OPENDATE FROM CLASS"
-				+ " WHERE CREATER = '" + id + "'"
+				+ " WHERE CREATER = (SELECT USERNAME FROM WEBUSER WHERE USERID='" + id + "')"
 				+ " AND TYPE='P'";
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -81,7 +81,7 @@ public class ClassDAO {
 	public List<ClassVO> selectMyOpenClass(String id){
 		Connection conn = DBConnect.getInstance();
 		String sql = "SELECT CLASSNAME, CATEGRY, RECOMMEND, CLASSTYPE FROM CLASS"
-				+ " WHERE CREATER = '" + id + "'"
+				+ " WHERE CREATER = (SELECT USERNAME FROM WEBUSER WHERE USERID='" + id + "')"
 				+ " AND TYPE='O'";
 		Statement stmt = null;
 		ResultSet rs = null;
