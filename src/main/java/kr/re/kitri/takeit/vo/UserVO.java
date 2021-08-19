@@ -7,7 +7,7 @@ public class UserVO {
 	private String userType;
 	private String phone;
 	private int point;
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -44,6 +44,5 @@ public class UserVO {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	
-	
+
 }

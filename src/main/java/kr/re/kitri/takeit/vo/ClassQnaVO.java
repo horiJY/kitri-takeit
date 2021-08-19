@@ -9,7 +9,7 @@ public class ClassQnaVO {
 	private String question;
 	private String answer;
 	private String qnaTitle;
-	
+
 	public String getQnaTitle() {
 		return qnaTitle;
 	}
@@ -23,7 +23,7 @@ public class ClassQnaVO {
 		this.className = className;
 	}
 	private String className;
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -53,5 +53,5 @@ public class ClassQnaVO {
 	}
 	public void setAnswer(String answer) {
 		this.answer = answer;
-	}	
+	}
 }

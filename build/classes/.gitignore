@@ -1,7 +1,13 @@
+/img/
 /js/
-/vo/
+/lib/
 /controller/
 /dao/
 /db/
 /filter/
 /pagination/
+/vo/
+/assets/
+/css/
+/jsp/
+/service/

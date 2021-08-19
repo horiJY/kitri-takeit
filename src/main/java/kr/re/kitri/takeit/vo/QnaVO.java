@@ -1,6 +1,7 @@
 package vo;
 
 import java.util.Date;
+//import java.sql.Date;
 
 public class QnaVO {
 	private String userId;
@@ -10,7 +11,7 @@ public class QnaVO {
 	private String qnaTitle;
 	private String className;
 	private String category;
-	
+
 	public String getCategory() {
 		return category;
 	}
@@ -29,6 +30,7 @@ public class QnaVO {
 	public void setQnaTitle(String qnaTitle) {
 		this.qnaTitle = qnaTitle;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -52,5 +54,5 @@ public class QnaVO {
 	}
 	public void setAnswer(String answer) {
 		this.answer = answer;
-	}	
+	}
 }

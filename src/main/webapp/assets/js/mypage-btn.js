@@ -29,6 +29,7 @@ function clickMPOC(){	//click MyPageOpenClass
 
 //admin- 답변
 function saveQnaAnswerBtn(i) {//
+//	debugger;
 	
 	var params = {
 		qnaTitle: qnaTitleArr[i]
