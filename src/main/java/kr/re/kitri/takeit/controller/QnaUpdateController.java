@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import dao.QnaDAO;
 import vo.QnaVO;
 
-@WebServlet("/qna-update")
+@WebServlet("/userqna-update")
 public class QnaUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
@@ -25,14 +25,14 @@ public class QnaUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
-		
 
 		String qnaTitle = request.getParameter("qnaTitle");
-		String userId = request.getParameter("userId");
-		String answer = request.getParameter("answer");
+		String question = request.getParameter("question");
+		
+		System.out.println("qnaTitle : " + qnaTitle + " answer: " + question);
 		
 		QnaDAO qdao = new QnaDAO();
-		int result = qdao.updateQna(qnaTitle,userId,answer);
+		int result = qdao.updateUserQna(qnaTitle, id, question);
 		
 		JsonObject json = new JsonObject();
 		if(result!=0) {

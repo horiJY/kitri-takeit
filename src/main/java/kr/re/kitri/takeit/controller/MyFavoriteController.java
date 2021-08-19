@@ -31,7 +31,11 @@ public class MyFavoriteController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> refs/remotes/takeit/경하
 		FavoriteDAO fdao = new FavoriteDAO();
 		List<ClassVO> clist = fdao.selectFavoriteClass(id);
 		JsonArray jsonArr = new JsonArray();

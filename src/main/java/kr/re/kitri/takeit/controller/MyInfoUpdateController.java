@@ -54,11 +54,6 @@ public class MyInfoUpdateController extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/mypage.jsp");
 		rd.forward(request, response);
 		
-//		response.setCharacterEncoding("utf-8");
-//		response.setContentType("text/html; charset=utf-8");
-//		PrintWriter out = response.getWriter();
-//		out.print(jsonResponse);
-		
 	}
 
 }

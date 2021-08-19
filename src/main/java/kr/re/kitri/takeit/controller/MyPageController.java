@@ -26,7 +26,6 @@ public class MyPageController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
-		System.out.println("id : "+id);
 		if(id==null) {
 			id="k1234567894";	//'C'
 //			id="jytest0110@gmail.com";	//'U'
@@ -43,6 +42,8 @@ public class MyPageController extends HttpServlet {
 //			response.sendRedirect(request.getContextPath()+"/member/login");
 		} else {
 			id="k1234567894";	//'C'
+//			id="jytest0110@gmail.com";	//'U'
+//			id="hori_q@naver.com";	//'A'
 			UserDAO udao = new UserDAO();
 			UserVO uvo = udao.selectUserInfo(id);
 			

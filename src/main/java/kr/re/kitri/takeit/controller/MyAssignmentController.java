@@ -15,7 +15,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+<<<<<<< HEAD
 import dao.FavoriteDAO;
+=======
+import dao.AssignmentDAO;
+import dao.ClassDAO;
+>>>>>>> refs/remotes/takeit/경하
 import vo.ClassVO;
 
 @WebServlet("/myassignment")
@@ -30,10 +35,17 @@ public class MyAssignmentController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("takeit-userid");
+<<<<<<< HEAD
 
 		FavoriteDAO fdao = new FavoriteDAO();
 		List<ClassVO> clist = fdao.selectFavoriteClass(id);
 
+=======
+		
+		AssignmentDAO adao = new AssignmentDAO();
+		List<ClassVO> clist = adao.selectAssignmentClass(id);
+		
+>>>>>>> refs/remotes/takeit/경하
 		JsonArray jsonArr = new JsonArray();
 
 		for (ClassVO cvo : clist) {
