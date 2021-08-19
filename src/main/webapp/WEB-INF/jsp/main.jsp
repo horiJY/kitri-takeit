@@ -1,6 +1,5 @@
 <%@page import="vo.ClassVO"%>
 <%@page import="java.util.List"%>
-<%@page import="pagination.Pagination"%>
 <%@page import="dao.ClassDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

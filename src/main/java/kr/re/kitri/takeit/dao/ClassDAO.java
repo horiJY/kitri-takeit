@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -107,43 +106,41 @@ public class ClassDAO {
 		return clist;
 	}
 
-public List<ClassVO> selectClassList(String category, String range, String type){
+	public List<ClassVO> selectClassList(String category, String range,
+			String type) {
 		Connection conn = DBConnect.getInstance();
-		
-		if(range == null || range.equals("null")) {
+
+		if (range == null || range.equals("null")) {
 			range = "RECOMMEND";
 		}
-		
+
 		String sql = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
-				+ "	  FROM CLASS "
-				+ "	  WHERE TYPE = ? "
-				+ "	  AND CATEGORY = ? "
-				+ "	  ORDER BY "+range+" DESC";
-		
+				+ "	  FROM CLASS " + "	  WHERE TYPE = ? "
+				+ "	  AND CATEGORY = ? " + "	  ORDER BY " + range + " DESC";
+
 		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
-				+ "	   FROM CLASS "
-				+ "	   WHERE TYPE = ? "
-				+ "	   ORDER BY "+range+" DESC";
-		
+				+ "	   FROM CLASS " + "	   WHERE TYPE = ? " + "	   ORDER BY "
+				+ range + " DESC";
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
-		
+
 		try {
-			
-			if(category==null || category.equals("null")) {
+
+			if (category == null || category.equals("null")) {
 				pstmt = conn.prepareStatement(sql2);
 				pstmt.setString(1, type);
-			}else{
+			} else {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(2, category);
 				pstmt.setString(1, type);
 			}
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				ClassVO cvo = new ClassVO();
-				
+
 				cvo.setClassId(rs.getInt("CLASSID"));
 				cvo.setClassName(rs.getString("CLASSNAME"));
 				cvo.setCreater(rs.getString("CREATER"));
@@ -164,68 +161,63 @@ public List<ClassVO> selectClassList(String category, String range, String type)
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			closeAll(conn, pstmt, null, rs);
 		}
 		return clist;
 	}
 
-//select
-	public List<ClassVO> selectClassPage(String category, String range, String type, int start, int end){
-		if(range == null || range.equals("null")) {
-			if(type.equals("O")) {
-				range = "RECOMMEND";				
-			}else if(type.equals("P")) {
+	// select
+	public List<ClassVO> selectClassPage(String category, String range,
+			String type, int start, int end) {
+		if (range == null || range.equals("null")) {
+			if (type.equals("O")) {
+				range = "RECOMMEND";
+			} else if (type.equals("P")) {
 				range = "FAVORITE";
 			}
 		}
-		
-		//conn
+
+		// conn
 		Connection conn = DBConnect.getInstance();
-		
-		//sql
+
+		// sql
 		String sql1 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
-				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
-				+ "      FROM (SELECT * "
-				+ "            FROM CLASS"
-				+ "			   WHERE CATEGORY = ? "
-				+ "			   AND TYPE = ? "
-				+ "			   ORDER BY "+range+" DESC ) A "
-				+ "      ) "
+				+ " FROM (SELECT ROWNUM AS RNUM, A.* " + "      FROM (SELECT * "
+				+ "            FROM CLASS" + "			   WHERE CATEGORY = ? "
+				+ "			   AND TYPE = ? " + "			   ORDER BY "
+				+ range + " DESC ) A " + "      ) "
 				+ "WHERE RNUM BETWEEN ? AND ? ";
-		
+
 		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
-				+ " FROM (SELECT ROWNUM AS RNUM, A.* "
-				+ "      FROM (SELECT * "
-				+ "            FROM CLASS"
-				+ "			   WHERE TYPE = ? "
-				+ "			   ORDER BY "+range+" DESC ) A "
-				+ "      ) "
+				+ " FROM (SELECT ROWNUM AS RNUM, A.* " + "      FROM (SELECT * "
+				+ "            FROM CLASS" + "			   WHERE TYPE = ? "
+				+ "			   ORDER BY " + range + " DESC ) A " + "      ) "
 				+ "WHERE RNUM BETWEEN ? AND ? ";
-		
-		//prepared
+
+		// prepared
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
 		try {
-			
-			if(category==null || category.equals("null")) {
+
+			if (category == null || category.equals("null")) {
 				pstmt = conn.prepareStatement(sql2);
 				pstmt.setString(1, type);
 				pstmt.setInt(2, start);
 				pstmt.setInt(3, end);
-			}else{
+			} else {
 				pstmt = conn.prepareStatement(sql1);
 				pstmt.setString(1, category);
 				pstmt.setString(2, type);
 				pstmt.setInt(3, start);
 				pstmt.setInt(4, end);
 			}
-			
-			//resultset
+
+			// resultset
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				ClassVO cvo = new ClassVO();
 				cvo.setClassId(rs.getInt("CLASSID"));
 				cvo.setClassName(rs.getString("CLASSNAME"));
@@ -237,14 +229,14 @@ public List<ClassVO> selectClassList(String category, String range, String type)
 				cvo.setSale(rs.getInt("SALE"));
 				cvo.setOpenDate(rs.getDate("OPENDATE"));
 				cvo.setCountdown(rs.getInt("COUNTDOWN"));
-				//result
+				// result
 				clist.add(cvo);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			closeAll(conn, pstmt, null, rs);
 		}
 		return clist;
