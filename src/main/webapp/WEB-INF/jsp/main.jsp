@@ -21,10 +21,9 @@
 	
 </script>
 </head>
-
 <body>
 	<header>
-		<div>
+		<div> 
 			<span>takeit!</span> <input type="search">
 			<c:choose>
 				<c:when test="${!empty sessionScope.userId }">

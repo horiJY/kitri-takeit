@@ -156,7 +156,7 @@ public class ReviewDAO {
 	}
 	
 	// detail page 해당 class 후기 개수 및 (recommend) 별점 count -> select
-    public ReviewVO getRecommandCountAndScore(int classId) {
+    public ReviewVO getReviewCountAndScore(int classId) {
         Connection conn = DBConnect.getInstance();
 
         String sql = "select count(*), AVG(recommend) " + "from class_review "
@@ -185,7 +185,7 @@ public class ReviewDAO {
     }
 
     // detail page 해당 class 최근 후기 2개 -> select
-    public List<ReviewVO> getRecentRecommands(int classId) {
+    public List<ReviewVO> getRecentReviews(int classId) {
         Connection conn = DBConnect.getInstance();
 
         String sql = "select * "

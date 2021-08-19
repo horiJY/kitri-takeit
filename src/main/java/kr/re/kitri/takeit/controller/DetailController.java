@@ -19,12 +19,12 @@ import dao.ReviewDAO;
 import vo.ClassVO;
 import vo.ReviewVO;
 
-@WebServlet("/detail/*")
+@WebServlet("/detail/1")
 public class DetailController extends HttpServlet {
 	// 클래스 상세정보 받아오기
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String requestURI = request.getRequestURI().substring(19);
 		// System.out.println(requestURI);
 
@@ -32,10 +32,8 @@ public class DetailController extends HttpServlet {
 			int classid = Integer.parseInt(requestURI);
 			// 주소값이 숫자일 경우만
 			ReviewDAO rdao = new ReviewDAO();
-			ReviewVO rvo = rdao.getRecommandCountAndScore(classid);
-			List<ReviewVO> rlist = rdao.getRecentRecommands(classid);
-			// System.out.println(rvo.getTotalRecommendNum() + "/" +
-			// rvo.getAvgScore());
+			ReviewVO rvo = rdao.getReviewCountAndScore(classid);
+			List<ReviewVO> rlist = rdao.getRecentReviews(classid);
 			for (ReviewVO c : rlist) {
 				System.out.println(c.toString());
 			}
@@ -45,24 +43,25 @@ public class DetailController extends HttpServlet {
 			// System.out.println(cvo.toString());
 
 			// 보낼 데이터 json 객체에 취합 / 총 후기 개수, 총 후기 평점, 후기내용리스트(2개), 클래스 정보
-			JsonObject parseDetailJson = new JsonObject();
+			JsonObject parseData = new JsonObject();
+
 			// 총 후기 개수
-			parseDetailJson.addProperty("recommend_num",
-					rvo.getTotalRecommendNum());
+			parseData.addProperty("review_num", rvo.getTotalRecommendNum());
+
 			// 총 후기 평점
-			parseDetailJson.addProperty("recommend_score", rvo.getAvgScore());
+			parseData.addProperty("review_score", rvo.getAvgScore());
+
 			// 후기내용리스트(2개)
 			JsonArray reviewJsonArr = new JsonArray();
 			for (ReviewVO c : rlist) {
 				JsonObject reviewJson = new JsonObject();
 				reviewJson.addProperty("username", c.getUserName());
-				reviewJson.addProperty("reviewdate",
-						String.valueOf(c.getReviewDate()));
+				reviewJson.addProperty("reviewdate", String.valueOf(c.getReviewDate()));
 				reviewJson.addProperty("content", c.getContent());
 				reviewJsonArr.add(reviewJson);
 			}
-			parseDetailJson.addProperty("reviewlist",
-					String.valueOf(reviewJsonArr));
+			parseData.addProperty("reviewlist", String.valueOf(reviewJsonArr));
+
 			// 클래스 정보
 			JsonObject classdetailJson = new JsonObject();
 			classdetailJson.addProperty("classname", cvo.getClassName());
@@ -74,15 +73,19 @@ public class DetailController extends HttpServlet {
 			classdetailJson.addProperty("chapter", cvo.getChapter());
 			classdetailJson.addProperty("creater_info", cvo.getCreater_info());
 			classdetailJson.addProperty("address", cvo.getAddress());
+			classdetailJson.addProperty("classtype", cvo.getClassType());
+			classdetailJson.addProperty("category", cvo.getCategory());
+			classdetailJson.addProperty("recommend", cvo.getRecommend());
+			classdetailJson.addProperty("price", cvo.getPrice());
+			classdetailJson.addProperty("sale", cvo.getSale());
+			classdetailJson.addProperty("favorite", cvo.getFavorite());
 
-			parseDetailJson.addProperty("classinfo",
-					String.valueOf(classdetailJson));
+			// 하나의 속성으로 추가
+			parseData.addProperty("classinfo", String.valueOf(classdetailJson));
 
 			HttpSession session = request.getSession();
-			session.setAttribute("classdetailproperties",
-					parseDetailJson.toString());
-			RequestDispatcher rd = request
-					.getRequestDispatcher("/WEB-INF/jsp/class-detail.jsp");
+			session.setAttribute("classdetailproperties", parseData.toString());
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/class-detail.jsp");
 			rd.forward(request, response);
 		} else {
 			// 경로에 숫자가 아닐경우 404처리해야함

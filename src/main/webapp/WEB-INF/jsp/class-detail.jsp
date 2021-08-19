@@ -396,25 +396,51 @@ dt {
 <%
 JsonParser parser = new JsonParser();
 JsonElement element = parser.parse(String.valueOf(session.getAttribute("classdetailproperties")));
+System.out.println(element.toString());
 
 //수강 후기가져오기
-String recommend_num = element.getAsJsonObject().get("recommend_num").getAsString(); 
-String recommend_score = element.getAsJsonObject().get("recommend_score").getAsString(); 
+String review_num = element.getAsJsonObject().get("review_num").getAsString(); 
+String review_score = element.getAsJsonObject().get("review_score").getAsString(); 
 
 //리뷰리스트 최초2개
-JsonArray jarr = new JsonArray(); 
-jarr.add(element.getAsJsonObject().getAsJsonArray("reviewlist")); 
+JsonArray reviewJarr = new JsonArray(); 
+reviewJarr.add(element.getAsJsonObject().get("reviewlist").getAsString());
+
+System.out.println(element.getAsJsonObject().get("classinfo").getAsString());//됨..
+
 
 //클래스 정보
-String classname = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("classname").getAsString();
-String creatername = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("creatername").getAsString();
-String introduce = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("introduce").getAsString();
-String period = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("period").getAsString();
-String content_num = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("content_num").getAsString();
-String detail = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("detail").getAsString();
-String chapter = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("chapter").getAsString();
-String creater_info = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("creater_info").getAsString();
-String address = element.getAsJsonObject().get("classdetailJson").getAsJsonObject().get("address").getAsString();
+JsonElement cdelement = parser.parse(element.getAsJsonObject().get("classinfo").getAsString());
+// System.out.println(cdelement.getAsJsonObject().get("classname").getAsString());
+String classname = cdelement.getAsJsonObject().get("classname").getAsString();
+String creatername = cdelement.getAsJsonObject().get("creatername").getAsString();
+String introduce = cdelement.getAsJsonObject().get("introduce").getAsString();
+String period = cdelement.getAsJsonObject().get("period").getAsString();
+String content_num = cdelement.getAsJsonObject().get("content_num").getAsString();
+String detail = cdelement.getAsJsonObject().get("detail").getAsString();
+String chapter = cdelement.getAsJsonObject().get("chapter").getAsString();
+String creater_info = cdelement.getAsJsonObject().get("creater_info").getAsString();
+String classtype = cdelement.getAsJsonObject().get("classtype").getAsString().equals("ON") ? "온라인" : "오프라인";
+String category = cdelement.getAsJsonObject().get("category").getAsString();
+
+int sale = cdelement.getAsJsonObject().get("sale").getAsInt();
+int price = cdelement.getAsJsonObject().get("price").getAsInt();
+int after_price=price;
+if(sale !=0){
+	after_price = price * ( (100-sale)/100); 
+}
+
+
+// classtype이 on이면 주소 x, off면 주소o
+String address = classtype.equals("오프라인") ? 
+					cdelement.getAsJsonObject().get("address").getAsString() 
+					: "온라인 클래스입니다.";
+// type이 on이면 recommend, pre 면 favorite 사용
+String recommend_num = classtype.equals("온라인") ?
+							cdelement.getAsJsonObject().get("recommend").getAsString() 
+							: cdelement.getAsJsonObject().get("favorite").getAsString();
+
+// System.out.println(classname+"/"+creatername+"/"+introduce+"/"+period+"/"+content_num+"/"+detail+"/"+chapter+"/"+creater_info+"/"+classtype+"/"+category+"/"+sale+"/"+price+"/"+after_price+"/"+address+"/"+recommend_num);
 %>
 
 <body>
@@ -453,26 +479,26 @@ String address = element.getAsJsonObject().get("classdetailJson").getAsJsonObjec
 						<div>
 							<div class="styledDiv">
 								<section class="PostViewCintroller">
-									<h2>실제 수장생들의 생생한 후기</h2>
+									<h2>실제 수강생들의 생생한 후기</h2>
 									<div class="PostViewCintroller_infoContainer">
 										<div class="PostViewCintroller_infoCard">
 											<a>
 												<dt>클래스 후기</dt>
-												<dd>${recommend_num}</dd>
+												<dd><%=review_num%></dd>
 											</a>
 										</div>
 										<div class="PostViewCintroller_veticalDivider"></div>
 										<div class="PostViewCintroller_infoCard">
 											<a>
 												<dt>수강생만족도</dt>
-												<dd>${recommend_score}</dd>
+												<dd><%=review_score %></dd>
 											</a>
 										</div>
 									</div>
 									<div class="PostReviewCardList">
-										<h2>
-											이런 걸 배울거에요.😊h2> ${introduce } <a class="LinkBlock"> <span>
-													<img>
+										<h2>이런 걸 배울거에요.😊</h2> 
+										<%=introduce %> 
+											<a class="LinkBlock"> <span> <img>
 											</span>
 											</a> <a class="LinkBlock"> <span> <img>
 											</span>
@@ -503,15 +529,19 @@ String address = element.getAsJsonObject().get("classdetailJson").getAsJsonObjec
 									</div>
 									<div id="meue2">
 										클래스 소개
-										<p></p>
+										<p> <%=classname %> 강좌입니다.</p>
+										<p><span> <%=period %>주 수강</span> <span> <%=content_num %>개 강의</span> </p>
+										<div>
+											<%=detail %>
+										</div>
 									</div>
 									<div id="meue3">
 										커리큘럼
-										<p></p>
+										<p> <%=chapter %></p>
 									</div>
 									<div id="meue4">
 										크리에이터
-										<p></p>
+										<p> <%=creater_info %></p>
 									</div>
 									<div id="meue5">
 										FAQ
@@ -527,22 +557,20 @@ String address = element.getAsJsonObject().get("classdetailJson").getAsJsonObjec
 							</div>
 						</div>
 					</div>
-
+<!-- 우측 플로팅 -->
 					<div id="floating">
-						<aside id="float">
-							<h2>(플로팅배너시작)</h2>
-							<span>크리에이터(creater)</span>
-							<h2>class name(className)</h2>
-							<span>대면 비대면(classType)</span> <span>위치(Address)</span> <span>가격(price)</span>
+						<aside id="float"> 
+							<span><%=category %></span>
+							<h2><%=creatername %></h2>
+							<span><%=classtype %></span> <span> 위치 : <%=address %> </span> <span> <%=sale  %> 세일 중 ~ 😍 <%=price %>원</span>
 							<div id="floatOptions"></div>
 							<div class="option_recomm">
-								<button id="recomm_btn">★(recommend)</button>
+								<button id="recomm_btn">★<%=recommend_num %></button>
 								<button id="share_btn">공유하기</button>
 							</div>
 							<div id="application">
 								<button>클래스 신청하기</button>
 							</div>
-							<h2>(플로팅배너끝)</h2>
 						</aside>
 					</div>
 				</div>

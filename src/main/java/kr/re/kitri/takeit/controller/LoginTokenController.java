@@ -15,12 +15,12 @@ import service.GoogleLoginService;
 import service.KakaoLoginService;
 import service.NaverLoginService;
 
-@WebServlet(urlPatterns = {"/login/kakao", "/login/naver", "/login/google"})
+@WebServlet(urlPatterns = { "/login/kakao", "/login/naver", "/login/google" })
 public class LoginTokenController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void service(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String requestURI = request.getRequestURI();
 		System.out.println("requestURI : " + requestURI);
 		HashMap<String, String> UserInfo = null; // 로그인유저의 아이디,이름,프로필썸네일 /
@@ -72,8 +72,7 @@ public class LoginTokenController extends HttpServlet {
 		// attribute 할때 - 말고 _로 할 것 : JS에서 마이너스 연산으로 인식할 수 있음
 		session.setAttribute("takeit-userid", UserInfo.get("id"));
 		session.setAttribute("takeit-username", UserInfo.get("nickname"));
-		session.setAttribute("takeit-userthumnail",
-				UserInfo.get("thumnailURL"));
+		session.setAttribute("takeit-userthumnail", UserInfo.get("thumnailURL"));
 
 		response.sendRedirect("http://localhost:8080/takeit_prj/main");
 	}

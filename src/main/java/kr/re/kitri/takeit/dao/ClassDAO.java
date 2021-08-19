@@ -396,7 +396,7 @@ public class ClassDAO {
 	public ClassVO getClassDetail(int classId) {
 		Connection conn = DBConnect.getInstance();
 
-		String sql = "select classname, u.username, introduce, period, content_num, detail, chapter, creater_info, address "
+		String sql = "select c.classname, u.username, c.introduce, c.period, c.content_num, c.detail, c.chapter, c.creater_info, c.address, c.classtype, c.category, c.recommend, c.price, c.sale, c.favorite "
 				+ "from class c, webuser u " + "where c.creater = u.userid and classid = " + classId;
 
 		Statement stmt = null;
@@ -419,6 +419,12 @@ public class ClassDAO {
 				cvo.setChapter(rs.getString(7));
 				cvo.setCreater_info(rs.getString(8));
 				cvo.setAddress(rs.getString(9));
+				cvo.setClassType(rs.getString(10));
+				cvo.setCategory(rs.getString(11));
+				cvo.setRecommend(Integer.parseInt(rs.getString(12)));
+				cvo.setPrice(rs.getInt(13));
+				cvo.setSale(rs.getInt(14));
+				cvo.setFavorite(rs.getInt(15));
 			}
 
 		} catch (SQLException e) {
