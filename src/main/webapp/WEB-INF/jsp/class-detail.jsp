@@ -98,7 +98,9 @@ a {
 }
 
 #float {
-	position: static;
+	position: sticky;
+	z-index:998;
+	top: 120px;
 	padding: 20px;
 	border: 1px solid rgb(255, 255, 255);
 	border-radius: 3px;
@@ -167,6 +169,7 @@ img {
 	top: 0px;
 	overflow-x: auto;
 	box-shadow: rgb(239, 239, 239) 0px -1px 0px 0px inset;
+	z-index: 999;
 }
 
 #stickyTab_content {
@@ -480,7 +483,7 @@ String recommend_num = classtype.equals("온라인") ?
 						<div>
 							<div class="styledDiv">
 								<section class="PostViewCintroller">
-									<div id="meue1">
+									<div id="menu1">
 										<h2>후기</h2>
 										<p></p>
 									</div>
@@ -530,27 +533,27 @@ String recommend_num = classtype.equals("온라인") ?
 									</div>
 
 									
-									<div id="meue2">
+									<div id="menu2">
 										<h2>클래스 소개</h2>
 										<p> <%=classname %> 강좌입니다.</p>
-										<p style="text-align: center"><%=period %>주<span style="font-size:0.8em">  수강</span> <%=content_num %>개<span style="font-size:0.8em">  강의</span> </p>
+										<p style="font-size:1.2em"><span style="padding-left: 15%;padding-right: 15%"><%=period %>주<span style="font-size:0.8em">  수강</span></span> <%=content_num %>개 <span style="font-size:0.8em">  강의</span> </p>
 										<div>
 											<%=detail %>
 										</div>
 									</div>
-									<div id="meue3">
+									<div id="menu3">
 										<h2>커리큘럼</h2>
 										<p> <%=chapter %></p>
 									</div>
-									<div id="meue4">
+									<div id="menu4">
 										<h2>크리에이터</h2>
 										<p> <%=creater_info %></p>
 									</div>
-									<div id="meue5">
+									<div id="menu5">
 										<h2>FAQ</h2>
 										<p></p>
 									</div>
-									<div id="meue6">
+									<div id="menu6">
 										<h2>환불 정책</h2>
 										<p></p>
 									</div>

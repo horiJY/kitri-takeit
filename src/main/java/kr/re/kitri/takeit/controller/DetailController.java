@@ -16,7 +16,7 @@ import dao.ReviewDAO;
 import vo.ClassVO;
 import vo.ReviewVO;
 
-@WebServlet("/detail/1")
+@WebServlet("/detail/*")
 public class DetailController extends HttpServlet {
   // 클래스 상세정보 받아오기
 

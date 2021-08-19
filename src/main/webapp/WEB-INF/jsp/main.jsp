@@ -29,7 +29,9 @@
 					<a href="${pageContext.request.contextPath}/mypage"> 
 					<input type="button" value="mypage" id="mypage">
 					</a>
+					<a href="${pageContext.request.contextPath}/logout">
 						<input type="button" value="logout" id="logout">
+					</a>
 					
 				</c:when> 
 				<c:otherwise> 
