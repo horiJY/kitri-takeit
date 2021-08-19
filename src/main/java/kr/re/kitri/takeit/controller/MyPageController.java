@@ -42,6 +42,7 @@ public class MyPageController extends HttpServlet {
 //			response.sendRedirect(request.getContextPath()+"/member/login");
 		} else {
 			id="k1234567894";	//'C'
+//			id="jytest0110@gmail.com";	//'U'
 //			id="hori_q@naver.com";	//'A'
 			UserDAO udao = new UserDAO();
 			UserVO uvo = udao.selectUserInfo(id);

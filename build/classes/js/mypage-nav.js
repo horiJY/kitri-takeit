@@ -92,7 +92,6 @@ function allQNA() {
 						);
 						qnaTitleArr.push($(this).attr("qnaTitle"));
 						userIdArr.push($(this).attr("userId"));
-						answerArr.push($(this).attr("answerarea"));
 
 					});
 					
@@ -297,7 +296,7 @@ function myqna(){
 				$("#qnaBtn").html('문의하기');
 				if (result.length != 0) {
 					$("#myPageContent1").append("<h4>질문 내역</h4>");
-					$("#myPageContent1").append("<table class='myQna'>"
+					$("#myPageContent1").append("<table border='1' class='myQna'>"
 					+ "<thead> <tr> <th>제목</th> <th>날짜</th> </tr> </thead>"
 					+ "<tbody class='qna_list'></tbody></table>");
 					$.each(result, function(inx, obj) {
@@ -346,7 +345,6 @@ function myclassqna(){
 						+ "<thead> <tr> <th>클래스 이름</th> <th>제목</th> <th>날짜</th> <th>ID</th> </tr> </thead>"
 					+ "<tbody class='qna_list'></tbody></table>");
 					$.each(result, function(inx, obj) {
-
 						$(".qna_list").append("<tr>"
 						+ "		<td class='className"+inx+"'> " + obj.className + "</td> "
 						+ "		<td class='qnaTitle"+inx+"'> " + obj.qnaTitle + "</td>"
@@ -479,7 +477,7 @@ function myClassQna() {
 				
 				$("#myPageFormTitle").append("받은 질문 내역");
 				if (result.length != 0) {
-					$("#myPageContent1").append("<table class='myClassQna'>"
+					$("#myPageContent1").append("<table border='1' class='myClassQna'>"
 					+ " <thead> <tr> <th>클래스 이름</th> <th>제목</th> <th>날짜</th> <th>ID</th> </tr> </thead>"
 					+ "<tbody class='qna-qbox'></tbody></table>");
 					$.each(result, function(inx, obj) {

@@ -15,7 +15,7 @@
 	<header>
 		<form action="header">
 			<div>
-				<img alt="tatkit-logo" onclick="gotomain()" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg" height="50px">
+				<img id="logo" alt="tatkit-logo" onclick="gotomain()" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg" height="50px">
 				<input type="search" id="search" name="search">
 				<a href="#"><img alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png" height="20px"></a>
 				<input type="button" onclick="logoutBtn()" value="LOGOUT" id="logoutBtn">
@@ -23,7 +23,7 @@
 		</form>
 	</header>
 	
-	<hr>
+	<br>
 	
 	<main>
 		<header>
