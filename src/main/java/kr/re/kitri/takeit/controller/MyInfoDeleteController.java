@@ -15,7 +15,7 @@ import com.google.gson.JsonObject;
 
 import dao.UserDAO;
 
-@WebServlet("/userdelete")
+@WebServlet("/user-delete")
 public class MyInfoDeleteController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

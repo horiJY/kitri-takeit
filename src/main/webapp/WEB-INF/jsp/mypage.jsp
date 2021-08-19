@@ -28,21 +28,22 @@
 	<main>
 		<header>
 			<a class="MyProfile" id="myInfoNav">
-				<h2 id="MyProfile-UserName">${uvo.userName }</h2>
-				<c:choose>
-						<c:when test="${uvo.userType=='A'}">
-							<img class="usertypeimg" alt="관리자 이미지" src="" height="30px">
-<%-- 							${pageContext.request.contextPath}/assets/img/Atype-icon.png --%>
-						</c:when>
-						<c:when test="${uvo.userType=='C'}">
-							<img class="usertypeimg" alt="크리에이터 이미지" src="${pageContext.request.contextPath}/assets/img/Ctype-icon.png" height="30px">
-						</c:when>
-						<c:when test="${uvo.userType=='U'}">
-							<img class="usertypeimg" alt="유저 이미지" src="${pageContext.request.contextPath}/assets/img/Utype-icon.png" height="30px">
-						</c:when>
-				</c:choose>
-				<img id="userThumnail" alt="유저아이콘" src="${uvo.userThumnail }"><br>
-				<span>내 포인트 : ${uvo.point}P</span>
+				<div>
+					<h2 id="MyProfile-UserName">${uvo.userName }</h2>
+					<c:choose>
+							<c:when test="${uvo.userType=='A'}">
+								<img class="usertypeimg" alt="관리자 이미지" src="${pageContext.request.contextPath}/assets/img/Atype-icon.png" height="30px">
+							</c:when>
+							<c:when test="${uvo.userType=='C'}">
+								<img class="usertypeimg" alt="크리에이터 이미지" src="${pageContext.request.contextPath}/assets/img/Ctype-icon.png" height="30px">
+							</c:when>
+							<c:when test="${uvo.userType=='U'}">
+								<img class="usertypeimg" alt="유저 이미지" src="${pageContext.request.contextPath}/assets/img/Utype-icon.png" height="30px">
+							</c:when>
+					</c:choose>
+				</div>
+				<br><img id="userThumnail" alt="유저아이콘" src="${uvo.userThumnail }"><br>
+				<div id="userPoint">내 포인트 : ${uvo.point}P</div>
 			</a><br>
 		</header>
 		<div class="MyPage">

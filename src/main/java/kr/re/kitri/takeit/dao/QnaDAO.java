@@ -129,15 +129,17 @@ public class QnaDAO {
 	}
 	
 	//mypage -> Delete
-	public int deletQna(String userId) {
+	public int deleteQna(String userId, String qnaTitle) {
 		Connection conn = DBConnect.getInstance();
 		String sql = "DELETE FROM CLASSQNA"
-				+ " WHERE USERID = ?";
+				+ " WHERE USERID = ?"
+				+ " AND QNATITLE = ?";
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
+			pstmt.setString(2, qnaTitle);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

@@ -16,11 +16,31 @@ hr {
 	color: white;
 }
 header{
-	height: 70px;
-}
+	height: auto;
+} header 
+
 main header{
 	height: 200px;
 	margin: 16px;
+}
+main header h2{
+	float:left;
+	text-align:center;
+    width:120px;
+}
+main header #userThumnail{
+	width: 70px;
+	margin:0px 25px;
+}
+main header .usertypeimg{
+	height:32px;
+	margin:20px 0px;
+}
+main header #userPoint{
+	width:120px;
+	text-align:center;
+	margin:20px 0px;
+	margin-bottom:20px;
 }
 aside {
 	border:1px solid black;
@@ -116,9 +136,13 @@ table{
 	height: 30px;
 }
 
+.emptylist{
+	width:50px;
+}
 
-
-
+.myPageContent1 img, .myPageContent2 img {
+	width:50%;
+}
 
 
 

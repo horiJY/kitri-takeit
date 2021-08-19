@@ -42,6 +42,15 @@ function test(userType) {
 var qnaTitleArr = [];
 var userIdArr = [];
 var answerArr = [];
+var emptyImgs =["../img/empty-favorite.jpg"
+				,"../img/empty-assignment.jpg"
+				,"../img/empty-review.jpg"
+				,"../img/empty-qna.jpg"
+				,"../img/empty-myclass-qna.jpg"
+				,"../assets/img/empty-preclass.jpg"
+				,"../assets/img/empty-openclass.jpg"
+				,"../assets/img/empty-myclass-qna.jpg"
+				];
 
 function allQNA() {
 	
@@ -76,6 +85,7 @@ function allQNA() {
 							+ "<textarea id='answer" +inx + "' class='answer' row='5' col='5'>" + obj.answer + "</textarea><br>"
 							+ "<div class='qnaAboxBtns'>"
 							+ "<input type='button' onclick='saveQnaAnswerBtn(" + inx + ")' id='Save' class='qnabtns' value='SAVE'>"
+							+ "<input type='button' onclick='deleteQnaBtn()' id='Delete' class='qnabtns' value='DELETE'>"
 							+ "</div>"
 							+ "</td>"
 							+ "</tr>"
@@ -164,10 +174,10 @@ function myFavorite() {
 
 					});
 				} else {
-					$("#myPageContent1").append("<img alt='응원한 내역이 없습니다.' src=''><br>");
+					$("#myPageContent1").append("<img class='emptylist' alt='응원한 내역이 없습니다.' src='emptyImgs[0]'><br>");
 				}
 				$("#myPageBtns").append("<button type='button' onclick='showPreClassBtn()' id='showPreClassBtn' value='오픈 예정 클래스 둘러보기'></button>");
-			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
+			}, error: function(XMLHttpRequest, textStatus, erorThrown) {
 				alert('There is an error : method(group)에 에러가 있습니다.');
 			}
 		})
@@ -204,7 +214,7 @@ function myAssignment() {
 
 					});
 				} else {
-					$("#myPageContent1").append("<img alt='결제한 내역이 없습니다.' src=''><br>");
+					$("#myPageContent1").append("<img class='emptylist' alt='결제한 내역이 없습니다.' src='emptyImgs[1]'><br>");
 				}
 				$("#myPageBtns").append("<button type='button' onclick='showClassBtn()' id='showClassBtn' value='클래스 둘러보기'></button>");
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -243,7 +253,7 @@ function myReview() {
 
 					});
 				} else {
-					$("#myPageContent1").append("<img alt='작성한 리뷰가 없습니다.' src=''><br>");
+					$("#myPageContent1").append("<img class='emptylist' alt='작성한 리뷰가 없습니다.' src='emptyImgs[2]'><br>");
 				}
 				$("#myPageBtns").append("<button type='button' onclick='reviewBtn()' id='reviewBtn' value='리뷰 작성하기'></button>");
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -289,7 +299,7 @@ function myqna(){
 
 					});
 				} else {
-					$("#myPageContent1").append("<img alt='일반 문의 내역이 없습니다.' src=''><br>");
+					$("#myPageContent1").append("<img class='emptylist' alt='일반 문의 내역이 없습니다.' src='emptyImgs[3]'><br>");
 				}
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 				alert('There is an error : method(group)에 에러가 있습니다.');
@@ -325,7 +335,7 @@ function myclassqna(){
 
 					});
 				} else {
-					$("#myPageContent2").append("<img alt='내 클래스의 문의 내역이 없습니다.' src=''><br>");
+					$("#myPageContent2").append("<img class='emptylist' alt='내 클래스의 문의 내역이 없습니다.' src='emptyImgs[4]'><br>");
 				}
 					
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -371,7 +381,7 @@ function mypreclass(){
 
 					});
 				} else {
-					$("#myPageContent1").append("<img alt='오픈 예정 클래스가 없습니다.' src=''><br>");
+					$("#myPageContent1").append("<img class='emptylist' alt='오픈 예정 클래스가 없습니다.' src='emptyImgs[5]'><br>");
 				}
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 				alert('There is an error : method(group)에 에러가 있습니다.');
@@ -406,7 +416,7 @@ function myopenclass(){
 
 					});
 				} else {
-					$("#myPageContent2").append("<img alt='오픈된 클래스가 없습니다.' src=''><br>");
+					$("#myPageContent2").append("<img class='emptylist' alt='오픈된 클래스가 없습니다.' src='emptyImgs[6]'><br>");
 				}
 
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -459,7 +469,7 @@ function myClassQna() {
 						userIdArr.push($(this).attr("userId"));
 					});
 				} else {
-					$("#myPageBtns").append("<img alt='받은 질문이 없습니다.' src=''><br>");
+					$("#myPageBtns").append("<img alt='받은 질문이 없습니다.' src='emptyImgs[7]'><br>");
 				}
 			}, error: function(XMLHttpRequest, textStatus, errorThrown) {
 				alert('There is an error : method(group)에 에러가 있습니다.');

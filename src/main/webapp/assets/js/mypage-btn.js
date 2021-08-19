@@ -29,9 +29,7 @@ function clickMPOC(){	//click MyPageOpenClass
 
 //admin- 답변
 function saveQnaAnswerBtn(i) {//
-//	debugger;
 	
-	$("#answer").val();
 	var params = {
 		qnaTitle: qnaTitleArr[i]
 		, userId: userIdArr[i]
@@ -41,6 +39,28 @@ function saveQnaAnswerBtn(i) {//
 	$.ajax({
 		type: 'POST',
 		url: 'qna-update',
+		dataType: 'json',
+		data: params,
+		success: function(res) {
+			alert(res.code);
+			window.location.reload();
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("클래스 생성 실패");
+		}
+	})
+
+}
+function deleteQnaBtn(i) {//
+	
+	var params = {
+		qnaTitle: qnaTitleArr[i]
+		, userId: userIdArr[i]
+	}
+	console.log(params);
+	$.ajax({
+		type: 'POST',
+		url: 'qna-delete',
 		dataType: 'json',
 		data: params,
 		success: function(res) {
@@ -75,19 +95,19 @@ function clickMIUB() {	//click myInfoUpdateBtn
 		}
 	})
 }
-//function clickMIDB() {	//click myInfoDeleteBtn
-//	$.ajax({
-//		type: "POST",
-//		url: "user-delete",
-//		success: function(res) {
-//			alert(res.code);
-//			
-//		},
-//		error: function(XMLHttpRequest, textStatus, errorThrown) {
-//			alert("회원 탈퇴 실패")
-//		}
-//	})
-//}
+function clickMIDB() {	//click myInfoDeleteBtn
+	$.ajax({
+		type: "POST",
+		url: "user-delete",
+		success: function(res) {
+			alert(res.code);
+			
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("회원 탈퇴 실패")
+		}
+	})
+}
 
 
 
@@ -107,41 +127,41 @@ function deleteFavoriteBtn(i) {
 		}
 	})
 }
-//function showpreClassBtn() {
-//	$.ajax({
-//		type: 'POST',
-//		url: '',		//오픈예정클래스 페이지 컨트롤러
-//		success: function() { },
-//		error: function(XMLHttpRequest, textStatus, errorThrown) { }
-//	})
-//}
-//
-////내 결제목록
-//function showClassBtn() {
-//	$.ajax({
-//		type: 'POST',
-//		url: 'main',
-//		success: function() { },
-//		error: function(XMLHttpRequest, textStatus, errorThrown) { }
-//	})
-//}
-//
-////내 리뷰
-//function deleteReviewBtn(i) {
-//	$.ajax({
-//		type: 'POST',
-//		url: 'reviewdelete',
-//		data: { classId: i },
-//		success: function(res) {
-//			alert(res.code);
-//		},
-//
-//		error: function(XMLHttpRequest, textStatus, errorThrown) {
-//			alert("리뷰 삭제 실패");
-//		}
-//	})
-//
-//}
+function showpreClassBtn() {
+	$.ajax({
+		type: 'POST',
+		url: 'pre-class',		//오픈예정클래스 페이지 컨트롤러
+		success: function() { },
+		error: function(XMLHttpRequest, textStatus, errorThrown) { }
+	})
+}
+
+//내 결제목록
+function showClassBtn() {
+	$.ajax({
+		type: 'POST',
+		url: 'main',
+		success: function() { },
+		error: function(XMLHttpRequest, textStatus, errorThrown) { }
+	})
+}
+
+//내 리뷰
+function deleteReviewBtn(i) {
+	$.ajax({
+		type: 'POST',
+		url: 'review-delete',
+		data: { classId: i },
+		success: function(res) {
+			alert(res.code);
+		},
+
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("리뷰 삭제 실패");
+		}
+	})
+
+}
 //function reviewBtn() {
 //	$.ajax({
 //		type: 'POST',
