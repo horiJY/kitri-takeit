@@ -41,7 +41,7 @@ public class MyPageController extends HttpServlet {
 			rd.forward(request, response);
 //			response.sendRedirect(request.getContextPath()+"/member/login");
 		} else {
-			id="hori_q@naver.com";	//'C'
+			id="k1234567894";	//'C'
 			UserDAO udao = new UserDAO();
 			UserVO uvo = udao.selectUserInfo(id);
 			
