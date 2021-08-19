@@ -270,3 +270,20 @@ function clickDCQAB(i) {//click deleteClassQnaQuestionBtn
 		}
 	})
 }
+
+//응원 삭제
+function clickDFB(i){
+	$.ajax({
+		type: 'POST',
+		url: 'favoritedelete',
+		data: {classId: i},
+		success: function() {
+			alert(res.code);
+			window.location.reload();
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("QnA 삭제 실패");
+		}
+	})
+}
+//
