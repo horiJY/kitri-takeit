@@ -1,7 +1,56 @@
 @charset "UTF-8";
 
-#edit-box div{
+body{
+	/* margin:0 auto; */
+	width:90%;
+	min-width: 700px;
+}
+.header{
+	border:1px solid grey;
 	clear: left;
+	background-color: #eAeAeA;
+	padding: 2px;
+}
+.header h2{
+	text-align:center;
+}
+header #logoutBtn{
+   background-color:white;
+   border: none; 
+    padding: 16px 32px;
+    margin: 4px 2px;
+    font-size: 16px;
+    font-weight: bold;
+   float:right;
+}
+button{
+ 	width: 80px;
+ 	min-width: 50px; 
+	height: 30px;
+}
+
+#edit-box{
+	display:block;
+	/* border:1px solid black; */
+	/* margin-top: 10px; */
+	/* margin-left: auto; */
+	margin: 2px auto;
+	width: 800px;
+	float:left;
+}
+.inbox{
+	/* border:1px solid black; */
+	border: 1px solid grey;
+	margin: 3px auto;
+	/* width: 98%; */
+	height: 98%;
+	padding: 15px 8px;
+	clear: left;
+}
+.box{
+	/* border: 1px solid grey; */
+	margin: 3px auto;
+	/* clear: left; */
 }
 
 #class-schedule-off{
@@ -13,6 +62,21 @@
 }
 
 #calendar{
-	width: 500px;
+	width: 450px;
+}
+.open-btn{
+	display:block;
+	margin-left:693px;
+	margin-bottom:5px;
+}
+#schedule{
+	display: none;
+}
+.labelbox{
+	width: 80px;
+	display: inline;
 }
 
+#class-schedule-off{
+	/* margin-left:70px; */
+}
