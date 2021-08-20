@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 
 import dao.ClassDAO;
 import dao.FavoriteDAO;
-
+ 
 @WebServlet("/favorite")
 public class FavoriteController extends HttpServlet {
 
