@@ -423,6 +423,7 @@ String period = cdelement.getAsJsonObject().get("period").getAsString();
 String content_num = cdelement.getAsJsonObject().get("content_num").getAsString();
 String detail = cdelement.getAsJsonObject().get("detail").getAsString();
 String chapter = cdelement.getAsJsonObject().get("chapter").getAsString();
+System.out.println(cdelement.getAsJsonObject().get("classtype").getAsString());
 String creater_info = cdelement.getAsJsonObject().get("creater_info").getAsString();
 String classtype = cdelement.getAsJsonObject().get("classtype").getAsString().equals("ON") ? "온라인" : "오프라인";
 String category = cdelement.getAsJsonObject().get("category").getAsString();
@@ -568,7 +569,7 @@ String recommend_num = classtype.equals("온라인") ?
 							<span><%=category %></span>
 							<h3>크리에이터 : <%=creatername %></h3>
 							<p><%=classtype %> •  <%=address %> </p>
-							<p><%=sale  %> % sale😍 <%=price %>원<p>
+							<p><%=sale  %>% sale😍 • <%=price %>원<p>
 							<div id="floatOptions"></div>
 							<div class="option_recomm">
 								<button id="recomm_btn">★<%=recommend_num %></button>

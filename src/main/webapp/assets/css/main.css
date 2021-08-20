@@ -68,7 +68,7 @@ ul{
     list-style: none;
    
     padding: 0px;
-	display: flex; 
+   display: flex; 
     flex-wrap: wrap;
     -webkit-box-pack: start;
     place-content: stretch flex-start;

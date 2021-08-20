@@ -17,49 +17,55 @@
 <head>
 <meta charset="UTF-8">
 <title>main</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+<style>
 
+</style>
+
+
+
+<script></script>
 </head>
+
 <body>
 	<header>
-		<div> 
-			<span>takeit!</span> <input type="search">
-			<c:choose> 
-				<c:when test="${sessionScope.takeit_userid ne null}"> 
-					
+		<div>
+			<div id="title">
+			<img id="takeit_logo" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg" height="50px">
+			<input id="takeit_search_box" type="search"  placeholder="찾으시는 취미가 있으신가요?">
+			<span><img id="takeit_search_icon" alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png"></span>
+			<c:choose>
+				<c:when test="${sessionScope.takeit_userid ne null }">
 					<a href="${pageContext.request.contextPath}/mypage"> 
 					<input type="button" value="mypage" id="mypage">
 					</a>
-					<a href="${pageContext.request.contextPath}/logout">
 						<input type="button" value="logout" id="logout">
-					</a>
-					
-				</c:when> 
-				<c:otherwise> 
-					
-					<a href="${pageContext.request.contextPath}/login"> 
+				</c:when>
+				<c:otherwise>
+					<a id="login_a" href="${pageContext.request.contextPath}/login"> 
 						<input type="button" value="login" id="login">
 					</a>
-					
- 				</c:otherwise> 
-			</c:choose> 
+				</c:otherwise>
+			</c:choose>
+			</div>
 		</div>
 	</header>
-	<div>
+	<div id="nav">
 		<a href="${pageContext.request.contextPath}/main">
 			<input type="button" value="바로수강">
 		</a>
 		<a href="${pageContext.request.contextPath}/pre-class">
 			<input type="button" value="오픈예정">
 		</a>
-		<a href="${pageContext.request.contextPath}/QnaController">		
+		<a href="${pageContext.request.contextPath}/qna-insert">		
 			<input type="button" value="고객센터">
 		</a>
 	</div>
 	<main>
-		<div>
+		<div id ="contain">
 			<section>
-				<div>
-					<input type="button" id="category" value="카테고리">
+				<div id="kindOf">
+					<input type="button" id="category" value="카테고리" ><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
 					<div id="category-drop" style="display:none;">
 						<input type="button" id="all" value="All">
 						<input type="button" id="art" value="Art">
@@ -68,7 +74,7 @@
 						<input type="button" id="programming" value="Programming">
 						<input type="button" id="sport" value="Sport">
 					</div>			
-					<input type="button" id="range" value="추천순">
+					<input type="button" id="range" value="추천순"><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
 					<div id="range-drop" style="display:none;">
 						<input type="button" id="recommend" value="추천순">
 						<input type="button" id="newest" value="최신순">
@@ -91,11 +97,11 @@
 	
 	</footer>
 	<% 
-	String id = (String)session.getAttribute("takeit_userid");
-	%>
-	<script>
-		var id = '<%=id%>';
-	</script>
+   String id = (String)session.getAttribute("takeit-userid");
+   %>
+   <script>
+      var id = '<%=id%>';
+   </script>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </body>

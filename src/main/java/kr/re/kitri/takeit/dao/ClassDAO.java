@@ -37,8 +37,9 @@ public class ClassDAO {
 	// class-detail page -> SelectAll
 	public List<ClassVO> selectDetail(int classId) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT CLASSID, CLASSNAME, CREATER, FAVORITE, OPENDATE FROM CLASS "
-				+ "WHERE CLASSID = (SELECT CLASSID FROM FAVORITE WHERE USERID = '" + classId + "')" + "AND TYPE='P'";
+
+		String sql = "SELECT * FROM CLASS WHERE CLASSID = '" + classId + "'";
+
 		Statement stmt = null;
 		ResultSet rs = null;
 		List<ClassVO> clist = new ArrayList<ClassVO>();
@@ -49,12 +50,14 @@ public class ClassDAO {
 
 			while (rs.next()) {
 				ClassVO cvo = new ClassVO();
-				cvo.setClassId(rs.getInt(1));
-				cvo.setClassName(rs.getString(2));
-				cvo.setCreater(rs.getString(3));
-				cvo.setFavorite(rs.getInt(4));
-				cvo.setOpenDate(rs.getDate(5));
 
+				cvo.setClassName(rs.getString("CLASSNAME"));
+				cvo.setCreater(rs.getString("CREATER"));
+				cvo.setRecommend(rs.getInt("RECOMMEND"));
+				cvo.setFavorite(rs.getInt("FAVORITE"));
+				cvo.setPrice(rs.getInt("PRICE"));
+				cvo.setSale(rs.getInt("SALE"));
+				cvo.setClassType(rs.getString("CLASSTYPE"));
 				clist.add(cvo);
 
 			}
@@ -246,7 +249,7 @@ public class ClassDAO {
 	public ClassVO getClassDetail(int classId) {
 		Connection conn = DBConnect.getInstance();
 
-		String sql = "select classname, u.username, introduce, period, content_num, detail, chapter, creater_info, address "
+		String sql = "select c.classname, u.username, c.introduce, c.period, c.content_num, c.detail, c.chapter, c.creater_info, c.address, c.classtype, c.category, c.recommend, c.price, c.sale, c.favorite "
 				+ "from class c, webuser u " + "where c.creater = u.userid and classid = " + classId;
 
 		Statement stmt = null;
@@ -269,6 +272,12 @@ public class ClassDAO {
 				cvo.setChapter(rs.getString(7));
 				cvo.setCreater_info(rs.getString(8));
 				cvo.setAddress(rs.getString(9));
+				cvo.setClassType(rs.getString(10));
+				cvo.setCategory(rs.getString(11));
+				cvo.setRecommend(Integer.parseInt(rs.getString(12)));
+				cvo.setPrice(rs.getInt(13));
+				cvo.setSale(rs.getInt(14));
+				cvo.setFavorite(rs.getInt(15));
 			}
 
 		} catch (SQLException e) {
