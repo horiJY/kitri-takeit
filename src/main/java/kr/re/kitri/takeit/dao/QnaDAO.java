@@ -95,7 +95,8 @@ public class QnaDAO {
 	// mypage -> 일반 qna
 	public List<QnaVO> selectMyQna(String id) {
 		Connection conn = DBConnect.getInstance();
-		String sql = "SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE" + " FROM QNA" + " WHERE USERID ='" + id + "'"
+		String sql = "SELECT USERID, QNADATE, QUESTION, ANSWER, QNATITLE" 
+				+ " FROM QNA" + " WHERE USERID ='" + id + "'"
 				+ " ORDER BY QNADATE DESC";
 		Statement stmt = null;
 		ResultSet rs = null;
