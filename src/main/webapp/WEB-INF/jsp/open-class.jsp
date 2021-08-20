@@ -34,7 +34,7 @@
 		</form>
 	</header>
 	<div id="edit-box">
-		<div class="header"><h2>강의 개설</h2></div>
+		<div class="header"><h3>강의 개설</h3></div>
 		<div class="inbox">
 			<div class="box">
 				<div class="labelbox">강의 이름</div>
@@ -77,9 +77,9 @@
 						<div>
 							<div class="labelbox">반복 기준: </div>
 							<input type="radio" name="repeat-method" value="repeat" checked>
-							<div class="labelbox">반복횟수</div>
+							반복횟수
 							<input type="radio" name="repeat-method" value="enddate" >
-							<div class="labelbox">종료일</div>
+							종료일
 							<div id = "schedule-repeat">
 								<!-- 시작일 이후만 선택 가능하도록 제한 -->
 								<input type="number" id="repeat" value="1" min="1">
