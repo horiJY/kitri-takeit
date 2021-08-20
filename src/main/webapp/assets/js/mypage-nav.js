@@ -164,7 +164,8 @@ function myFavorite() {
 					$("#myPageContent1").append("<div class='class-box'></div>");
 					$.each(result, function(inx, obj) {
 
-						$(".class-box").append("<div class='creater'> " + obj.creater + "</div>"
+						$(".class-box").append("<div class='picutre_box'></div>"
+						+ " <div class='creater'> " + obj.creater + "</div>"
 						+ "	<div class='className'> " + obj.className + "</div>"
 						+ "	<div class='favorite'> ❤ " + obj.favorite + "</div>"
 						+ "	<div class='price'> 💳 " + obj.price + "</div>"
@@ -205,7 +206,8 @@ function myAssignment() {
 				if (result.length != 0) {
 					$.each(result, function(inx, obj) {
 						$("#myPageContent1").append("<div id='class-box"+inx+"'class='class-box'></div>");
-						$("#class-box"+inx).append("<div class='creater'> " + obj.creater + "</div>"
+						$("#class-box"+inx).append("<div class='picutre_box'></div>"
+						+ " <div class='creater'> " + obj.creater + "</div>"
 							+ "	<div class='className'> " + obj.className + "</div>"
 							+ "	<div class='price'> 💳 " + obj.price + "</div>"
 							+ "	<div class='sale'> SALE " + obj.sale + "%</div>"
@@ -248,7 +250,8 @@ function myReview() {
 					$("#myPageContent1").append("<div class='review-box'></div>");
 					$.each(result, function(inx, obj) {
 
-						$(".review-box").append("<div class='className'> " + obj.className + "</div> "
+						$(".review-box").append("<div class='picutre_box'></div>"
+						+ " <div class='className'> " + obj.className + "</div> "
 							+ " <div class='reviewDate'> " + obj.reviewDate + "</div>"
 							+ " <div class='recommend'> " + obj.recommend + "</div>"
 							+ " <div class='category'> " + obj.category + "</div>"
@@ -390,6 +393,7 @@ function mypreclass(){
 					$.each(result, function(inx, obj) {
 						$("#myPageContent1").append("<div id='mypreclass-box"+inx+"'class='class-box'></div>");
 						$("#mypreclass-box"+inx).append("<a class='class-box-a'> "
+						+ "<div class='picutre_box'></div>"
 						+ "	<div class='className'> " + obj.className + "</div> "
 						+ "	<div class='favorite'> ❤ " + obj.favorite + "</div>"
 						+ "	<div class='price'> 💳 " + obj.price + "</div>"
@@ -426,6 +430,8 @@ function myopenclass(){
 					$.each(result, function(inx, obj) {
 						$("#myPageContent2").append("<div id='myopenclass-box"+inx+"'class='class-box'></div>");
 						$("#myopenclass-box"+inx).append("<a class='class-box-a'> "
+							+"<div class='picutre_box'></div>"
+						
 							+ "	<div class='className'> " + obj.className + "</div> "
 							+ "	<div class='recommend'> ❤: " + obj.recommend + "</div>"
 							+ "	<div class='price'> 💳 " + obj.price + "</div>"
