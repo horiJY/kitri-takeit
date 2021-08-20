@@ -219,7 +219,7 @@ function clickDCQQB(i) {//click deleteClassQnaQuestionBtn
 		dataType: 'json',
 		data: params,
 		success: function(res) {
-			alert(res.code);
+			alert("삭제되었습니다.");
 			window.location.reload();
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -262,7 +262,7 @@ function cliskDCQAB(i) {//click deleteClassQnaQuestionBtn
 		type: 'POST',
 		url: 'myclass-qna-delete',
 		data: params,
-		success: function() {
+		success: function(res) {
 			alert(res.code);
 			window.location.reload();
 		},
@@ -271,20 +271,3 @@ function cliskDCQAB(i) {//click deleteClassQnaQuestionBtn
 		}
 	})
 }
-
-//응원 삭제
-function clickDFB(i){
-	$.ajax({
-		type: 'POST',
-		url: 'favoritedelete',
-		data: {classId: i},
-		success: function() {
-			alert(res.code);
-			window.location.reload();
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("QnA 삭제 실패");
-		}
-	})
-}
-//

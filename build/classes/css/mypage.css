@@ -20,15 +20,14 @@ header #logo{
 	height: 60px;
 	cursor: pointer;
 }
-header #search{
-	height:40px;
-	width:500px;
-	margin: 12px 8px auto;
-}
+
 header #logoutBtn{
-	margin: 12px 8px;
-	width:100px;
-	height:40px;
+	background-color:white;
+	border: none; 
+    padding: 16px 32px;
+    margin: 4px 2px;
+    font-size: 16px;
+    font-weight: bold;
 	float:right;
 }
 main{
@@ -63,15 +62,16 @@ main aside, main form {
 	height:auto;
 }
 aside {
-	border:1px solid #D6E1E2;
+	border:1px solid white;
 	border-radius:8px;
-	background-color:#D6E1E2;
+	background-color:#EFEFEF;
 	float:left;
 	width:180px;
     margin-right:16px;
+    
 }
 .myPageForm {
-	border:1px solid #597484;
+	border: 1px solid #EFEFEF;
 	border-radius:8px;
 	height:500px;
  	padding: 8px 8px; 
@@ -91,7 +91,7 @@ aside {
 /* 스크롤바 막대 설정*/
 .scroll::-webkit-scrollbar-thumb{
     height: 17%;
-    background-color: #D6E1E2;
+    background-color: #EFEFEF;
     /* 스크롤바 둥글게 설정    */
     border-radius: 10px;    
 }
@@ -101,9 +101,9 @@ aside {
     background-color: rgba(0,0,0,0);
 }
 footer {
-	border:1px solid #597484;
+	border:1px solid #AAAAAA;
 	border-radius: 8px;
-	background-color:#D6E1E2;
+	background-color:#EFEFEF;
 	height: 200px;
 	margin-bottom:50px;
 	clear:both;
@@ -132,7 +132,7 @@ footer {
 }
 table{
 	border:1px solid 597484;
-	background-color: #D6E1E2;
+	background-color: #EFEFEF;
  	border-collapse: collapse;
 	width: 100%;
 
@@ -213,16 +213,16 @@ textarea {
 .class-box{
 	float:left;
 	width:250px;
-	border:1px solid #597484;
+	border:1px solid #AAAAAA;
 	border-radius: 4px;
-	background-color:#D6E1E2;
-/*	color:#597484;*/
+	background-color:#EFEFEF;
+/*	color:#AAAAAA;*/
 	margin:auto;
 	margin: 8px 8px;
 	padding: 8px;
 
 }
-.class-box div {/* border:1px solid #597484; */padding: 4px;}
+.class-box div {/* border:1px solid #AAAAAA; */padding: 4px;}
 .class-box div.className{
 	height:70px;
 	font-weight: bold;

@@ -29,7 +29,7 @@
 			<div>
 				<img id="logo" alt="tatkit-logo" onclick="gotomain()" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg">
 <!-- 				<input type="search" id="search" name="search"> -->
-<%-- 				<a href="#"><img alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png" height="20px"></a> --%>
+<%-- 				<a href="#"><img id="search-icon"alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png"></a> --%>
 				<input type="button" onclick="logoutBtn()" value="LOGOUT" id="logoutBtn">
 			</div>
 		</form>

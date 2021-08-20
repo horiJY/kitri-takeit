@@ -170,9 +170,7 @@ function myFavorite() {
 						+ "	<div class='price'> 💳 " + obj.price + "</div>"
 						+ "	<div class='openDate'> 응원 마감일: " + obj.openDate + "</div>"
 						+ "	<div class='classType'> " + obj.classType + "LINE CLASS</div>"
-						+ "	<div class='classBoxBtns'><button type='button' onclick='clickDFB(" + obj.classId + ")' id='deleteFavoriteBtn'></button> </div>"
 						);
-						$("#deleteFavoriteBtn").html('그만 응원 할래요');
 
 					});
 				} else {
