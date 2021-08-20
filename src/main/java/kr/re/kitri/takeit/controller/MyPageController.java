@@ -39,7 +39,7 @@ public class MyPageController extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/mypage.jsp");
 			rd.forward(request, response);
-			response.sendRedirect(request.getContextPath()+"/member/login");
+//			response.sendRedirect(request.getContextPath()+"/member/login");
 		} else {
 			id="k1234567894";	//'C'
 //			id="jytest0110@gmail.com";	//'U'

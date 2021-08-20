@@ -251,12 +251,13 @@ function clickSCQAB(i) {//click saveClassQnaQuestionBtn
 	})
 
 }
-function clickDCQAB(i) {//click deleteClassQnaQuestionBtn
+function cliskDCQAB(i) {//click deleteClassQnaQuestionBtn
 	var params = {
 		qnaTitle: $("#qnaTitle"+i).val()
 		, className: $("#className"+i).val()
 		, userId: $("#userId"+i).val()
 	}
+	console.log(params);
 	$.ajax({
 		type: 'POST',
 		url: 'myclass-qna-delete',

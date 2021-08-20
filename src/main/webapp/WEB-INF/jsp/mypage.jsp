@@ -18,9 +18,9 @@
 	function gotopreclass(){
 		location.href= "${pageContext.request.contextPath}/pre-class";
 	}
-// 	function logoutBtn() {
-// 		location.href= "${pageContext.request.contextPath}/logout";
-// 	}
+	function logoutBtn() {
+		location.href= "${pageContext.request.contextPath}/logout";
+	}
 </script>
 </head>
 <body onload="test('${userType}')">
@@ -28,7 +28,7 @@
 		<form action="header">
 			<div>
 				<img id="logo" alt="tatkit-logo" onclick="gotomain()" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg">
-				<input type="search" id="search" name="search">
+<!-- 				<input type="search" id="search" name="search"> -->
 <%-- 				<a href="#"><img alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png" height="20px"></a> --%>
 				<input type="button" onclick="logoutBtn()" value="LOGOUT" id="logoutBtn">
 			</div>
