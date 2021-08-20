@@ -12,6 +12,34 @@ ul {
 	list-style-type: none;
 	
 }
+hr {
+	color: white;
+}
+header{
+	height: 70px;
+}
+main header{
+	height: 200px;
+	margin: 16px;
+}
+aside {
+	border:1px solid black;
+	float:left;
+	width:180px;
+	height: 800px;
+/* 	padding: 8px; */
+    margin-right:16px;
+}
+.myPageForm {
+	border:1px solid black;
+	height: 800px;
+/* 	padding: 8px 8px; */
+}
+footer {
+	border:1px solid black;
+	height: 200px;
+	margin-bottom:50px;
+	clear:both;
 
 header{
 	height: auto;

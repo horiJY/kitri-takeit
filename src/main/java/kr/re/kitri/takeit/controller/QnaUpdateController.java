@@ -29,7 +29,7 @@ public class QnaUpdateController extends HttpServlet {
 		String qnaTitle = request.getParameter("qnaTitle");
 		String question = request.getParameter("question");
 		
-		System.out.println("qnaTitle : " + qnaTitle + " answer: " + question);
+//		System.out.println("qnaTitle : " + qnaTitle + " answer: " + question);
 		
 		QnaDAO qdao = new QnaDAO();
 		int result = qdao.updateUserQna(qnaTitle, id, question);
