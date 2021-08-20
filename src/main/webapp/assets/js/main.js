@@ -144,6 +144,8 @@
 	category.onclick = function() {
 		if (categoryDrop.style.display == "block") {
 			categoryDrop.style.display = "none";
+			
+		
 		} else {
 			categoryDrop.style.display = "block";
 
