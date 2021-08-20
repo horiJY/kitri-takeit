@@ -30,7 +30,10 @@
 <body>
 	<header>
 		<div>
-			<span>takeit!</span> <input type="search">
+			<div id="title">
+			<img id="takeit_logo" src="${pageContext.request.contextPath}/assets/img/takeit-logo.jpg" height="50px">
+			<input id="takeit_search_box" type="search"  placeholder="찾으시는 취미가 있으신가요?">
+			<span><img id="takeit_search_icon" alt="search-icon" src="${pageContext.request.contextPath}/assets/img/search-icon.png"></span>
 			<c:choose>
 				<c:when test="${!empty sessionScope.userId }">
 					<a href="${pageContext.request.contextPath}/mypage"> 
@@ -39,11 +42,12 @@
 						<input type="button" value="logout" id="logout">
 				</c:when>
 				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/login"> 
+					<a id="login_a" href="${pageContext.request.contextPath}/login"> 
 						<input type="button" value="login" id="login">
 					</a>
 				</c:otherwise>
 			</c:choose>
+			</div>
 		</div>
 	</header>
 	<div>
@@ -60,8 +64,8 @@
 	<main>
 		<div>
 			<section>
-				<div>
-					<input type="button" id="category" value="카테고리">
+				<div id="buttons">
+					<input type="button" id="category" value="카테고리" ><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
 					<div id="category-drop" style="display:none;">
 						<input type="button" id="all" value="All">
 						<input type="button" id="art" value="Art">
@@ -70,7 +74,7 @@
 						<input type="button" id="programming" value="Programming">
 						<input type="button" id="sport" value="Sport">
 					</div>			
-					<input type="button" id="range" value="응원 많은 순">
+					<input type="button" id="range" value="추천순"><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
 					<div id="range-drop" style="display:none;">
 						<input type="button" id="favorite" value="응원 많은 순">
 						<input type="button" id="newest" value="최신순">
@@ -81,10 +85,12 @@
 				<ul id="class">	
 				</ul>
 			</div>
-			<div id="floating" class="hide">
-				<div id="swiper">
-				</div>
-				<div id="favorite-btn">
+			<div id="floating">
+				<div id ="box">
+					<div id="swiper">
+					</div>
+					<div id="favorite-btn">
+					</div>
 				</div>
 			</div>
 			<div id="pagnation">

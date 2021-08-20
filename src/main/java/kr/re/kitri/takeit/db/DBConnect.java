@@ -14,8 +14,8 @@ public class DBConnect {
     String password = "web_mini";
     // 조DB
     // private ip
-    // String url = "jdbc:oracle:thin:@192.168.0.212:1521:xe";
-    String url = "jdbc:oracle:thin:@localhost:1521:xe";
+     String url = "jdbc:oracle:thin:@192.168.0.212:1521:xe";
+//    String url = "jdbc:oracle:thin:@localhost:1521:xe";
     // public ip
     // String url = "jdbc:oracle:thin:@14.36.28.200:1521:xe";
 
@@ -25,7 +25,6 @@ public class DBConnect {
       }
       Class.forName("oracle.jdbc.driver.OracleDriver");
       conn = DriverManager.getConnection(url, user, password);
-      System.out.println("DB연결완료");
     } catch (ClassNotFoundException e) {
       System.out.println("ojdbc.jar 존재 여부 확인)");
       // e.printStackTrace();

@@ -1,9 +1,8 @@
 @charset "UTF-8";
 
 #floating {
-	display: flex;
 	justify-content: center;
-	visibility: hidden;
+	display: none;
 	align-items: center;
 	position: fixed;
 	top: 0;
@@ -12,4 +11,198 @@
 	height: 100%;
 	background: rgba(0, 0, 0, .7);
 	z-index: 1;
+}
+#buttons{
+	display: inline-block;
+}
+#swiper{
+	background-color: #F4F4F4;
+	width: 500px;
+	padding: 10px;
+}
+#swiper > div {
+	padding: 15px;
+}
+#favorite-btn > div > button {
+	width: 500px;
+	height: 50px;
+}
+#category-drop > input {
+	display: table;
+}
+#range-drop > input {
+	display: table;
+}
+#box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 500px;
+}
+
+.detail{
+	width: 20%;
+	height: 200px;
+}
+
+#title{
+margin-top: 25px;
+margin-bottom: 25px;
+text-align: center;
+display: flex;
+}
+#takeit_logo{
+font-family: 'Bebas Neue', cursive;
+font-size: 40px;
+margin-left: 80px;
+}
+#takeit_search_box{
+font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    margin: 0px;
+    width: 300px;
+    padding: 12px 52px 12px 16px;
+    background: rgb(248, 248, 249);
+    border: 1px solid rgb(248, 248, 249);
+    box-sizing: border-box;
+    border-radius: 24px;
+    text-align: left;
+    color: rgb(26, 26, 26);
+}
+#takeit_search_icon{
+width: 30xp;
+height: 30px;
+text-align: center;
+}
+span{
+line-height: 5px;
+/* padding-top: 5px; */
+/* padding-left:5px; */
+padding: 6px;
+}
+#login_a{
+margin-left: 1000px;
+}
+/* 검색창 여기까지*/
+
+
+input[type=button] {
+  background-color: #FFFFFF;
+  border: none; 
+  color: black;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#pagination{
+	position: fixed; bottom: 0; width: 100%;
+
+}
+ 
+input[type=button]:hover, input[type=button]:after {
+
+content: "";
+    background-color:rgb(238, 238, 238);
+     z-index: 999; 
+}
+a{
+color: white;
+}
+ul{
+
+    list-style: none;
+   
+    padding: 0px;
+	display: flex; 
+    flex-wrap: wrap;
+    -webkit-box-pack: start;
+    place-content: stretch flex-start;
+}
+li{
+/* width:300px; */
+/* height:250px; */
+/* float: left; */
+/* margin: 15px; */
+/* padding: 2px; */
+
+position: relative;
+    min-height: 1px;
+    padding-right: 12px;
+    padding-left: 12px;
+    margin-bottom: 32px;
+    box-sizing: border-box;
+    width: 25%;
+}
+
+#contain{
+width: 100%;
+padding-left: 32px;
+padding-right: 32px;
+}
+#classList{
+position: relative;
+max-width: 1176px;
+    width: 100%;
+    height:100%;
+    margin-left: auto;
+    margin-right: auto;   
+   
+}
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+#picutre_box{
+display: block;
+    overflow: hidden;
+    font-size: 0px;
+    padding-top: 75%;
+    background: rgb(238, 238, 238);
+    margin: 4px 0px 6px;
+}
+#className{
+font-size: 14px;
+line-height: 20px;
+letter-spacing: -0.15px;
+margin-top: 5px;
+}
+.line{
+background-color: #FAFAFA;
+    width: 100%;
+    height: 1px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+#pay{
+display: flex;
+
+}
+#price{
+margin-right: 100px;
+font-weight: bold;
+}
+span{
+font-size: 11px;
+}
+#sale{
+ font-weight: bold;
+ color: red;
+}
+#nav{
+margin: 0 auto;
+text-align: center;
+}
+#kindOf{
+ 
+}
+.downImg{
+width: 16px;
+height: 16px;
+}
+#category, #range:hover{
+background-color: white;
 }

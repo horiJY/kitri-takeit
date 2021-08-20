@@ -116,15 +116,15 @@
 				$('#class').empty();
 				
 				for (var i = 0; i < result.length; i++) {
+				
 					$('#class').append(
 						'<li class="detail"><label onclick="classDetail('+result[i].classId +')" class="label">'
 						+ '<div><img></div>'
 						+ '<div><div>' + result[i].creater + '</div>'
 						+ '<div>' + result[i].className + '</div>'
-						+ '<div>' + result[i].favorite + '</div></div>'
-						+ '<div><div>' + result[i].price + '</div>'
+						+ '<div> ❤' + result[i].favorite + '</div></div>'
+						+ '<div><div>💳 '+ result[i].price + '</div>'
 						+ '<div>' + result[i].sale + '</div></div>'
-						+ '<div><div>' + result[i].classType + '</div></div>'
 						+ '<div><div><span>응원 마감까지 ' + result[i].countdown + '일</span></div></div></label>'
 						+ '</li>'
 					);	
@@ -166,8 +166,9 @@ function classDetail(classId) {
 			$('#favorite-btn').empty();
 			$('#swiper').empty();
 			$('#swiper').append(
-				'<button onclick="close()">닫기</button></div>'
-				+ '<div id="slide"><img>'
+				
+				 '<button onclick="closeDetail()">✖</button></div>'
+				+ '<div>'
 				+ '<div>' + result[0].creater + ' 의 </div>'
 				+ '<div>' + result[0].className + ' 수업 </div></div>'
 				+ '<div> 이 강의는 ' + classType + '강의예요!</div>'
@@ -198,11 +199,11 @@ function selectFavorite(classId){
 		success: function(result) {
 			if(Number(result) == 0){
 				$('#favorite-btn').append(
-					'<div><button onclick="favoriteClick('+classId+')">응원하기</button></div>'
+					'<div><button onclick="favoriteClick('+classId+')" class="fa">응원하기</button></div>'
 				);
 			}else if(Number(result) == 1){
 				$('#favorite-btn').append(
-					'<div><button>응원완료</button></div>'
+					'<div><button class="fa">응원완료</button></div>'
 				);
 			}
 		}
