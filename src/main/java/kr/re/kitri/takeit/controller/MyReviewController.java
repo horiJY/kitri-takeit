@@ -28,7 +28,7 @@ public class MyReviewController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("takeit-userid");
+		String id = (String) session.getAttribute("takeit_userid");
 		
 		ReviewDAO rdao = new ReviewDAO();
 		List<ReviewVO> rlist = rdao.selectUserReview(id);

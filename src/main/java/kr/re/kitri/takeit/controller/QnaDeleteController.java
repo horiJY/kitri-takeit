@@ -24,7 +24,7 @@ public class QnaDeleteController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("takeit-userid");
+		String id = (String) session.getAttribute("takeit_userid");
 		String qnaTitle = request.getParameter("qnaTitle");
 		
 		QnaDAO qdao = new QnaDAO();

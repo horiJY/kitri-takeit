@@ -24,7 +24,7 @@
 		<div> 
 			<span>takeit!</span> <input type="search">
 			<c:choose> 
-				<c:when test="${id eq null }"> 
+				<c:when test="${sessionScope.takeit_userid ne null}"> 
 					
 					<a href="${pageContext.request.contextPath}/mypage"> 
 					<input type="button" value="mypage" id="mypage">
@@ -91,7 +91,7 @@
 	
 	</footer>
 	<% 
-	String id = (String)session.getAttribute("takeit-userid");
+	String id = (String)session.getAttribute("takeit_userid");
 	%>
 	<script>
 		var id = '<%=id%>';

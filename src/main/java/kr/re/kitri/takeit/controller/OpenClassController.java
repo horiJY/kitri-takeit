@@ -46,7 +46,7 @@ public class OpenClassController extends HttpServlet {
 		}
 		// 이미 존재하는 스케쥴과 겹치지 않는 지 확인
 		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("takeit-userid");
+		String userId = (String) session.getAttribute("takeit_userid");
 		ScheduleDAO sdao = new ScheduleDAO();
 		int result = 0;
 		for (int i = 0; i < slist.size(); i++) {

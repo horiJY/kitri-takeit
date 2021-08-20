@@ -29,7 +29,7 @@ public class MyAssignmentController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("takeit-userid");
+		String id = (String) session.getAttribute("takeit_userid");
 
 		AssignmentDAO adao = new AssignmentDAO();
 		List<ClassVO> clist = adao.selectAssignmentClass(id);

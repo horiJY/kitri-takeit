@@ -20,7 +20,7 @@ public class MainController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("takeit-userid");
+		String id = (String) session.getAttribute("takeit_userid");
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 		rd.forward(request, response);

@@ -1,97 +1,89 @@
 @charset "UTF-8";
 body{
-	margin: 0 auto;
-	width:90%;
-	min-width: 700px;
+   margin: 8px auto;
+   width:90%;
+   min-width: 700px;
 }
 a {
-	cursor: pointer;
-	text-decoration: none;
+   cursor: pointer;
+   text-decoration: none;
 }
 ul {
-	list-style-type: none;
-	
-}
-hr {
-	color: white;
-}
-header{
-	height: 70px;
-}
-main header{
-	height: 200px;
-	margin: 16px;
-}
-aside {
-	border:1px solid black;
-	float:left;
-	width:180px;
-	height: 800px;
-/* 	padding: 8px; */
-    margin-right:16px;
-}
-.myPageForm {
-	border:1px solid black;
-	height: 800px;
-/* 	padding: 8px 8px; */
-}
-footer {
-	border:1px solid black;
-	height: 200px;
-	margin-bottom:50px;
-	clear:both;
-
-header{
-	height: auto;
+   list-style-type: none;
+   
 }
 
+header{
+   height: 60px;
+}
+header #logo{
+   height: 60px;
+   cursor: pointer;
+}
+
+header #logoutBtn{
+   background-color:white;
+   border: none; 
+    padding: 16px 32px;
+    margin: 4px 2px;
+    font-size: 16px;
+    font-weight: bold;
+   float:right;
+}
+main{
+   clear:both;
+}
 main header{
-	height: 220px;
-	margin: 16px;
+   height: 220px;
+   margin: 16px;
 }
 main header h2{
-	float:left;
-	text-align:center;
+   float:left;
+   text-align:center;
     min-width:120px;
 }
 main header #userThumnail{
-	width: 70px;
-	margin:0px 25px;
+   width: 70px;
+   margin:0px 25px;
 }
 main header .usertypeimg{
-	height:32px;
-	margin:20px 0px;
+   height:32px;
+   margin:20px 0px;
 }
 main header #userPoint{
-	width:220px;
-	text-indent:20px;
-	text-align:left;
-	margin:20px 0px;
-	margin-bottom:20px;
+   width:220px;
+   text-indent:20px;
+   text-align:left;
+   margin:20px 0px;
+   margin-bottom:20px;
 }
 main aside, main form {
-	display:flex;
-	height:auto;
+   display:flex;
+   height:auto;
 }
 aside {
-	border:1px solid #597484;
-	border-radius:8px;
-	background-color:#D6E1E2;
-	float:left;
-	width:180px;
+   border:1px solid white;
+   border-radius:8px;
+   background-color:#EFEFEF;
+   float:left;
+   width:180px;
     margin-right:16px;
+    
 }
 .myPageForm {
-	border:1px solid #597484;
-	border-radius:8px;
-	height:500px;
- 	padding: 8px 8px; 
- 	overflow-y:scroll;
+   border: 1px solid #EFEFEF;
+   border-radius:8px;
+   height:500px;
+    padding: 8px 8px; 
+    overflow-y:scroll;
 }
+
 #myPageFormContainer{
-	margin:auto;
-	width:90%;
+   margin: auto;
+   width:90%;
+   margin-top:0px;
 }
+
 .scroll::-webkit-scrollbar{
     width: 6px;
 }
@@ -99,7 +91,7 @@ aside {
 /* 스크롤바 막대 설정*/
 .scroll::-webkit-scrollbar-thumb{
     height: 17%;
-    background-color: #D6E1E2;
+    background-color: #EFEFEF;
     /* 스크롤바 둥글게 설정    */
     border-radius: 10px;    
 }
@@ -109,105 +101,171 @@ aside {
     background-color: rgba(0,0,0,0);
 }
 footer {
-	border:1px solid #597484;
-	border-radius: 8px;
-	background-color:#D6E1E2;
-	height: 200px;
-	margin-bottom:50px;
-	clear:both;
+   border:1px solid #AAAAAA;
+   border-radius: 8px;
+   background-color:#EFEFEF;
+   height: 200px;
+   margin-bottom:50px;
+   clear:both;
 
 }
 #myPageContent1, #myPageContent2{
-	width: 100%;
-	min-width: 500px;
+   width: 100%;
+   min-width: 500px;
+   clear:both;
+   padding:8px;
+}
+#myPageBtns {
+   clear:both;
+   padding:8px;
+   
 }
 #userThumnail{
-	border-radius: 50%;
+   border-radius: 50%;
 }
 .userinfo-box {
-	margin: 0 auto;
+   margin: 0 auto;
 }
 .classbox {
-	margin: 0 auto;
-	
+   margin: 0 auto;
+   
 }
 table{
-	border:1px solid 597484;
-	background-color: #D6E1E2;
- 	border-collapse: collapse;
-	width: 100%;
+   border:1px solid 597484;
+   background-color: #EFEFEF;
+    border-collapse: collapse;
+   width: 100%;
+
 }
 /*admin*/
 #allQnaTable, .myQna{
-	width:100%;
+   width:100%;
+
+}
+#allQnaTable thead, #allQnaTable tbody{
+   height: 30px;
 }
 
-#allQnaTable thead th:nth-child(2) {
-	width:85px;
+thead .qnaDate{
+   min-width:90px;
 }
-#allQnaTable thead th:nth-child(3) {
-	width:85px;
-	text-overflow: ellipsis;
+thead .userId {
+   min-width:100px;
+   text-overflow: ellipsis;
 }
-#allQnaTable thead th:nth-child(1) {
-/* 	width:200px; */
+tbody .qnaTitle {
+   min-width:150px;
     text-overflow: ellipsis;
 }
+tbody .className {
+   min-width:150px;
+   text-overflow: ellipsis;
+}
 textarea {
-	width:99%;
+   width:99%;
 }
 .qnaAboxBtns{
-	width:240px;
-	margin:auto;
+   width:240px;
+   margin:auto;
 }
 #Save, #Delete{
-	width: 100px;
-	height: 30px;
-	margin: 4px 8px 4px 8px;
+   width: 100px;
+   height: 30px;
+   margin: 4px 8px 4px 8px;
 }
 /*user*/
 .userinfo-box {
-	text-align: center;
+   text-align: center;
 }
 
 #myPageBtns {
-	text-align: center;
+   text-align: center;
 }
 .myInfoLabel, .myInfoLabel input {
- 	width: 100%; 
- 	min-width: 400px; 
+    width: 100%; 
+    min-width: 400px; 
 }
 .myInfoLabel input{
- 	width:50%; 
- 	min-width:400px; 
+    width:50%; 
+    min-width:400px; 
 }
 .myInfoLabel div {
-	float:left;
-	text-align: left;
-	width:50px;
+   float:left;
+   text-align: left;
+   width:50px;
 }
 
 #myPageBtns button{
- 	width: 50%; 
- 	min-width: 400px; 
-	height: 30px;
+    width: 50%; 
+    min-width: 400px; 
+   height: 30px;
 }
 
 .emptylist{
-	margin:0 auto;
-	width:500px; 
+   margin:0 auto;
+   width:500px; 
 }
 
 .myPageContent1 img, .myPageContent2 img {
-	width:50%;
-}
-.myQna thead th:nth-child(2) {
-	width:85px;
-}
-.myQna thead th:nth-child(1) {
-	width:auto;
-	text-overflow: ellipsis;
+   width:50%;
 }
 
+.class-box{
+   float:left;
+   width:250px;
+/*   border:1px solid #AAAAAA;*/
+   border-radius: 4px;
+/*   background-color:#EFEFEF;*/
+/*   color:#AAAAAA;*/
+   margin:auto;
+   margin: 8px 8px;
+   padding: 8px;
 
+}
+.class-box div {
+   /* border:1px solid #AAAAAA; */
+   padding: 4px;
+}
+.class-box div.creater{
+   font-size: 14px;
+    font-weight: bold;
+}
+.class-box div.className{
+   height:70px;
+   font-weight: bold;
+}
 
+.class-box div.classBoxBtns button{
+   font-size: 14px;
+   line-height: 20px;
+   letter-spacing: -0.15px;
+   margin-top: 5px;
+}
+.class-box .picutre_box{
+    display: block;
+    overflow: hidden;
+    font-size: 0px;
+    padding-top: 75%;
+    background: rgb(238, 238, 238);
+    margin: 4px 0px 6px;
+}
+
+.class-box .line{
+background-color: #FAFAFA;
+    width: 100%;
+    height: 1px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.class-box .price, .class-box .sale{
+margin-right: 100px;
+font-weight: bold;
+}
+.class-box span{
+font-size: 11px;
+}
+.class-box .sale{
+ font-weight: bold;
+ color: red;
+}

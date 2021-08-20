@@ -16,19 +16,19 @@ import dao.FavoriteDAO;
 @WebServlet("/favorite-regist")
 public class FavoriteRegistController extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		// String userId = (String)session.getAttribute("useId");
-		String userId = "testCreater0";
+		String userId = (String) session.getAttribute("takeit_userid");
+//		String userId = "testCreater0";
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 
 		FavoriteDAO fdao = new FavoriteDAO();
 
 		int classId = Integer.parseInt(request.getParameter("classId"));
-		System.out.println("classId : "+classId);
+		System.out.println("classId : " + classId);
 
 		int favoriteResult = fdao.insertFavorite(userId, classId);
 		int classResult;
@@ -45,8 +45,8 @@ public class FavoriteRegistController extends HttpServlet {
 
 	}
 
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 	}
 

@@ -28,7 +28,7 @@ public class MyInfoUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("takeit-userid");
+		String id = (String) session.getAttribute("takeit_userid");
 		
 		String name = request.getParameter("userName");
 		String phone = request.getParameter("phone");

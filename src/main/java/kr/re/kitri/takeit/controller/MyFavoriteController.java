@@ -30,7 +30,7 @@ public class MyFavoriteController extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("takeit-userid");
+		String id = (String) session.getAttribute("takeit_userid");
 		FavoriteDAO fdao = new FavoriteDAO();
 		List<ClassVO> clist = fdao.selectFavoriteClass(id);
 		JsonArray jsonArr = new JsonArray();

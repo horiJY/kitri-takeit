@@ -26,7 +26,7 @@
 	var c_val = sessionStorage.getItem('cSession');
 	var r_val = sessionStorage.getItem('rSession');
 
-//	var id = sessionStorage.getItem('takeit-userId');
+//	var id = sessionStorage.getItem('takeit_userid');
 	var mypageBtn = document.getElementById("mypage");
 
 	var loginBtn = document.getElementById('login');
