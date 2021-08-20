@@ -13,12 +13,12 @@ font-size: 40px;
 margin-left: 80px;
 }
 #takeit_search_box{
-font-size: 14px;
+font-size: 16px;
     font-weight: normal;
     line-height: 20px;
     letter-spacing: -0.15px;
     margin: 0px;
-    width: 300px;
+    width: 500px;
     padding: 12px 52px 12px 16px;
     background: rgb(248, 248, 249);
     border: 1px solid rgb(248, 248, 249);
