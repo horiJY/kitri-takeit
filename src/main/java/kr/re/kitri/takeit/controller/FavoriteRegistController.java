@@ -1,5 +1,5 @@
 package controller;
- 
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -21,7 +21,6 @@ public class FavoriteRegistController extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		String userId = (String) session.getAttribute("takeit_userid");
-//		String userId = "testCreater0";
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 
@@ -47,7 +46,7 @@ public class FavoriteRegistController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		doGet(request, response);
 	}
 
 }

@@ -24,21 +24,25 @@ public class ClassVO {
 	private int content_num;
 	private String chapter;
 	private String creater_info;
+	private String class_thumnail;
+
+	public String getClass_thumnail() {
+		return class_thumnail;
+	}
+
+	public void setClass_thumnail(String class_thumnail) {
+		this.class_thumnail = class_thumnail;
+	}
 
 	@Override
 	public String toString() {
-		return "ClassVO [getIntroduce()=" + getIntroduce()
-				+ ", getContent_num()=" + getContent_num() + ", getChapter()="
-				+ getChapter() + ", getCreater_info()=" + getCreater_info()
-				+ ", getClassId()=" + getClassId() + ", getClassName()="
-				+ getClassName() + ", getCreater()=" + getCreater()
-				+ ", getClassType()=" + getClassType() + ", getPeriod()="
-				+ getPeriod() + ", getRecommend()=" + getRecommend()
-				+ ", getDetail()=" + getDetail() + ", getPrice()=" + getPrice()
-				+ ", getSale()=" + getSale() + ", getCapacity()="
-				+ getCapacity() + ", getAddress()=" + getAddress()
-				+ ", getType()=" + getType() + ", getFavorite()="
-				+ getFavorite() + ", getCategory()=" + getCategory()
+		return "ClassVO [getIntroduce()=" + getIntroduce() + ", getContent_num()=" + getContent_num()
+				+ ", getChapter()=" + getChapter() + ", getCreater_info()=" + getCreater_info() + ", getClassId()="
+				+ getClassId() + ", getClassName()=" + getClassName() + ", getCreater()=" + getCreater()
+				+ ", getClassType()=" + getClassType() + ", getPeriod()=" + getPeriod() + ", getRecommend()="
+				+ getRecommend() + ", getDetail()=" + getDetail() + ", getPrice()=" + getPrice() + ", getSale()="
+				+ getSale() + ", getCapacity()=" + getCapacity() + ", getAddress()=" + getAddress() + ", getType()="
+				+ getType() + ", getFavorite()=" + getFavorite() + ", getCategory()=" + getCategory()
 				+ ", getOpenDate()=" + getOpenDate() + "]";
 	}
 

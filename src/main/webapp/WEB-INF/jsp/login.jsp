@@ -7,6 +7,9 @@
     <meta charset="UTF-8">
     <title>Take It 로그인</title>
     <style>
+    body{
+    	text-align:center;
+    }
 	.login-btn{
 		height: 48px;
 		width:375px;

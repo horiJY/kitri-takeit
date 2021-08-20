@@ -109,8 +109,9 @@ function paging(c_val, r_val, totalData, dataPerPage, pageCount, currentPage){
                     classType = "오프라인";
                 }
                 $('#class').append(
+                
                     '<li><div><label onclick="classDetail(' + result[i].classId + ')" >'
-                    + '<div id="picutre"><span id="picutre_box"><img></span></div>'
+                    + '<div id="picutre"><span id="picutre_box"><img src="'+result[i].class_thumnail+'"></span></div>'
                     + '<div><div>' + result[i].creater + '</div>'
                     + '<div id="className">' + result[i].className + '</div>' +'<div class="line"></div>'
                     + '<div> 👍 ' + result[i].recommend + '</div></div>'

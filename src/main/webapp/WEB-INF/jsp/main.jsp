@@ -63,24 +63,26 @@
 	</div>
 	<main>
 		<div id ="contain">
-			<section>
-				<div id="kindOf">
-					<input type="button" id="category" value="카테고리" ><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
-					<div id="category-drop" style="display:none;">
-						<input type="button" id="all" value="All">
-						<input type="button" id="art" value="Art">
-						<input type="button" id="cooking" value="Cooking">
-						<input type="button" id="language" value="Language">
-						<input type="button" id="programming" value="Programming">
-						<input type="button" id="sport" value="Sport">
-					</div>			
-					<input type="button" id="range" value="추천순"><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
-					<div id="range-drop" style="display:none;">
-						<input type="button" id="recommend" value="추천순">
-						<input type="button" id="newest" value="최신순">
-					</div>
-				</div>
-			</section>
+        <section style="display: flex; max-width: 1176px; width: 100%; height: 100%; margin: 0 auto;">
+        <div id="kindOf">
+            <input type="button" id="category" value="카테고리" ><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
+                    
+            <input type="button" id="range" value="추천순"><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
+            <div id="category-drop" style="display:none;">
+                <input type="button" id="all" value="All">
+                <input type="button" id="art" value="Art">
+                <input type="button" id="cooking" value="Cooking">
+                <input type="button" id="language" value="Language">
+                <input type="button" id="programming" value="Programming">
+                <input type="button" id="sport" value="Sport">
+            </div>	
+            
+            <div id="range-drop" style="display:none;">
+                <input type="button" id="recommend" value="추천순">
+                <input type="button" id="newest" value="최신순">
+            </div>
+        </div>
+    </section>
 			<div id="classList">
 				<ul id="class">	
 				</ul>

@@ -117,6 +117,22 @@ content: "";
     background-color:rgb(238, 238, 238);
      z-index: 999; 
 }
+logout:hover, logout:after {
+
+content: "";
+    background-color:rgb(238, 238, 238);
+     z-index: 999; 
+}
+
+#logout {
+    background-color: #FFFFFF;
+    border: none;
+    color: black;
+    padding: 16px 32px;
+    margin: 4px 2px;
+    font-size: 16px;
+    font-weight: bold;
+}
 a{
 color: white;
 }

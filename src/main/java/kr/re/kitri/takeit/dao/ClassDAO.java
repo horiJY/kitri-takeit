@@ -360,12 +360,12 @@ public class ClassDAO {
 		Connection conn = DBConnect.getInstance();
 
 		// sql
-		String sql1 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
+		String sql1 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN, CLASS_THUMNAIL "
 				+ " FROM (SELECT ROWNUM AS RNUM, A.* " + "      FROM (SELECT * " + "            FROM CLASS"
 				+ "			   WHERE CATEGORY = ? " + "			   AND TYPE = ? " + "			   ORDER BY " + range
 				+ " DESC ) A " + "      ) " + "WHERE RNUM BETWEEN ? AND ? ";
 
-		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN "
+		String sql2 = "SELECT CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, RECOMMEND, DETAIL, PRICE, SALE, CAPACITY, TYPE, FAVORITE, CATEGORY, OPENDATE, CEIL((OPENDATE- SYSDATE)) AS COUNTDOWN, CLASS_THUMNAIL "
 				+ " FROM (SELECT ROWNUM AS RNUM, A.* " + "      FROM (SELECT * " + "            FROM CLASS"
 				+ "			   WHERE TYPE = ? " + "			   ORDER BY " + range + " DESC ) A " + "      ) "
 				+ "WHERE RNUM BETWEEN ? AND ? ";
@@ -404,6 +404,7 @@ public class ClassDAO {
 				cvo.setSale(rs.getInt("SALE"));
 				cvo.setOpenDate(rs.getDate("OPENDATE"));
 				cvo.setCountdown(rs.getInt("COUNTDOWN"));
+				cvo.setClass_thumnail(rs.getString("CLASS_THUMNAIL"));
 				// result
 				clist.add(cvo);
 			}

@@ -39,7 +39,7 @@
                <a href="${pageContext.request.contextPath}/mypage"> 
                <input type="button" value="mypage" id="mypage">
                </a>
-                  <input type="button" value="logout" id="logout">
+                 <button onclick="logout()" id="logout">logout</button>
             </c:when>
             <c:otherwise>
                <a id="login_a" href="${pageContext.request.contextPath}/login"> 
@@ -66,7 +66,7 @@
          <section style="display:flex">
 <!--             <div id="buttons"> -->
                <div>
-               <input type="button" id="category" value="카테고리" ><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
+               <input type="button" id="category" value="카테고리"><%--<img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png"> --%>
                <div id="category-drop"  style="display:none;">
                   <input type="button" id="all" value="All">
                   <input type="button" id="art" value="Art">
@@ -77,7 +77,7 @@
                </div>
                </div>
                <div>         
-               <input type="button" id="range" value="추천순"><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
+               <input type="button" id="range" value="추천순"><%--<img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png"> --%>
                <div id="range-drop"  style="display:none;">
                   <input type="button" id="favorite" value="응원 많은 순">
                   <input type="button" id="newest" value="최신순">
@@ -106,6 +106,12 @@
    <footer>
    
    </footer>
+   <% 
+   String id = (String)session.getAttribute("takeit_userid");
+   %>
+   <script>
+      var id = '<%=id%>';
+   </script>
    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
    <script src="${pageContext.request.contextPath}/assets/js/pre-class.js"></script>
 </body>

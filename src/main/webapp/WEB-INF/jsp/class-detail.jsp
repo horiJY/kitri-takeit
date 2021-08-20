@@ -576,7 +576,7 @@ String recommend_num = classtype.equals("온라인") ?
 								<button id="share_btn">공유하기</button>
 							</div>
 							<div id="application">
-								<button>클래스 신청하기</button>
+								<a href=""><button>클래스 신청하기</button></a>
 							</div>
 						</aside>
 					</div>

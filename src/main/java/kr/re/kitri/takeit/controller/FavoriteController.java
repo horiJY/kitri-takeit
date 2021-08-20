@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 
 import dao.ClassDAO;
 import dao.FavoriteDAO;
- 
+
 @WebServlet("/favorite")
 public class FavoriteController extends HttpServlet {
 
@@ -22,7 +22,6 @@ public class FavoriteController extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		String userId = (String) session.getAttribute("takeit_userid");
-		// String userId = "testCreater0";
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 
