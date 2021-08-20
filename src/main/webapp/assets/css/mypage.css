@@ -64,14 +64,14 @@ main aside, main form {
 aside {
 	border:1px solid white;
 	border-radius:8px;
-	background-color:#EFEFEF;
+	background-color:#FAFAFA;
 	float:left;
 	width:180px;
     margin-right:16px;
     
 }
 .myPageForm {
-	border: 1px solid #EFEFEF;
+	border: 1px solid #FAFAFA;
 	border-radius:8px;
 	height:500px;
  	padding: 8px 8px; 
@@ -91,7 +91,7 @@ aside {
 /* 스크롤바 막대 설정*/
 .scroll::-webkit-scrollbar-thumb{
     height: 17%;
-    background-color: #EFEFEF;
+    background-color: #FAFAFA;
     /* 스크롤바 둥글게 설정    */
     border-radius: 10px;    
 }
@@ -103,7 +103,7 @@ aside {
 footer {
 	border:1px solid #AAAAAA;
 	border-radius: 8px;
-	background-color:#EFEFEF;
+	background-color:#FAFAFA;
 	height: 200px;
 	margin-bottom:50px;
 	clear:both;
@@ -123,8 +123,15 @@ footer {
 #userThumnail{
 	border-radius: 50%;
 }
+
 .userinfo-box {
 	margin: 0 auto;
+}
+.userinfo-box input{
+	height:28px;
+	background: rgb(248, 248, 249);
+	border: 1px solid rgb(248, 248, 249);
+	border-radius:8px;
 }
 .classbox {
 	margin: 0 auto;
@@ -132,7 +139,7 @@ footer {
 }
 table{
 	border:1px solid 597484;
-	background-color: #EFEFEF;
+	background-color: #FAFAFA;
  	border-collapse: collapse;
 	width: 100%;
 
@@ -258,14 +265,18 @@ background-color: #FAFAFA;
     margin-bottom: 8px;
 }
 
-.class-box .price, .class-box .sale{
-margin-right: 100px;
-font-weight: bold;
+.class-box .price{
+	float:left;
+    font-weight: bold;
 }
 .class-box span{
 font-size: 11px;
 }
 .class-box .sale{
  font-weight: bold;
+ float:right;
  color: red;
+}
+.class-box .classType{
+	clear:both;
 }
