@@ -209,9 +209,9 @@ function myAssignment() {
 						$("#class-box"+inx).append("<div class='picutre_box'></div>"
 						+ " <div class='creater'> " + obj.creater + "</div>"
 							+ "	<div class='className'> " + obj.className + "</div>"
+							+ "	<div class='recommend'> ❤ " + obj.recommend + "</div>"
 							+ "	<div class='price'> 💳 " + obj.price + "</div>"
 							+ "	<div class='sale'> SALE " + obj.sale + "%</div>"
-							+ "	<div class='recommend'> ❤ " + obj.recommend + "</div>"
 							+ "	<div class='classType'> " + obj.classType + "LINE CLASS</div>"
 						);
 
@@ -433,7 +433,7 @@ function myopenclass(){
 							+"<div class='picutre_box'></div>"
 						
 							+ "	<div class='className'> " + obj.className + "</div> "
-							+ "	<div class='recommend'> ❤: " + obj.recommend + "</div>"
+							+ "	<div class='recommend'> ❤ " + obj.recommend + "</div>"
 							+ "	<div class='price'> 💳 " + obj.price + "</div>"
 							+ "	<div class='sale'> SALE " + obj.sale + "%</div>"
 							+ "	<div class='classType'> " + obj.classType + "LINE CLASS</div>"
