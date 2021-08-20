@@ -174,8 +174,7 @@ public class ClassDAO {
 		Connection conn = DBConnect.getInstance();
 		StringBuilder sb = new StringBuilder();
 		// '부적합한 식별자'오류 발생
-		sb.append(
-				" INSERT INTO CLASS ( CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, ");
+		sb.append(" INSERT INTO CLASS ( CLASSID, CLASSNAME, CREATER, CLASSTYPE, PERIOD, ");
 		sb.append(" DETAIL, PRICE, CAPACITY, TYPE, CATEGORY, INTRODUCE ) ");
 		sb.append(" VALUES ( ( SELECT COUNT(*)+1 FROM CLASS ), '");
 		sb.append(cvo.getClassName());

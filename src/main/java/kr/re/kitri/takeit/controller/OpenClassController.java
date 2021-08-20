@@ -36,6 +36,7 @@ public class OpenClassController extends HttpServlet {
 		//json 데이터 파싱
 		Gson gson = new Gson();
 		ClassVO cvo = gson.fromJson(request.getParameter("class"),ClassVO.class);
+		cvo.setType("P");
 		
 		JsonObject sJson = gson.fromJson(request.getParameter("schedule"),JsonObject.class);
 		JsonArray sJarr = sJson.get("classSchedule").getAsJsonArray();
@@ -66,7 +67,7 @@ public class OpenClassController extends HttpServlet {
 			response.getWriter().println("FAIL");
 			return;
 		}
-
+		
 		result = sdao.insertSchedule(slist);
 		if (result!=sJarr.size()){ 
 			// 앞에서 추가한 클래스 폐지
