@@ -50,36 +50,40 @@
 			</div>
 		</div>
 	</header>
-	<div>
+	<div id="nav">
 		<a href="${pageContext.request.contextPath}/main">
 			<input type="button" value="바로수강">
 		</a>
 		<a href="${pageContext.request.contextPath}/pre-class">
 			<input type="button" value="오픈예정">
 		</a>
-		<a href="">		
+		<a href="${pageContext.request.contextPath}/qna-insert">		
 			<input type="button" value="고객센터">
 		</a>
 	</div>
 	<main>
 		<div>
-			<section>
-				<div id="buttons">
+			<section style="display:flex">
+<!-- 				<div id="buttons"> -->
+					<div>
 					<input type="button" id="category" value="카테고리" ><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
-					<div id="category-drop" style="display:none;">
+					<div id="category-drop"  style="display:none;">
 						<input type="button" id="all" value="All">
 						<input type="button" id="art" value="Art">
 						<input type="button" id="cooking" value="Cooking">
 						<input type="button" id="language" value="Language">
 						<input type="button" id="programming" value="Programming">
 						<input type="button" id="sport" value="Sport">
-					</div>			
+					</div>
+					</div>
+					<div>			
 					<input type="button" id="range" value="추천순"><img class="downImg" src="${pageContext.request.contextPath}/assets/img/down-chevron.png">
-					<div id="range-drop" style="display:none;">
+					<div id="range-drop"  style="display:none;">
 						<input type="button" id="favorite" value="응원 많은 순">
 						<input type="button" id="newest" value="최신순">
 					</div>
-				</div>
+					</div>
+<!-- 				</div> -->
 			</section>
 			<div id="classList">
 				<ul id="class">	

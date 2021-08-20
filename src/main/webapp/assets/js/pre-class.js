@@ -119,13 +119,12 @@
 				
 					$('#class').append(
 						'<li class="detail"><label onclick="classDetail('+result[i].classId +')" class="label">'
-						+ '<div><img></div>'
+						+ '<div id="picutre"><span id="picutre_box"><img></span></div>'
 						+ '<div><div>' + result[i].creater + '</div>'
-						+ '<div>' + result[i].className + '</div>'
+						+ '<div id="className">' + result[i].className + '</div>'
 						+ '<div> ❤' + result[i].favorite + '</div></div>'
-						+ '<div><div>💳 '+ result[i].price + '</div>'
-						+ '<div>' + result[i].sale + '</div></div>'
-						+ '<div><div><span>응원 마감까지 ' + result[i].countdown + '일</span></div></div></label>'
+						+ '<div><div id="price">💳 '+ result[i].price + '</div>'
+						+ '<div><div><span>응원 마감까지 <span id="sale">' + result[i].countdown + '</span> 일</span></div></div></label>'
 						+ '</li>'
 					);	
 				}
@@ -157,7 +156,7 @@ function classDetail(classId) {
 		data: { classId: classId },
 		success: function(result) {
 			var classType = "";
-			if(result[0].classType = "ON"){
+			if(result[0].classType == "ON"){
 				classType = "온라인";
 			}else{
 				classType ="오프라인";
