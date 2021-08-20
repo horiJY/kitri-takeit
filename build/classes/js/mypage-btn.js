@@ -7,8 +7,8 @@ function saveQnaAnswerBtn(i) {//
 //	debugger;
 	
 	var params = {
-		qnaTitle: qnaTitleArr[i]
-		, userId: userIdArr[i]
+		qnaTitle: $("#qnaTitle"+i).val()
+		, userId: $("#userId"+i).val()
 		, answer: $("#answer"+i).val()
 	}
 	console.log(params);
@@ -30,8 +30,8 @@ function saveQnaAnswerBtn(i) {//
 function deleteQnaBtn(i) {//
 	
 	var params = {
-		qnaTitle: qnaTitleArr[i]
-		, userId: userIdArr[i]
+		qnaTitle: $("#qnaTitle"+i).val()
+		, userId: $("#userId"+i).val()
 	}
 	console.log(params);
 	$.ajax({

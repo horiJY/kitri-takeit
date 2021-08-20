@@ -37,8 +37,7 @@ function test(userType) {
 		myReviewNav.onclick = function() { myReview(); }
 	}
 }
-var qnaTitleArr = [];
-var userIdArr = [];
+
 var emptyImgs =['assets/img/empty-favorite.jpg'
 				,'assets/img/empty-assignment.jpg'
 				,'assets/img/empty-review.jpg'
@@ -68,7 +67,6 @@ function allQNA() {
 						+ "<tr> <th class='qnaTitle'>제목</th> <th class='qnaDate'>날짜</th> <thclass='userId'>ID</th> </tr> </thead>"
 						+ "<tbody class='qnaBody'></tbody>"
 						+ "</table>");
-//					console.log(result + " 총 " + result.length + "개 데이터");
 					$.each(result, function(inx, obj) {
 
 						$(".qnaBody").append("<tr class='qna_qbox'>"
@@ -78,17 +76,17 @@ function allQNA() {
 							+ "</tr>");
 						$(".qnaBody").append("<tr id='qna_abox' class='qna_abox'>"
 							+ "<td colspan='3'>"
+							+ "<input type='hidden' id='qnaTitle" +inx + "' value='"+obj.qnaTitle+"'>"
+							+ "<input type='hidden' id='userId" +inx + "' value='"+obj.userId+"'>"
 							+ "<div><span id='question'>" + obj.question + "</span></div>"
 							+ "<textarea id='answer" +inx + "' class='answer' row='5' col='5'>" + obj.answer + "</textarea><br>"
 							+ "<div class='qnaAboxBtns'>"
 							+ "<input type='button' onclick='saveQnaAnswerBtn(" + inx + ")' id='Save' class='qnabtns' value='SAVE'>"
-							+ "<input type='button' onclick='deleteQnaBtn()' id='Delete' class='qnabtns' value='DELETE'>"
+							+ "<input type='button' onclick='deleteQnaBtn("+ inx +")' id='Delete' class='qnabtns' value='DELETE'>"
 							+ "</div>"
 							+ "</td>"
 							+ "</tr>"
 						);
-						qnaTitleArr.push($(this).attr("qnaTitle"));
-						userIdArr.push($(this).attr("userId"));
 
 					});
 					
