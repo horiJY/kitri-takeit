@@ -217,13 +217,14 @@ range.onclick = function() {
 
 
 function classDetail(i) {
-	$.ajax({
-	    type: 'GET',
-	    url: 'detail'+'/'+i,
-	//    data: { URL: 'detail/'+i },
-	    success: function() {
-	    }
-	})
+//	$.ajax({
+//	    type: 'GET',
+//	    url: 'detail'+'/'+i,
+//	//    data: { URL: 'detail/'+i },
+//	    success: function() {
+//	    }
+//	})
+	window.location.href='http://localhost:8080/takeit_prj/detail/'+i;
 }
 
 function pageClick(i){
