@@ -71,6 +71,7 @@
 	
 
 	function paging(c_val, r_val, totalData, dataPerPage, pageCount, currentPage){
+		
 		var totalPage = Math.ceil(totalData/dataPerPage);
 		var pageGroup = Math.ceil(currentPage/pageCount);
 		
@@ -116,15 +117,21 @@
 				
 				$('#class').empty();
 				for (var i = 0; i < result.length; i++) {
+					var classType = "";
+					if(result[i].classType == "ON"){
+						classType = "온라인";
+					}else if(result[i].classType == "OFF"){
+						classType = "오프라인";
+					}
 					$('#class').append(
 						'<li><div><label onclick="classDetail(' + result[i].classId + ')" >'
 						+ '<div id="picutre"><span id="picutre_box"><img></span></div>'
 						+ '<div><div>' + result[i].creater + '</div>'
 						+ '<div id="className">' + result[i].className + '</div>' +'<div class="line"></div>'
-						+ '<div>' + result[i].recommend + '</div></div>'
-						+ '<div id="pay"><div id="price">월 ' + result[i].price + '</div>'
+						+ '<div> 👍 ' + result[i].recommend + '</div></div>'
+						+ '<div id="pay"><div id="price"> 💳' + result[i].price + '(월)</div>'
 						+ '<div id="sale">' + result[i].sale + '<span>%(할인)</span></div></div>'
-						+ '<div><div>'+'<div class="line"></div>' + result[i].classType + '</div></div>'
+						+ '<div><div>'+'<div class="line"></div>이 강의는 ' + classType + ' 강의예요!</div></div>'
 						+ '</label></div></li>'
 					);
 				}
@@ -132,7 +139,7 @@
 		})	
 	}
 
-	list(c_val, r_val);
+	list(c_val, r_val, type);
 
 	category.onclick = function() {
 		if (categoryDrop.style.display == "block") {
@@ -146,7 +153,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			art.onclick = function() {
@@ -155,7 +162,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			cooking.onclick = function() {
@@ -164,7 +171,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			language.onclick = function() {
@@ -173,7 +180,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			programming.onclick = function() {
@@ -182,7 +189,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			sport.onclick = function() {
@@ -191,7 +198,7 @@
 				r_val = sessionStorage.getItem('rSession');
 				sessionStorage.setItem('cSession', c_val);
 				categoryDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 		}
 	}
@@ -208,7 +215,7 @@
 				r_val = 'RECOMMEND';
 				sessionStorage.setItem('rSession', r_val);
 				rangeDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 
 			newest.onclick = function() {
@@ -217,7 +224,7 @@
 				r_val = 'OPENDATE';
 				sessionStorage.setItem('rSession', r_val);
 				rangeDrop.style.display = "none";
-				list(c_val, r_val);
+				list(c_val, r_val, type);
 			}
 		}
 	}
