@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+#edit-box div{
+	clear: left;
+}
+
+#class-schedule-off{
+	display:none;
+}
+
+#schedule-enddate{
+	display:none;	
+}
+
+
+#confirm-box{
+	clear: left;
+	display: none;
+}
+

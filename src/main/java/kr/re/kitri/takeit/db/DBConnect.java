@@ -14,9 +14,9 @@ public class DBConnect {
 		String password = "web_mini";
 		// 조DB
 		// private ip
-		String url = "jdbc:oracle:thin:@192.168.0.212:1521:xe";
+//		String url = "jdbc:oracle:thin:@192.168.0.212:1521:xe";
 		// public ip
-		// String url = "jdbc:oracle:thin:@14.36.28.200:1521:xe";
+		 String url = "jdbc:oracle:thin:@14.36.28.131:1521:xe";
 //		 String url = "jdbc:oracle:thin:@localhost:1521:system";
 
 		try {

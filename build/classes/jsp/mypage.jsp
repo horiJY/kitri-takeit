@@ -58,6 +58,7 @@
 				<div id="userPoint">내 포인트 : ${uvo.point}P</div>
 			</a><br>
 		</header>
+		<br>
 		<div class="MyPage">
 			<aside class="MyPage-aside">
 				<ul>

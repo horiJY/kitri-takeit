@@ -64,7 +64,7 @@ function allQNA() {
 				if (result.length != 0) {
 					$("#myPageContent1").append("<table border='1' id='allQnaTable'>"
 						+ "<thead>"
-						+ "<tr> <th class='qnaTitle'>제목</th> <th class='qnaDate'>날짜</th> <thclass='userId'>ID</th> </tr> </thead>"
+						+ "<tr> <th class='qnaTitle'>제목</th> <th class='qnaDate'>날짜</th> <th class='userId'>ID</th> </tr> </thead>"
 						+ "<tbody class='qnaBody'></tbody>"
 						+ "</table>");
 					$.each(result, function(inx, obj) {
@@ -496,8 +496,7 @@ function myClassQna() {
 						);
 						$(".qnasbtns").html('SAVE');
 						$(".qnadbtns").html('DELETE');
-						qnaTitleArr.push($(this).attr("qnaTitle"));
-						userIdArr.push($(this).attr("userId"));
+						
 					});
 				} else {
 					$("#myPageBtns").append("<img class='emptylist' alt='받은 질문이 없습니다.' src=" + emptyImgs[7] + "><br>");
